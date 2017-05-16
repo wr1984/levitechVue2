@@ -25,7 +25,8 @@ export default new Router({
 			components:{
 				default:Top,
 				particle:Particle
-			}
+			},
+//			meta: {keepAlive: true}
 		},
 		{
 			path: '/about',
