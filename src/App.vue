@@ -5,9 +5,7 @@
 		</div>
 		<router-view name='tree'></router-view>
 		<router-view name='space'></router-view>
-		<div v-if='isTop'>
-			<router-view name='particle'></router-view>
-		</div>
+		<router-view name='particle'></router-view>
 		<router-view></router-view>
 		<!--右侧指示器-->
 		<ol class="indicators" :style="indicatorsStyle">
@@ -64,12 +62,6 @@
 				me.attentionStyle.top = (this.h-50)/2 + 'px';
 				me.indicatorsStyle.right = temp + 'px';
 				me.attentionStyle.left = (temp-10) + 'px';
-				
-				
-				setTimeout(function(){
-					me.isTop = false;
-					console.log(me.isTop)
-				},3000)
 			}
 		}
 	}
