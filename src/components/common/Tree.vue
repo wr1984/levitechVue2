@@ -10,7 +10,7 @@
 				</div>
 			</div>
 			<div class="logo">
-				<img src="/static/img/tree/tree-logo.png" />
+				<img id="logoImg" src="/static/img/tree/tree-logo.png" />
 			</div>
 		</div>
 	</div>
@@ -18,78 +18,63 @@
 <script>
 	import svg from './img/tree/10860x1811.svg';
 	import TweenMax from "gsap";
-	import SucaiObj from '@/assets/js/tree';
-	const yzOrigin = ["0% 100%", "10% 100%", "0% 50%", "0% 100%", "90% 100%", "100% 60%", "90% 100%", "0% 100%", "0% 100%","10% 100%","100% 100%","0% 100%","0% 100%","100% 60%","100% 80%","100% 100%","0% 100%",
-					"0% 100%", "10% 100%", "0% 50%", "0% 100%", "90% 100%", "100% 60%", "90% 100%", "0% 100%", "0% 100%","10% 100%","100% 100%","0% 100%","0% 100%","100% 60%","100% 80%","100% 100%","0% 100%"];
-	const hdOringin = ["50% 50%", "50% 50%","50% 50%", "50% 50%"];
+//	import SucaiObj from '@/assets/js/tree';
+//	const yzOrigin = ["0% 100%", "10% 100%", "0% 50%", "0% 100%", "90% 100%", "100% 60%", "90% 100%", "0% 100%", "0% 100%","10% 100%","100% 100%","0% 100%","0% 100%","100% 60%","100% 80%","100% 100%","0% 100%",
+//					"0% 100%", "10% 100%", "0% 50%", "0% 100%", "90% 100%", "100% 60%", "90% 100%", "0% 100%", "0% 100%","10% 100%","100% 100%","0% 100%","0% 100%","100% 60%","100% 80%","100% 100%","0% 100%"];
+//	const hdOringin = ["50% 50%", "50% 50%","50% 50%", "50% 50%"];
 	
 	export default {
 		name: 'tree',
 		data() {
 			return {
 				src:svg,
-				svg_yz:null,
-				hdArr:null,
-				yzArr:null
+				tree:null
 			}
 		},
 		mounted () {
-			var me = this;
-//			window.onload=function(){
-//				
-//
-//			}
-			this.$nextTick(function(){
-				var embed = document.getElementById('tree_bg');
-				
-				
-				setTimeout(function(){
-					this.svg_yz = embed.getSVGDocument().getElementById('svg');
-					this.hdArr1 = initSucai('hd1_', 'hd2_', 4, hdOringin, svg_yz);
-					this.sucai1Arr = initSucai('yz1_', 'yz2_', 34, yzOrigin, svg_yz);
-					this.sucai1Arr.forEach(function(yz) {
-						yz.init();
-						yz.grow(randomInRange(3, 10), randomInRange(1, 5));
-					});
-					this.hdArr1.forEach(function(hd) {
-						hd.init();
-						hd.grow(0.1, 0.1);
-					});
-				},0)
-			
-			})
-			function initSucai(name1, name2, count, origin, svg) {
-				var arr = [];
-				for(var i = 0; i < count; i++) {
-					arr.push(new SucaiObj(name1, name2, i, origin, svg));
-				}
-				return arr;
-			};
-			function randomInRange(min, max) {
-				return Math.round(Math.random() * (max - min + 1)) + min;
-			}
+			setTimeout(function(){
+				this.tree = document.createElement('script');
+				this.tree.type = "text/javascript";
+				this.tree.src = "/static/tree.js";
+				document.body.appendChild(this.tree);
+			},1000)
 
+		},
+		beforeDestroy() {
+			setTimeout(function(){
+				if(this.tree){
+					this.tree.remove();
+				}
+			},2000)
+		},
+		beforeCreate(){
+			
+		},
+		created:function(){
+//			console.log("kkkk")
 		},
 		updated(){
-			console.log('updataee')
-		},
-		watch: {
-
+//			console.log('updataee')
 		},
 		destroyed:function(){
 //			console.log('destroyed');
 		},
-		created:function(){
+		activated (){
+			this.tree = document.createElement('script');
+			this.tree.type = "text/javascript";
+			this.tree.src = "/static/tree.js";
+			document.body.appendChild(this.tree);
+		},
+		deactivated (){
+//			console.log('deactivated',this.hdArr1);
+			if(this.tree){
+				this.tree.remove();
+			}
+		},
+		watch: {
 
 		},
 		methods: {
-			initSucai:function(name1, name2, count, origin, svg) {
-				var arr = [];
-				for(var i = 0; i < count; i++) {
-					arr.push(new SucaiObj(name1, name2, i, origin, svg));
-				}
-				return arr;
-			}
 //			mousemoveEvent: function(e) {
 //				if(sucai1Arr && Math.random() > 0.99) {
 //					sucai1Arr.forEach(function(sucai) {
@@ -110,12 +95,6 @@
 	height: 100%;
 }
 
-#move{
-	width: 100%;
-	height: 100%;
-	background-color: #343434;
-	position: absolute;
-}
 
 #treebox{
 	height: 100%;
@@ -123,6 +102,18 @@
 	position: relative;
 	overflow: hidden;
 	/*background-color: red;*/
+}
+.move{
+	width: 100%;
+	height: 100%;
+	background-color: #343434;
+	position: absolute;
+}
+.logo{
+	width: 100%;
+	height: 100%;
+	position: absolute;	
+	z-index: 5;
 }
 .logo img{
 	position: absolute;	

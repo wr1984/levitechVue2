@@ -4,7 +4,9 @@
 			<vheader></vheader>
 		</div>
 		<div id="animContent" :style="animStyle">
-			<router-view name='tree'></router-view>
+			<!--<keep-alive>-->
+				<router-view name='tree'></router-view>
+			<!--</keep-alive>-->
 			<router-view name='space'></router-view>
 			<router-view name='particle'></router-view>
 		</div>
@@ -50,6 +52,12 @@
 		mounted(){
 			var me = this;
 			this.h = window.innerHeight;
+			if(this.h < 568){
+				this.h = 568;
+			}else if(this.h > 1200){
+				this.h = 1200;
+			}
+			
 			this.animStyle.height = (this.h-50)+'px';
 			this.w = window.innerWidth;
 			var headerWidth = document.querySelector('.container').offsetWidth;
@@ -63,6 +71,11 @@
 			window.addEventListener('resize',resizeEvent);
 			function resizeEvent(){
 				this.h = window.innerHeight;
+				if(this.h < 568){
+					this.h = 568;
+				}else if(this.h > 1200){
+					this.h = 1200;
+				}
 				me.animStyle.height = (this.h-50)+'px';
 				this.w = window.innerWidth;
 				headerWidth = document.querySelector('.container').offsetWidth;

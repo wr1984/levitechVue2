@@ -31,22 +31,22 @@
 			//		this.cloud.type = "text/javascript";
 			//		this.cloud.src = "./static/cloud.js";
 			//		document.body.appendChild(this.cloud);
-		},
-		mounted() {
-			
-			console.log('mounted1')
 			this.threeR74 = document.createElement('script');
 			this.threeR74.type = "text/javascript";
 			this.threeR74.src = "./static/three.r74.min.js";
 			document.body.appendChild(this.threeR74);
-			console.log('mounted2')
+		},
+		mounted() {
+			
+//			console.log('mounted1')
+//			console.log('mounted2')
 			var me = this;
 			setTimeout(function() {
 				me.cloud = document.createElement('script');
 				me.cloud.type = "text/javascript";
 				me.cloud.src = "./static/cloud.js";
 				document.body.appendChild(me.cloud);
-			}, 100)
+			}, 1000)
 		},
 		beforeDestroy() {
 			window.cancelAnimationFrame(window._animation);

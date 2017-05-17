@@ -40,10 +40,12 @@
 //		move.style.width = img_width + 'px';
 //	}
 //	
-	var embed = document.querySelector('#tree_bg');
+	var embed = document.getElementById('tree_bg');
 	var svg_yz;
-	window.onload = function(){
-		svg_yz = embed.getSVGDocument().querySelector('#svg');
+//	window.onload = function(){
+//	setTimeout(function(){
+		
+		svg_yz = embed.getSVGDocument().getElementById('svg');
 		
 
 		hdArr1 = initSucai('hd1_', 'hd2_', 4, hdOringin, svg_yz);
@@ -51,16 +53,17 @@
 
 		sucai1Arr.forEach(function(yz) {
 			yz.init();
-			yz.grow(randomInRange(3, 10), randomInRange(1, 5));
+//			yz.grow(randomInRange(3, 10), randomInRange(1, 5));
 		});
 		hdArr1.forEach(function(hd) {
 			hd.init();
-			hd.grow(0.1, 0.1);
+//			hd.grow(0.1, 0.1);
 		});
 		
+//	},0)
 		
-		run();
-	};
+//		run();
+//	};
 //	var left = null;
 //	function run(){
 //		left -= 1.5;
@@ -101,57 +104,58 @@
 //		}
 //	}
 //===========================定时摇摆============================================
-//	setInterval(function(){
-//		sucai1Arr.forEach(function(yz){
-//			if(Math.random() > 0.6){
-//				yz.shake();
-//			}
-//		});
-//		hdArr1.forEach(function(hd){
-//			if(Math.random() > 0.6){
-//				hd.fall();
-//			}
-//		});
-//	}, 15000);
+	setInterval(function(){
+		sucai1Arr.forEach(function(yz){
+			if(Math.random() > 0.6){
+				yz.shake();
+			}
+		});
+		hdArr1.forEach(function(hd){
+			if(Math.random() > 0.6){
+				hd.fall();
+			}
+		});
+	}, 10000);
 //	
-//	tree.addEventListener('mousedown',mousemoveEvent);
-//	var tag = true;
-//	function mousemoveEvent(e){
-//		
-//		if(tag){
-//			tag = false;
-//			sucai1Arr.forEach(function(yz){
-//				if(Math.random() > 0.5){
-//					yz.shake();
-//				}
-//			});
-//			hdArr1.forEach(function(hd){
-//				if(Math.random() > 0.98){
-//					hd.fall();
-//				}
-//			});
-//			tag = true;
-//		}
-//	};
+	var treeBox = document.querySelector('.logo');
+	treeBox.addEventListener('mousedown',mousemoveEvent,true);
+	var tag = true;
+	function mousemoveEvent(e){
+		console.log('kk')
+		if(tag){
+			tag = false;
+			sucai1Arr.forEach(function(yz){
+				if(Math.random() > 0.5){
+					yz.shake();
+				}
+			});
+			hdArr1.forEach(function(hd){
+				if(Math.random() > 0.58){
+					hd.fall();
+				}
+			});
+			tag = true;
+		}
+	};
 //	tree.addEventListener('mousedown',function(e){
 //		e.preventDefault();
 //	});
 //	
-//	function initSucai(name1, name2, count, origin, svg) {
-//		var arr = [];
-//		for(var i = 0; i < count; i++) {
-//			arr.push(new SucaiObj(name1, name2, i, origin, svg));
-//		}
-//		return arr;
-//	};
+	function initSucai(name1, name2, count, origin, svg) {
+		var arr = [];
+		for(var i = 0; i < count; i++) {
+			arr.push(new SucaiObj(name1, name2, i, origin, svg));
+		}
+		return arr;
+	};
 
 	function SucaiObj(name1, name2, index, origin, svg) {
 		this.el = svg.getElementById(name1 + index);
 		this.el2 = svg.getElementById(name2 + index);
 		this.x;
 		this.y;
-		this.opacity = 0.9;
-		this.scale = 0;
+		this.opacity = 1;
+		this.scale = 1;
 		this.transformOrigin = origin[index];
 		this.isFall = false;
 		this.isGrow = false;
