@@ -1,5 +1,5 @@
 <template>
-  <div class="recruitment">
+  <div class="recruitment  container">
 		{{msg}}
   </div>
   <!--<router-view></router-view>-->

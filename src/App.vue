@@ -3,9 +3,11 @@
 		<div id="header">
 			<vheader></vheader>
 		</div>
-		<router-view name='tree'></router-view>
-		<router-view name='space'></router-view>
-		<router-view name='particle'></router-view>
+		<div id="animContent" :style="animStyle">
+			<router-view name='tree'></router-view>
+			<router-view name='space'></router-view>
+			<router-view name='particle'></router-view>
+		</div>
 		<router-view></router-view>
 		<!--右侧指示器-->
 		<ol class="indicators" :style="indicatorsStyle">
@@ -15,7 +17,7 @@
 			<li></li>
 		</ol>
 		<!--左侧图标-->
-		<img :style="attentionStyle" class="attention" src="./assets/img/attention.png" />
+		<img :style="attentionStyle" class="attention" src="/static/img/attention.png" />
 	</div>
 </template>
 
@@ -35,6 +37,10 @@
 				attentionStyle:{
 					top:'-200px',
 					left:'0px'
+				},
+				animStyle:{
+					width:'100%',
+					height:'0px'
 				}
 			}
 		},
@@ -44,6 +50,7 @@
 		mounted(){
 			var me = this;
 			this.h = window.innerHeight;
+			this.animStyle.height = (this.h-50)+'px';
 			this.w = window.innerWidth;
 			var headerWidth = document.querySelector('.container').offsetWidth;
 			var temp = (this.w - headerWidth)/4;
@@ -52,9 +59,11 @@
 			this.indicatorsStyle.right = temp + 'px';
 			this.attentionStyle.left = (temp-10) + 'px';
 			
+			
 			window.addEventListener('resize',resizeEvent);
 			function resizeEvent(){
 				this.h = window.innerHeight;
+				me.animStyle.height = (this.h-50)+'px';
 				this.w = window.innerWidth;
 				headerWidth = document.querySelector('.container').offsetWidth;
 				temp = (this.w - headerWidth)/4;
@@ -68,6 +77,10 @@
 </script>
 
 <style>
+	
+	body::-webkit-scrollbar{
+  		display: none;
+	}
 	/*==========================自定义字体=============================*/
 	
 	@font-face {
@@ -167,11 +180,13 @@
 	
 	#app {
 		font-family: 'cond', '微软雅黑', 'Avenir', Helvetica, Arial, sans-serif;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
+		/*-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;*/
 		/*text-align: center;*/
 		color: #3c3c3c;
 	}
+	
+
 	/*==========================header=============================*/
 	
 	#header {

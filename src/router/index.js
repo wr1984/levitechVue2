@@ -20,6 +20,18 @@ export default new Router({
 			path:'/',
 			redirect:'top'
 		},
+//		{
+//			path: '/top',
+//			name: 'top',
+//			component:Top,
+//			children:[
+//				{
+//					path:'/top/:#amount',
+//					component:Particle
+//				}
+//			]
+////			meta: {keepAlive: true}
+//		},
 		{
 			path: '/top',
 			name: 'top',

@@ -1,5 +1,12 @@
 <template>
-	<div id="cloud" class="container particle">
+	<div class="container particle">
+		<div id="canvasBox">
+			<canvas id="canvas"></canvas>
+			<div class = "logo">
+				<img src="/static/img/cloud/text.png"/>	
+			
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -15,7 +22,8 @@
 		data() {
 			return {
 				threeR74: null,
-				cloud: null
+				cloud: null,
+				height:0,
 			}
 		},
 		created() {
@@ -25,6 +33,7 @@
 			//		document.body.appendChild(this.cloud);
 		},
 		mounted() {
+			
 			console.log('mounted1')
 			this.threeR74 = document.createElement('script');
 			this.threeR74.type = "text/javascript";
@@ -40,6 +49,7 @@
 			}, 100)
 		},
 		beforeDestroy() {
+			window.cancelAnimationFrame(window._animation);
 			var me = this;
 			//	console.log('destroyed')
 			if(me.threeR74) {
@@ -61,5 +71,31 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+canvas{
+	width: 100%;
+	height: 100%;
+	background-color: #343434;
+}
+.particle{
+	height: 100%;
+	/*position: relative;*/
+}
+#canvasBox{
+	height: 100%;
+	width: 100%;
+	position: relative;
+}
+/*.logo{
+	position: absolute;
+	z-index: 999;
+	width: 100%;
+	height: 100%;
+	background-color: blueviolet;
+}*/
+#canvasBox img{
+	position: absolute;	
+	bottom:10px;
+	left: 20px;
+	width: 20%;
+}
 </style>
