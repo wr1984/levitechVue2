@@ -1,37 +1,45 @@
 <template>
 	<div id="app">
-		<div id="header">
-			<vheader></vheader>
-		</div>
-		<div id=".container-fluid ">
-			<div class="row">
-				<div class="col-md-1" style="width: 50px;">
+		<div class="container-fluid ">
+			<div id="header">
+				<vheader></vheader>
+			</div>
+			<div class="animContent">
+
+				<div class="pull-left" :style="sideStyle">
 					<img :style="attentionStyle" class="attention" src="/static/img/attention.png" />
 				
 				</div>
-				<div class="col-md-10">
-					<div id="animContent" :style="animStyle">
+				<div class="pull-left">
+					<div :style="animStyle" style="background-color: red;">
 						<!--<keep-alive>-->
 							<router-view name='tree'></router-view>
 						<!--</keep-alive>-->
 						<router-view name='space'></router-view>
 						<router-view name='particle'></router-view>
 					</div>
-					<router-view></router-view>
-				
+					<div style="width: 100%;">
+						<router-view></router-view>
+					</div>
 				</div>
-				<div class="col-md-1 " style="width: 50px;">
-					<ol class="indicators" :style="indicatorsStyle">
+				<div class="pull-right" :style="sideStyle">
+					<div class="indicators" :style="indicatorsStyle">
 						<li class="active"></li>
 						<li></li>
 						<li></li>
 						<li></li>
-					</ol>
+					</div>
 				
 				</div>
 			</div>
-			
 		</div>
+		
+		<!--<div class="container-fluid ">
+			<div style="width: 100%; padding-left: 35px; padding-right: 35px;">
+				<router-view></router-view>
+			</div>
+		</div>-->
+		
 	</div>
 </template>
 
@@ -44,17 +52,20 @@
 				isTop:true,
 				h:0,
 				w:0,
+				sideStyle:{
+					width:'35px',
+				},
 				indicatorsStyle:{
-					top:'-200px',
-					right:'0px'
+					'margin-top':'-200px',
 				},
 				attentionStyle:{
-					top:'-200px',
-					left:'0px'
+					'margin-top':'-200px',
 				},
+				
 				animStyle:{
-					width:'100%',
-					height:'0px'
+					width:'0px',
+					height:'0px',
+					'margin-bottom':'50px',
 				}
 			}
 		},
@@ -64,38 +75,53 @@
 		mounted(){
 			var me = this;
 			this.h = window.innerHeight;
+			this.w = window.innerWidth;
 			if(this.h < 568){
 				this.h = 568;
 			}else if(this.h > 1200){
-				this.h = 1200;
+				this.h = 1150;
 			}
 			
-			this.animStyle.height = (this.h-50)+'px';
-			this.w = window.innerWidth;
-			var headerWidth = document.querySelector('.container').offsetWidth;
-			var temp = (this.w - headerWidth)/4;
-			this.indicatorsStyle.top = (this.h-50)/2 + 'px';
-			this.attentionStyle.top = (this.h-50)/2 + 'px';
-			this.indicatorsStyle.right = temp + 'px';
-			this.attentionStyle.left = (temp-10) + 'px';
+			if(this.w < 768){
+				this.sideStyle.width = '0px';
+				me.animStyle.height = (me.h-65)+'px';
+				me.animStyle.width = (me.w-30) + 'px';
+				me.indicatorsStyle['margin-top'] = (me.h-65)/2 + 'px';
+				me.attentionStyle['margin-top'] = (me.h-65)/2 + 'px';
+			}else{
+				this.sideStyle.width = '35px';
+				this.animStyle.height = (this.h-100)+'px';
+				this.animStyle.width = (this.w-100) + 'px';
+				this.indicatorsStyle['margin-top'] = (this.h-100)/2 + 'px';
+				this.attentionStyle['margin-top'] = (this.h-100)/2 + 'px';
+			}
+			
+			
 			
 			
 			window.addEventListener('resize',resizeEvent);
 			function resizeEvent(){
-				this.h = window.innerHeight;
-				if(this.h < 568){
-					this.h = 568;
-				}else if(this.h > 1200){
-					this.h = 1200;
+				me.w = window.innerWidth;
+				me.h = window.innerHeight;
+				if(me.h < 568){
+					me.h = 568;
+				}else if(me.h > 1200){
+					me.h = 1150;
 				}
-				me.animStyle.height = (this.h-50)+'px';
-				this.w = window.innerWidth;
-				headerWidth = document.querySelector('.container').offsetWidth;
-				temp = (this.w - headerWidth)/4;
-				me.indicatorsStyle.top = (this.h-50)/2 + 'px';
-				me.attentionStyle.top = (this.h-50)/2 + 'px';
-				me.indicatorsStyle.right = temp + 'px';
-				me.attentionStyle.left = (temp-10) + 'px';
+				
+				if(me.w < 768){
+					me.sideStyle.width = '0px';
+					me.animStyle.height = (me.h-65)+'px';
+					me.animStyle.width = (me.w-30) + 'px';
+					me.indicatorsStyle['margin-top'] = (me.h-65)/2 + 'px';
+					me.attentionStyle['margin-top'] = (me.h-65)/2 + 'px';
+				}else{
+					me.sideStyle.width = '35px';
+					me.animStyle.height = (me.h-100)+'px';
+					me.animStyle.width = (me.w-100) + 'px';
+					me.indicatorsStyle['margin-top'] = (me.h-100)/2 + 'px';
+					me.attentionStyle['margin-top'] = (me.h-100)/2 + 'px';
+				}
 			}
 		},
 		beforeDestroy(){
@@ -224,17 +250,7 @@
 	}
 	/*==========================header=============================*/
 	/*==========================content=============================*/
-	#content{
-		width: 100%;
-	}
-	#content>.left{
-		width: 50px;
-		height: 100%;
-	}
-	#content>.right{
-		width: 50px;
-		height: 100%;
-	}
+
 	/*==========================content=============================*/	
 	
 	/*==========================左右两侧 ===========================*/
@@ -247,12 +263,14 @@
     background-color: #000\9;
     background-color: rgba(0,0,0,0);
     border: 1px solid black;
+    
+    margin-left: 20px;
 }
 
 .indicators .active {
     width: 10px;
     height: 10px;
-    margin: 0;
+    /*margin: 0;*/
     background-color: black;
 }
 
@@ -260,20 +278,21 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-    position: absolute;
-    right: 20px;
-    z-index: 15;
+    /*position: absolute;*/
+    /*right: 20px;*/
+    /*z-index: 15;*/
     height: 100px;
-    /*width: 30px;*/
+    width: 30px;
     list-style: none;
     /*background-color: red;*/
 }
 
 .attention{
-    position: absolute;
-    z-index: 15;
+    /*position: absolute;
+    z-index: 15;*/
+   margin-left: -5px;
     width: 30px;
-    left: 15px;
+    /*left: 15px;*/
 }
 	/*==========================左右两侧 ===========================*/
 </style>

@@ -1,5 +1,5 @@
 <template>
-	<div class="container space">
+	<div class="space">
 		<div id="canvasBox">
 			<canvas id="canvas"></canvas>
 			<div class = "logo">
@@ -61,6 +61,7 @@ export default {
 	top:50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
 	width: 20%;
 }
 </style>

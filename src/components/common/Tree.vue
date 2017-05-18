@@ -1,5 +1,5 @@
 <template>
-	<div class="tree container">
+	<div class="tree">
 		<div id="treebox">
 			<div class="move" >
 				<div id="bg">
