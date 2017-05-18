@@ -3,23 +3,35 @@
 		<div id="header">
 			<vheader></vheader>
 		</div>
-		<div id="animContent" :style="animStyle">
-			<!--<keep-alive>-->
-				<router-view name='tree'></router-view>
-			<!--</keep-alive>-->
-			<router-view name='space'></router-view>
-			<router-view name='particle'></router-view>
+		<div id=".container-fluid ">
+			<div class="row">
+				<div class="col-md-1" style="width: 50px;">
+					<img :style="attentionStyle" class="attention" src="/static/img/attention.png" />
+				
+				</div>
+				<div class="col-md-10">
+					<div id="animContent" :style="animStyle">
+						<!--<keep-alive>-->
+							<router-view name='tree'></router-view>
+						<!--</keep-alive>-->
+						<router-view name='space'></router-view>
+						<router-view name='particle'></router-view>
+					</div>
+					<router-view></router-view>
+				
+				</div>
+				<div class="col-md-1 " style="width: 50px;">
+					<ol class="indicators" :style="indicatorsStyle">
+						<li class="active"></li>
+						<li></li>
+						<li></li>
+						<li></li>
+					</ol>
+				
+				</div>
+			</div>
+			
 		</div>
-		<router-view></router-view>
-		<!--右侧指示器-->
-		<ol class="indicators" :style="indicatorsStyle">
-			<li class="active"></li>
-			<li></li>
-			<li></li>
-			<li></li>
-		</ol>
-		<!--左侧图标-->
-		<img :style="attentionStyle" class="attention" src="/static/img/attention.png" />
 	</div>
 </template>
 
@@ -85,6 +97,9 @@
 				me.indicatorsStyle.right = temp + 'px';
 				me.attentionStyle.left = (temp-10) + 'px';
 			}
+		},
+		beforeDestroy(){
+			
 		}
 	}
 </script>
@@ -208,6 +223,20 @@
 		width: 100%;
 	}
 	/*==========================header=============================*/
+	/*==========================content=============================*/
+	#content{
+		width: 100%;
+	}
+	#content>.left{
+		width: 50px;
+		height: 100%;
+	}
+	#content>.right{
+		width: 50px;
+		height: 100%;
+	}
+	/*==========================content=============================*/	
+	
 	/*==========================左右两侧 ===========================*/
 .indicators li{
     width: 8px;

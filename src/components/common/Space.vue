@@ -23,7 +23,7 @@ export default {
     }
   },
   created (){
-  	window.THREE = require("three");
+//	window.THREE = require("three");
   	
   },
   mounted(){

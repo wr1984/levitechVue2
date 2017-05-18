@@ -1,5 +1,5 @@
 <template>
-	<div class="container particle">
+	<div class="particle">
 		<div id="canvasBox">
 			<canvas id="canvas"></canvas>
 			<div class = "logo">
@@ -11,12 +11,6 @@
 </template>
 
 <script>
-//	require('@/static/three.r74.min');
-//	console.log(THREE)
-	//setTimeout(function(){
-//	require('@/static/cloud')
-	//},5000)
-
 	export default {
 		name: 'particle',
 		data() {
@@ -26,35 +20,31 @@
 				height:0,
 			}
 		},
+		beforeCreate(){
+//			this.threeR74 = document.createElement('script');
+//			this.threeR74.type = "text/javascript";
+//			this.threeR74.src = "./static/three.r74.min.js";
+//			document.body.appendChild(this.threeR74);
+		},
 		created() {
-			//	  this.cloud = document.createElement('script');
-			//		this.cloud.type = "text/javascript";
-			//		this.cloud.src = "./static/cloud.js";
-			//		document.body.appendChild(this.cloud);
-			this.threeR74 = document.createElement('script');
-			this.threeR74.type = "text/javascript";
-			this.threeR74.src = "./static/three.r74.min.js";
-			document.body.appendChild(this.threeR74);
 		},
 		mounted() {
-			
-//			console.log('mounted1')
-//			console.log('mounted2')
 			var me = this;
-			setTimeout(function() {
-				me.cloud = document.createElement('script');
-				me.cloud.type = "text/javascript";
-				me.cloud.src = "./static/cloud.js";
+			
+			me.cloud = document.createElement('script');
+			me.cloud.type = "text/javascript";
+			me.cloud.src = "./static/cloud.js";
 				document.body.appendChild(me.cloud);
-			}, 1000)
+//			setTimeout(function() {
+//			}, 1000)
 		},
 		beforeDestroy() {
 			window.cancelAnimationFrame(window._animation);
 			var me = this;
 			//	console.log('destroyed')
-			if(me.threeR74) {
-				me.threeR74.remove();
-			}
+//			if(me.threeR74) {
+//				me.threeR74.remove();
+//			}
 			if(me.cloud) {
 				me.cloud.remove();
 			}
@@ -78,6 +68,7 @@ canvas{
 }
 .particle{
 	height: 100%;
+	width: 100%;
 	/*position: relative;*/
 }
 #canvasBox{
