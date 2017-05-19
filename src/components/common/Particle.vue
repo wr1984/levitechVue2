@@ -3,8 +3,7 @@
 		<div id="canvasBox">
 			<canvas id="canvas"></canvas>
 			<div class = "logo">
-				<img src="/static/img/cloud/text.png"/>	
-			
+				<img :style='imgStyle' src="static/img/cloud/text.png"/>	
 			</div>
 		</div>
 	</div>
@@ -18,6 +17,10 @@
 				threeR74: null,
 				cloud: null,
 				height:0,
+				imgStyle:{
+					width:'320px'
+				},
+				w:0
 			}
 		},
 		beforeCreate(){
@@ -30,6 +33,26 @@
 		},
 		mounted() {
 			var me = this;
+			
+			var canvasBox = document.getElementById('canvasBox');
+			window.onload = function(){
+				me.w = canvasBox.offsetWidth;
+				if(me.w < 768){
+					me.imgStyle.width = "150px";
+				}else{
+					me.imgStyle.width = "320px";
+				}
+			}
+			
+			window.addEventListener('resize',function(){
+				me.w = canvasBox.offsetWidth;
+				if(me.w<768){
+					me.imgStyle.width = "150px"
+				}else{
+					me.imgStyle.width = "320px";
+				}
+			})
+			
 			
 			me.cloud = document.createElement('script');
 			me.cloud.type = "text/javascript";
@@ -87,6 +110,6 @@ canvas{
 	position: absolute;	
 	bottom:10px;
 	left: 20px;
-	width: 20%;
+	/*width: 20%;*/
 }
 </style>

@@ -315,7 +315,7 @@
 		createMappings(name, amount) {
 			let arr = []
 			for(let i = 0; i < amount; i++) {
-				arr.push(textureLoader.load('/static/img/space/' + name + '/' + i + '.png'));
+				arr.push(textureLoader.load('./static/img/space/' + name + '/' + i + '.png'));
 			};
 			return arr;
 		}

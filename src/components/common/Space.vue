@@ -3,7 +3,7 @@
 		<div id="canvasBox">
 			<canvas id="canvas"></canvas>
 			<div class = "logo">
-				<img src="/static/img/space/space-logo.png"/>	
+				<img :style="imgStyle" src="static/img/space/space-logo.png"/>	
 			</div>
 		</div>
 	</div>
@@ -19,7 +19,10 @@ export default {
   name: 'space',
   data () {
     return {
-      msg: '我是space'
+    	w:0,
+    	imgStyle:{
+    		width:"320px"
+    	}
     }
   },
   created (){
@@ -28,6 +31,26 @@ export default {
   },
   mounted(){
 //	console.log(Star)
+		var me = this;
+		var canvas = document.getElementById('canvas');
+		window.onload = function(){
+			me.w = canvas.offsetWidth;
+			if(me.w < 768){
+				me.imgStyle.width = "150px";
+			}else{
+				me.imgStyle.width = "320px";
+			}
+			
+		}
+		
+		window.addEventListener('resize',function(){
+			me.w = canvas.offsetWidth;
+			if(me.w<768){
+				me.imgStyle.width = "150px"
+			}else{
+				me.imgStyle.width = "320px";
+			}
+		})
 		setTimeout(function(){
 			new Space();
 			
@@ -60,8 +83,8 @@ export default {
 	position: absolute;	
 	top:50%;
 	left: 50%;
-	transform: translate(-50%, -50%);
 	-ms-transform: translate(-50%, -50%);
-	width: 20%;
+	transform: translate(-50%, -50%);
+	/*width: 20%;*/
 }
 </style>

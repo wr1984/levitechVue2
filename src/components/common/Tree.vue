@@ -3,14 +3,14 @@
 		<div id="treebox">
 			<div class="move" >
 				<div id="bg">
-					<img id="img_bg" height="100%" src="/static/img/tree/10860x1811.jpg" />
+					<img id="img_bg" height="100%" src="static/img/tree/10860x1811.jpg" />
 				</div>
 				<div id="svg">
 					<embed id="tree_bg" :src="src" height="100%"></embed>
 				</div>
 			</div>
 			<div class="logo">
-				<img id="logoImg" src="/static/img/tree/tree-logo.png" />
+				<img :style="imgStyle" src="static/img/tree/tree-logo.png" />
 			</div>
 		</div>
 	</div>
@@ -28,11 +28,26 @@
 				speed:100,
 				time:60,
 				move:null,
+				imgStyle:{
+					width:"320px"
+				},
+				w:0
 			}
 		},
 		mounted () {
+			var me = this;
+			var treeBox = document.getElementById('treebox');
+			window.onload = function(){
+				me.w = treeBox.offsetWidth;
+				if(me.w < 768){
+					me.imgStyle.width = "150px";
+				}else{
+					me.imgStyle.width = "320px";
+				}
+			}
+			
+			
 			var img = document.getElementById('img_bg');
-			var me  = this;
 			this.move = document.querySelector('.move');
 			
 			img.onload = function(){
@@ -48,6 +63,12 @@
 			}
 			
 			window.addEventListener('resize',function(){
+				me.w = treeBox.offsetWidth;
+				if(me.w<768){
+					me.imgStyle.width = "150px"
+				}else{
+					me.imgStyle.width = "320px";
+				}
 				me.moveWidth = img.offsetWidth;
 				me.move.style.width = me.moveWidth + 'px';
 				me.time = me.moveWidth/me.speed;
@@ -63,7 +84,7 @@
 			setTimeout(function(){
 				this.tree = document.createElement('script');
 				this.tree.type = "text/javascript";
-				this.tree.src = "/static/tree.js";
+				this.tree.src = "static/tree.js";
 				document.body.appendChild(this.tree);
 			},1000)
 		},
@@ -111,6 +132,7 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
 .tree{
 	height: 100%;
 }
@@ -141,7 +163,7 @@
 	left: 50%;
 	-ms-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
-	width: 20%;
+	/*width: 20%;*/
 	z-index: 2;
 }
 #svg{

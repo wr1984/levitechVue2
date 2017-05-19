@@ -109,16 +109,16 @@
 				eMaterials = this.createMaterials2(eMaps,25);
 			}else if(width < 768 ){
 				aMaterials = this.createMaterials(aMaps,100);
+				bMaterials = this.createMaterials(dMaps,150);
+				cMaterials = this.createMaterials(cMaps,150);
+				dMaterials = this.createMaterials(dMaps,50);
+				eMaterials = this.createMaterials2(eMaps,50);
+			}else{
+				aMaterials = this.createMaterials(aMaps,150);
 				bMaterials = this.createMaterials(dMaps,200);
 				cMaterials = this.createMaterials(cMaps,200);
 				dMaterials = this.createMaterials(dMaps,50);
 				eMaterials = this.createMaterials2(eMaps,50);
-			}else{
-				aMaterials = this.createMaterials(aMaps,200);
-				bMaterials = this.createMaterials(dMaps,300);
-				cMaterials = this.createMaterials(cMaps,300);
-				dMaterials = this.createMaterials(dMaps,100);
-				eMaterials = this.createMaterials2(eMaps,100);
 			}
 
 			
@@ -326,7 +326,7 @@
 		createMappings(name, amount) {
 			let arr = []
 			for(let i = 0; i < amount; i++) {
-				arr.push(textureLoader.load('/static/img/space/' + name + '/' + i + '.png'));
+				arr.push(textureLoader.load('static/img/space/' + name + '/' + i + '.png'));
 			};
 			return arr;
 		}

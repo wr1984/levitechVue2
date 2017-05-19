@@ -1,5 +1,5 @@
 <template>
-  <div class="contacts  container">
+  <div class="contacts ">
 		{{msg}}
   </div>
   <!--<router-view></router-view>-->

@@ -1,17 +1,16 @@
 <template>
 	<div id="app">
 		<div class="container-fluid ">
-			<div id="header">
+			<div id="header" :style="heanderStyle">
 				<vheader></vheader>
 			</div>
 			<div class="animContent">
-
 				<div class="pull-left" :style="sideStyle">
-					<img :style="attentionStyle" class="attention" src="/static/img/attention.png" />
+					<img :style="attentionStyle" class="attention" src="static/img/attention.png" />
 				
 				</div>
 				<div class="pull-left">
-					<div :style="animStyle" style="background-color: red;">
+					<div :style="animStyle" style="background-color: #343434;">
 						<!--<keep-alive>-->
 							<router-view name='tree'></router-view>
 						<!--</keep-alive>-->
@@ -61,7 +60,10 @@
 				attentionStyle:{
 					'margin-top':'-200px',
 				},
-				
+				heanderStyle:{
+					width:'0px',
+					'margin-left':'35px'
+				},
 				animStyle:{
 					width:'0px',
 					height:'0px',
@@ -74,53 +76,73 @@
 		},
 		mounted(){
 			var me = this;
-			this.h = window.innerHeight;
-			this.w = window.innerWidth;
-			if(this.h < 568){
-				this.h = 568;
-			}else if(this.h > 1200){
-				this.h = 1150;
-			}
-			
-			if(this.w < 768){
-				this.sideStyle.width = '0px';
+			me.h = window.innerHeight;
+			me.w = window.innerWidth;
+//			console.log(me.w)
+//			document.getElementById('app').style.width = (me.w)+'px';
+
+//			window.addEventListener('scroll', this.handleScroll);
+			if(me.w < 768){
+				me.sideStyle.width = '0px';
+				me.heanderStyle['margin-left'] = '0px';
 				me.animStyle.height = (me.h-65)+'px';
 				me.animStyle.width = (me.w-30) + 'px';
+				me.heanderStyle.width = me.animStyle.width;
 				me.indicatorsStyle['margin-top'] = (me.h-65)/2 + 'px';
 				me.attentionStyle['margin-top'] = (me.h-65)/2 + 'px';
+				me.animStyle['margin-bottom'] = '15px';
 			}else{
-				this.sideStyle.width = '35px';
-				this.animStyle.height = (this.h-100)+'px';
-				this.animStyle.width = (this.w-100) + 'px';
-				this.indicatorsStyle['margin-top'] = (this.h-100)/2 + 'px';
-				this.attentionStyle['margin-top'] = (this.h-100)/2 + 'px';
-			}
-			
-			
-			
-			
-			window.addEventListener('resize',resizeEvent);
-			function resizeEvent(){
-				me.w = window.innerWidth;
-				me.h = window.innerHeight;
 				if(me.h < 568){
 					me.h = 568;
 				}else if(me.h > 1200){
-					me.h = 1150;
+					me.h = 1200;
 				}
+				me.sideStyle.width = '35px';
+				me.heanderStyle['margin-left'] = '35px';
+				me.animStyle.height = (this.h-100)+'px';
+				me.animStyle.width = (this.w-100) + 'px';
+				me.heanderStyle.width = me.animStyle.width;
+				me.indicatorsStyle['margin-top'] = (me.h-100)/2 + 'px';
+				me.attentionStyle['margin-top'] = (me.h-100)/2 + 'px';
+				me.animStyle['margin-bottom'] = '50px';
+			}
+			
+			
+//			document.body.onmousewheel = function(){console.log(1);}
+			
+			window.addEventListener('resize',this.resizeEvent);
+
+		},
+		methods:{
+
+			resizeEvent(){
+				var me = this;
+				me.w = window.innerWidth;
+				me.h = window.innerHeight;
 				
 				if(me.w < 768){
 					me.sideStyle.width = '0px';
+					me.heanderStyle['margin-left'] = '0px';
 					me.animStyle.height = (me.h-65)+'px';
 					me.animStyle.width = (me.w-30) + 'px';
+					me.heanderStyle.width = me.animStyle.width;
 					me.indicatorsStyle['margin-top'] = (me.h-65)/2 + 'px';
 					me.attentionStyle['margin-top'] = (me.h-65)/2 + 'px';
+					me.animStyle['margin-bottom'] = '15px';
 				}else{
+					if(me.h < 568){
+						me.h = 568;
+					}else if(me.h > 1200){
+						me.h = 1200;
+					}
 					me.sideStyle.width = '35px';
+					me.heanderStyle['margin-left'] = '35px';
 					me.animStyle.height = (me.h-100)+'px';
 					me.animStyle.width = (me.w-100) + 'px';
+					me.heanderStyle.width = me.animStyle.width;
 					me.indicatorsStyle['margin-top'] = (me.h-100)/2 + 'px';
 					me.attentionStyle['margin-top'] = (me.h-100)/2 + 'px';
+					me.animStyle['margin-bottom'] = '50px';
 				}
 			}
 		},
@@ -135,6 +157,10 @@
 	body::-webkit-scrollbar{
   		display: none;
 	}
+	/*body{
+		overflow: hidden;
+	}*/
+
 	/*==========================自定义字体=============================*/
 	
 	@font-face {
@@ -159,7 +185,7 @@
 	/*==========================自定义字体=============================*/
 	/*==========================宽度适配=============================*/
 	
-	@media (min-width: 992px) {
+	/*@media (min-width: 992px) {
 		.container {
 			width: 892px !important;
 		}
@@ -206,18 +232,22 @@
 			width: 1820px !important;
 		}
 	}
-	/*@media (min-width: 2048px) {
+	@media (min-width: 2048px) {
 	.container {
 		width: 1948px;
 	}
 }*/
 	
-	@media (min-width: 960px) {
+	@media (min-width: 768px) {
 		.nav-center {
 			position: absolute;
 			left: 50%;
+			-ms-transform: translate(-50%, 0%);
 			transform: translate(-50%, 0%);
 		}
+		/*#app{
+			font-size: 14px;
+		}*/
 	}
 	
 	@media (min-width:768px) {
@@ -231,22 +261,23 @@
 		}
  }
 	/*==========================宽度适配=============================*/
-	
 	#app {
 		font-family: 'cond', '微软雅黑', 'Avenir', Helvetica, Arial, sans-serif;
 		/*-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;*/
 		/*text-align: center;*/
 		color: #3c3c3c;
+		/*overflow:hidden;*/
+		/*scrollbar: display*/
 	}
 	
-
+	
 	/*==========================header=============================*/
 	
 	#header {
 		/*position: relative;*/
 		height: 51px;
-		width: 100%;
+		/*width: 100%;*/
 	}
 	/*==========================header=============================*/
 	/*==========================content=============================*/
