@@ -1,44 +1,104 @@
 <template>
 	<div id="app">
-		<div class="container-fluid ">
-			<div id="header" :style="heanderStyle">
-				<vheader></vheader>
-			</div>
-			<div class="animContent">
-				<div class="pull-left" :style="sideStyle">
-					<img :style="attentionStyle" class="attention" src="static/img/attention.png" />
-				
+		<div class="container-fluid" :style="containerStyle">
+			
+			<div class="side-bar">
+				<div>
+					<img :style="sidebarStyle" class="attention" src="static/img/attention.png" />
 				</div>
-				<div class="pull-left">
-					<div :style="animStyle" style="background-color: #343434;">
-						<!--<keep-alive>-->
-							<router-view name='tree'></router-view>
-						<!--</keep-alive>-->
-						<router-view name='space'></router-view>
-						<router-view name='particle'></router-view>
-					</div>
-					<div style="width: 100%;">
-						<router-view></router-view>
-					</div>
-				</div>
-				<div class="pull-right" :style="sideStyle">
-					<div class="indicators" :style="indicatorsStyle">
-						<li class="active"></li>
-						<li></li>
-						<li></li>
-						<li></li>
-					</div>
-				
+				<div class="indicators" :style="sidebarStyle">
+					<li class="active"></li>
+					<li></li>
+					<li></li>
+					<li></li>
 				</div>
 			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div id="header">
+						<nav class="navbar navbar-fixed-top nav-bg">
+							<div class="container-fluid" :style="navContainerStyle">
+								<!-- Brand and toggle get grouped for better mobile display -->
+								<div class="navbar-header">
+									<button id="toggleBtn" type="button" class="navbar-toggle collapsed " data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" expanded="false">
+										<span class="sr-only" style="border: 1px silver solid;">Toggle navigation</span>				        
+										<span class="icon-bar icon-bar1"></span>				        
+										<span class="icon-bar icon-bar1"></span>				        
+										<span class="icon-bar icon-bar3"></span>				     
+									</button>
+									<a class="navbar-brand" href="#">
+										<img alt="Brand" src="static/img/logo.png">
+									</a>
+								</div>
+								<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+									<ul class="nav navbar-nav nav-center">
+										<li class="active" @click="collapse">
+											<!--<a href="#top">Top <span class="sr-only">(current)</span></a>-->
+											<router-link :to="{ name: 'top' }">Top<span class="sr-only">(current)</span></router-link>
+										</li>
+										<li @click="collapse">
+											<router-link :to="{ name: 'about' }">About</router-link>
+										</li>
+										<li @click="collapse">
+											<router-link :to="{ name: 'products'}">Products</router-link>
+										</li>
+										<li @click="collapse">
+											<router-link :to="{ name: 'projects'}">Projects</router-link>
+										</li>
+										<li @click="collapse">
+											<router-link :to="{ name: 'clients'}">Clients</router-link>
+										</li>
+										<li @click="collapse">
+											<router-link :to="{ name: 'recruitment'}">Recruitment</router-link>
+										</li>
+										<li @click="collapse">
+											<router-link :to="{ name: 'contacts'}">Contacts</router-link>
+										</li>
+									</ul>
+									<hr />
+									<ul class="nav navbar-nav navbar-right search">
+										<li @click="collapse">
+											<a href="#">Cn/En</a>
+										</li>
+										<li @click="collapse">
+											<a href="#">SEARCH</a>
+										</li>
+									</ul>
+								</div>
+								<!-- /.navbar-collapse -->
+							</div>
+							<!-- /.container-fluid -->
+						</nav>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="animContent" style="background-color: #343434;">
+								<div :style="animStyle">
+									<router-view name='tree'></router-view>
+									<router-view name='space'></router-view>
+									<router-view name='particle'></router-view>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div style="width: 100%;">
+								<router-view></router-view>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		
 		</div>
-		
-		<!--<div class="container-fluid ">
-			<div style="width: 100%; padding-left: 35px; padding-right: 35px;">
-				<router-view></router-view>
-			</div>
-		</div>-->
-		
+
 	</div>
 </template>
 
@@ -48,119 +108,89 @@
 		name: 'app',
 		data() {
 			return {
-				isTop:true,
-				h:0,
-				w:0,
-				sideStyle:{
-					width:'35px',
+				isTop: true,
+				h: 0,
+				w: 0,
+				containerStyle: {
+					padding: '0 65px',
 				},
-				indicatorsStyle:{
-					'margin-top':'-200px',
+				navContainerStyle: {
+					padding: '0 50px'
 				},
-				attentionStyle:{
-					'margin-top':'-200px',
+				sidebarStyle: {
+					top: '50px',
 				},
-				heanderStyle:{
-					width:'0px',
-					'margin-left':'35px'
-				},
-				animStyle:{
-					width:'0px',
-					height:'0px',
-					'margin-bottom':'50px',
+				animStyle: {
+					height: '0px',
 				}
 			}
 		},
 		components: {
 			vheader,
 		},
-		mounted(){
+		mounted() {
 			var me = this;
 			me.h = window.innerHeight;
 			me.w = window.innerWidth;
-//			console.log(me.w)
-//			document.getElementById('app').style.width = (me.w)+'px';
-
-//			window.addEventListener('scroll', this.handleScroll);
-			if(me.w < 768){
-				me.sideStyle.width = '0px';
-				me.heanderStyle['margin-left'] = '0px';
-				me.animStyle.height = (me.h-65)+'px';
-				me.animStyle.width = (me.w-30) + 'px';
-				me.heanderStyle.width = me.animStyle.width;
-				me.indicatorsStyle['margin-top'] = (me.h-65)/2 + 'px';
-				me.attentionStyle['margin-top'] = (me.h-65)/2 + 'px';
-				me.animStyle['margin-bottom'] = '15px';
-			}else{
-				if(me.h < 568){
+			if(me.w < 768) {
+				me.containerStyle.padding = '0 15px';
+				me.navContainerStyle.padding = '0 15px';
+				me.animStyle.height = (me.h - 65) + 'px';
+				me.sidebarStyle.top = (me.h / 2 - 50) + 'px';
+			} else {
+				if(me.h < 568) {
 					me.h = 568;
-				}else if(me.h > 1200){
+				} else if(me.h > 1200) {
 					me.h = 1200;
 				}
-				me.sideStyle.width = '35px';
-				me.heanderStyle['margin-left'] = '35px';
-				me.animStyle.height = (this.h-100)+'px';
-				me.animStyle.width = (this.w-100) + 'px';
-				me.heanderStyle.width = me.animStyle.width;
-				me.indicatorsStyle['margin-top'] = (me.h-100)/2 + 'px';
-				me.attentionStyle['margin-top'] = (me.h-100)/2 + 'px';
-				me.animStyle['margin-bottom'] = '50px';
+
+				me.containerStyle.padding = '0 65px';
+				me.navContainerStyle.padding = '0 50px';
+				me.animStyle.height = (this.h - 100) + 'px';
+				me.sidebarStyle.top = (me.h / 2 - 50) + 'px';
 			}
-			
-			
-//			document.body.onmousewheel = function(){console.log(1);}
-			
-			window.addEventListener('resize',this.resizeEvent);
+
+			window.addEventListener('resize', this.resizeEvent);
 
 		},
-		methods:{
+		methods: {
 
-			resizeEvent(){
+			resizeEvent() {
 				var me = this;
 				me.w = window.innerWidth;
 				me.h = window.innerHeight;
-				
-				if(me.w < 768){
-					me.sideStyle.width = '0px';
-					me.heanderStyle['margin-left'] = '0px';
-					me.animStyle.height = (me.h-65)+'px';
-					me.animStyle.width = (me.w-30) + 'px';
-					me.heanderStyle.width = me.animStyle.width;
-					me.indicatorsStyle['margin-top'] = (me.h-65)/2 + 'px';
-					me.attentionStyle['margin-top'] = (me.h-65)/2 + 'px';
-					me.animStyle['margin-bottom'] = '15px';
-				}else{
-					if(me.h < 568){
+
+				if(me.w < 768) {
+					me.containerStyle.padding = '0 15px';
+					me.navContainerStyle.padding = '0 15px';
+					me.animStyle.height = (me.h - 65) + 'px';
+					me.sidebarStyle.top = (me.h / 2 - 50) + 'px';
+				} else {
+					if(me.h < 568) {
 						me.h = 568;
-					}else if(me.h > 1200){
+					} else if(me.h > 1200) {
 						me.h = 1200;
 					}
-					me.sideStyle.width = '35px';
-					me.heanderStyle['margin-left'] = '35px';
-					me.animStyle.height = (me.h-100)+'px';
-					me.animStyle.width = (me.w-100) + 'px';
-					me.heanderStyle.width = me.animStyle.width;
-					me.indicatorsStyle['margin-top'] = (me.h-100)/2 + 'px';
-					me.attentionStyle['margin-top'] = (me.h-100)/2 + 'px';
-					me.animStyle['margin-bottom'] = '50px';
+					me.containerStyle.padding = '0 65px';
+					me.navContainerStyle.padding = '0 50px';
+					me.animStyle.height = (me.h - 100) + 'px';
+					me.sidebarStyle.top = (me.h / 2 - 50) + 'px';
 				}
-			}
+			},
+			collapse() {
+				$('.collapse').collapse('hide');
+			},
 		},
-		beforeDestroy(){
-			
+		beforeDestroy() {
+
 		}
 	}
 </script>
 
 <style>
-	
-	body::-webkit-scrollbar{
-  		display: none;
+	body::-webkit-scrollbar {
+		display: none;
 	}
-	/*body{
-		overflow: hidden;
-	}*/
-
 	/*==========================自定义字体=============================*/
 	
 	@font-face {
@@ -184,7 +214,6 @@
 	}
 	/*==========================自定义字体=============================*/
 	/*==========================宽度适配=============================*/
-	
 	/*@media (min-width: 992px) {
 		.container {
 			width: 892px !important;
@@ -248,19 +277,38 @@
 		/*#app{
 			font-size: 14px;
 		}*/
+		.animContent {
+			margin: 0 -15px 50px;
+		}
 	}
 	
 	@media (min-width:768px) {
 		hr {
 			display: none;
 		}
-	}
-	@media (max-width:768px) {
-		.indicators,.attention{
-			visibility: hidden;
+		.indicators {
+			position: absolute;
+			right: 20px
 		}
- }
+		.attention {
+			position: absolute;
+			left: 15px
+		}
+	}
+	
+	@media (max-width:768px) {
+		.indicators,
+		.attention,
+		.side-bar {
+			visibility: hidden;
+			display: none;
+		}
+		.animContent {
+			margin: 0 0 15px;
+		}
+	}
 	/*==========================宽度适配=============================*/
+	
 	#app {
 		font-family: 'cond', '微软雅黑', 'Avenir', Helvetica, Arial, sans-serif;
 		/*-webkit-font-smoothing: antialiased;
@@ -270,60 +318,57 @@
 		/*overflow:hidden;*/
 		/*scrollbar: display*/
 	}
-	
-	
 	/*==========================header=============================*/
 	
 	#header {
 		/*position: relative;*/
-		height: 51px;
+		height: 50px;
+		background-color: rosybrown;
 		/*width: 100%;*/
 	}
 	/*==========================header=============================*/
 	/*==========================content=============================*/
-
-	/*==========================content=============================*/	
-	
+	/*==========================content=============================*/
 	/*==========================左右两侧 ===========================*/
-.indicators li{
-    width: 8px;
-    height: 8px;
-    margin: 1px;
-    text-indent: -999px;
-    cursor: pointer;
-    background-color: #000\9;
-    background-color: rgba(0,0,0,0);
-    border: 1px solid black;
-    
-    margin-left: 20px;
-}
-
-.indicators .active {
-    width: 10px;
-    height: 10px;
-    /*margin: 0;*/
-    background-color: black;
-}
-
-.indicators{
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-    /*position: absolute;*/
-    /*right: 20px;*/
-    /*z-index: 15;*/
-    height: 100px;
-    width: 30px;
-    list-style: none;
-    /*background-color: red;*/
-}
-
-.attention{
-    /*position: absolute;
+	
+	.indicators li {
+		width: 8px;
+		height: 8px;
+		margin: 1px;
+		text-indent: -999px;
+		cursor: pointer;
+		background-color: #000\9;
+		background-color: rgba(0, 0, 0, 0);
+		border: 1px solid black;
+		margin-left: 20px;
+	}
+	
+	.indicators .active {
+		width: 10px;
+		height: 10px;
+		/*margin: 0;*/
+		background-color: black;
+	}
+	
+	.indicators {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		/*position: absolute;*/
+		/*right: 20px;*/
+		/*z-index: 15;*/
+		height: 100px;
+		width: 30px;
+		list-style: none;
+		/*background-color: red;*/
+	}
+	
+	.attention {
+		/*position: absolute;
     z-index: 15;*/
-   margin-left: -5px;
-    width: 30px;
-    /*left: 15px;*/
-}
+		margin-left: -5px;
+		width: 30px;
+		/*left: 15px;*/
+	}
 	/*==========================左右两侧 ===========================*/
 </style>
