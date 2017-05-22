@@ -24,12 +24,12 @@
 			}
 		},
 		beforeCreate(){
+		},
+		created() {
 //			this.threeR74 = document.createElement('script');
 //			this.threeR74.type = "text/javascript";
 //			this.threeR74.src = "./static/three.r74.min.js";
 //			document.body.appendChild(this.threeR74);
-		},
-		created() {
 		},
 		mounted() {
 			var me = this;
@@ -54,12 +54,12 @@
 			})
 			
 			
-			me.cloud = document.createElement('script');
-			me.cloud.type = "text/javascript";
-			me.cloud.src = "./static/cloud.js";
-				document.body.appendChild(me.cloud);
 //			setTimeout(function() {
-//			}, 1000)
+				me.cloud = document.createElement('script');
+				me.cloud.type = "text/javascript";
+				me.cloud.src = "./static/cloud.js";
+				document.body.appendChild(me.cloud);
+//			}, 0)
 		},
 		beforeDestroy() {
 			window.cancelAnimationFrame(window._animation);
