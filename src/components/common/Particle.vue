@@ -3,7 +3,7 @@
 		<div id="canvasBox">
 			<canvas id="canvas"></canvas>
 			<div class = "logo">
-				<img  src="static/img/cloud/text.png"/>	
+				<img src="static/img/cloud/text.png"/>	
 			</div>
 		</div>
 	</div>
@@ -68,17 +68,10 @@ canvas{
 	width: 100%;
 	position: relative;
 }
-/*.logo{
-	position: absolute;
-	z-index: 999;
-	width: 100%;
-	height: 100%;
-	background-color: blueviolet;
-}*/
+
 #canvasBox img{
 	position: absolute;	
 	bottom:10px;
 	left: 20px;
-	/*width: 20%;*/
 }
 </style>

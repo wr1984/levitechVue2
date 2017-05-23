@@ -1,7 +1,7 @@
 <template>
 	<div id="app">
 		<div class="container-fluid" :style="containerStyle">
-			
+
 			<div class="side-bar">
 				<div>
 					<img :style="sidebarStyle" class="attention" src="static/img/attention.png" />
@@ -31,7 +31,7 @@
 										<img alt="Brand" src="static/img/logo.png">
 									</a>
 								</div>
-								<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
+								<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 									<ul class="nav navbar-nav nav-center">
 										<li class="active" @click="collapse">
 											<!--<a href="#top">Top <span class="sr-only">(current)</span></a>-->
@@ -44,25 +44,25 @@
 											<router-link class='navanim' :to="{ name: 'products'}">Products</router-link>
 										</li>
 										<li @click="collapse">
-											<router-link class='navanim'  :to="{ name: 'projects'}">Projects</router-link>
+											<router-link class='navanim' :to="{ name: 'projects'}">Projects</router-link>
 										</li>
 										<li @click="collapse">
-											<router-link class='navanim'  :to="{ name: 'clients'}">Clients</router-link>
+											<router-link class='navanim' :to="{ name: 'clients'}">Clients</router-link>
 										</li>
 										<li @click="collapse">
-											<router-link class='navanim'  :to="{ name: 'recruitment'}">Recruitment</router-link>
+											<router-link class='navanim' :to="{ name: 'recruitment'}">Recruitment</router-link>
 										</li>
 										<li @click="collapse">
-											<router-link class='navanim'  :to="{ name: 'contacts'}">Contacts</router-link>
+											<router-link class='navanim' :to="{ name: 'contacts'}">Contacts</router-link>
 										</li>
 									</ul>
 									<hr />
 									<ul class="nav navbar-nav navbar-right search">
 										<li @click="collapse">
-											<a class='navanim'  href="#">Cn/En</a>
+											<a class='navanim' href="#">Cn/En</a>
 										</li>
 										<li @click="collapse">
-											<a class='navanim'  href="#">SEARCH</a>
+											<a class='navanim' href="#">SEARCH</a>
 										</li>
 									</ul>
 								</div>
@@ -80,23 +80,24 @@
 						<div class="col-md-12">
 							<div class="animContent" style="background-color: #343434;">
 								<div :style="animStyle">
-									<router-view name='tree'></router-view>
-									<router-view name='space'></router-view>
-									<router-view name='particle'></router-view>
+									<router-view v-if="tree_anim" name='tree'></router-view>
+									<router-view v-if="space_anim" name='space'></router-view>
+									<router-view v-if="particle_anim" name='particle'></router-view>
+									<router-view v-if="tree_pic" name='treepic'></router-view>
+									<router-view v-if="space_pic" name='spacepic'></router-view>
+									<router-view v-if="particle_pic" name='particlepic'></router-view>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<div style="width: 100%;">
-								<router-view></router-view>
-							</div>
+							<router-view></router-view>
 						</div>
 					</div>
 				</div>
 			</div>
-		
+
 		</div>
 
 	</div>
@@ -104,11 +105,17 @@
 
 <script>
 	import vheader from '@/components/common/header'
+	import tool from '@/assets/js/tool'
 	export default {
 		name: 'app',
 		data() {
 			return {
-				isTop: true,
+				tree_anim: true,
+				tree_pic: false,
+				space_anim: true,
+				space_pic: false,
+				particle_anim: true,
+				particle_pic: false,
 				h: 0,
 				w: 0,
 				containerStyle: {
@@ -151,9 +158,17 @@
 			}
 
 			window.addEventListener('resize', this.resizeEvent);
+			
+			var browser = tool.getBrowserVersion()[0];
+			if('IE'===browser){
+				this.space_anim = false;
+				this.space_pic = true;
+				this.particle_anim = false;
+				this.particle_pic = true;
+			}
 		},
 		methods: {
-			btnClikEvent(){
+			btnClikEvent() {
 				var btn = $('.navbar-toggle');
 				var expanded = btn.attr('aria-expanded');
 				var icon1 = $('.icon-bar1');
@@ -161,22 +176,23 @@
 				var icon3 = $('.icon-bar3');
 				console.log('false' == expanded)
 				//展开,加入动画
-				if('false' == expanded){
+				if('false' == expanded) {
 					icon1.addClass('icon-bar-anim1');
 					icon2.addClass('icon-bar-anim2');
 					icon3.addClass('icon-bar-anim3');
-					TweenMax.staggerFrom('.navanim',.5,{
-						rotationX:-90,
-						opacity:0,
-						transformOrigin:"top left"
-					},.1)
-					
-				}else{
+					TweenMax.staggerFrom('.navanim', .5, {
+						rotationX: -90,
+						opacity: 0,
+						transformOrigin: "top left"
+					}, .1)
+
+				} else {
 					icon1.removeClass('icon-bar-anim1');
 					icon2.removeClass('icon-bar-anim2');
 					icon3.removeClass('icon-bar-anim3');
 				}
 			},
+
 			resizeEvent() {
 				var me = this;
 				me.w = window.innerWidth;
@@ -220,19 +236,22 @@
 		display: none;
 	}
 	/*==========================自定义字体=============================*/
-	.navbar-toggle .icon-bar{
+	
+	.navbar-toggle .icon-bar {
 		transition: all .5s;
 	}
-	.navbar-toggle .icon-bar-anim1{
+	
+	.navbar-toggle .icon-bar-anim1 {
 		transform: translateY(5px) rotateZ(45deg);
 	}
-	.navbar-toggle .icon-bar-anim2{
+	
+	.navbar-toggle .icon-bar-anim2 {
 		opacity: 0;
 	}
-	.navbar-toggle .icon-bar-anim3{
+	
+	.navbar-toggle .icon-bar-anim3 {
 		transform: translateY(-5px) rotateZ(-45deg);
 	}
-	
 	
 	@font-face {
 		font-family: cond;
@@ -307,14 +326,18 @@
 		width: 1948px;
 	}
 }*/
+	
 	@media only screen and (min-width: 768px) {
-		.logo>img{
-			width:320px !important;
+		.logo>img {
+			width: 320px !important;
 		}
 	}
-	.logo>img{
-		width:150px
+	
+	.logo>img {
+		width: 150px;
+
 	}
+	
 	@media (min-width: 768px) {
 		.nav-center {
 			position: absolute;
