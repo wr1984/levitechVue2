@@ -21,48 +21,48 @@
 							<div class="container-fluid" :style="navContainerStyle">
 								<!-- Brand and toggle get grouped for better mobile display -->
 								<div class="navbar-header">
-									<button id="toggleBtn" type="button" class="navbar-toggle collapsed " data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" expanded="false">
+									<button @click='btnClikEvent' type="button" class="navbar-toggle collapsed " data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
 										<span class="sr-only" style="border: 1px silver solid;">Toggle navigation</span>				        
 										<span class="icon-bar icon-bar1"></span>				        
-										<span class="icon-bar icon-bar1"></span>				        
+										<span class="icon-bar icon-bar2"></span>				        
 										<span class="icon-bar icon-bar3"></span>				     
 									</button>
 									<a class="navbar-brand" href="#">
 										<img alt="Brand" src="static/img/logo.png">
 									</a>
 								</div>
-								<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+								<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
 									<ul class="nav navbar-nav nav-center">
 										<li class="active" @click="collapse">
 											<!--<a href="#top">Top <span class="sr-only">(current)</span></a>-->
-											<router-link :to="{ name: 'top' }">Top<span class="sr-only">(current)</span></router-link>
+											<router-link class='navanim' :to="{ name: 'top' }">Top<span class="sr-only">(current)</span></router-link>
 										</li>
 										<li @click="collapse">
-											<router-link :to="{ name: 'about' }">About</router-link>
+											<router-link class='navanim' :to="{ name: 'about' }">About</router-link>
 										</li>
 										<li @click="collapse">
-											<router-link :to="{ name: 'products'}">Products</router-link>
+											<router-link class='navanim' :to="{ name: 'products'}">Products</router-link>
 										</li>
 										<li @click="collapse">
-											<router-link :to="{ name: 'projects'}">Projects</router-link>
+											<router-link class='navanim'  :to="{ name: 'projects'}">Projects</router-link>
 										</li>
 										<li @click="collapse">
-											<router-link :to="{ name: 'clients'}">Clients</router-link>
+											<router-link class='navanim'  :to="{ name: 'clients'}">Clients</router-link>
 										</li>
 										<li @click="collapse">
-											<router-link :to="{ name: 'recruitment'}">Recruitment</router-link>
+											<router-link class='navanim'  :to="{ name: 'recruitment'}">Recruitment</router-link>
 										</li>
 										<li @click="collapse">
-											<router-link :to="{ name: 'contacts'}">Contacts</router-link>
+											<router-link class='navanim'  :to="{ name: 'contacts'}">Contacts</router-link>
 										</li>
 									</ul>
 									<hr />
 									<ul class="nav navbar-nav navbar-right search">
 										<li @click="collapse">
-											<a href="#">Cn/En</a>
+											<a class='navanim'  href="#">Cn/En</a>
 										</li>
 										<li @click="collapse">
-											<a href="#">SEARCH</a>
+											<a class='navanim'  href="#">SEARCH</a>
 										</li>
 									</ul>
 								</div>
@@ -151,10 +151,32 @@
 			}
 
 			window.addEventListener('resize', this.resizeEvent);
-
 		},
 		methods: {
-
+			btnClikEvent(){
+				var btn = $('.navbar-toggle');
+				var expanded = btn.attr('aria-expanded');
+				var icon1 = $('.icon-bar1');
+				var icon2 = $('.icon-bar2');
+				var icon3 = $('.icon-bar3');
+				console.log('false' == expanded)
+				//展开,加入动画
+				if('false' == expanded){
+					icon1.addClass('icon-bar-anim1');
+					icon2.addClass('icon-bar-anim2');
+					icon3.addClass('icon-bar-anim3');
+					TweenMax.staggerFrom('.navanim',.5,{
+						rotationX:-90,
+						opacity:0,
+						transformOrigin:"top left"
+					},.1)
+					
+				}else{
+					icon1.removeClass('icon-bar-anim1');
+					icon2.removeClass('icon-bar-anim2');
+					icon3.removeClass('icon-bar-anim3');
+				}
+			},
 			resizeEvent() {
 				var me = this;
 				me.w = window.innerWidth;
@@ -179,6 +201,12 @@
 			},
 			collapse() {
 				$('.collapse').collapse('hide');
+				var icon1 = $('.icon-bar1');
+				var icon2 = $('.icon-bar2');
+				var icon3 = $('.icon-bar3');
+				icon1.removeClass('icon-bar-anim1');
+				icon2.removeClass('icon-bar-anim2');
+				icon3.removeClass('icon-bar-anim3');
 			},
 		},
 		beforeDestroy() {
@@ -192,6 +220,19 @@
 		display: none;
 	}
 	/*==========================自定义字体=============================*/
+	.navbar-toggle .icon-bar{
+		transition: all .5s;
+	}
+	.navbar-toggle .icon-bar-anim1{
+		transform: translateY(5px) rotateZ(45deg);
+	}
+	.navbar-toggle .icon-bar-anim2{
+		opacity: 0;
+	}
+	.navbar-toggle .icon-bar-anim3{
+		transform: translateY(-5px) rotateZ(-45deg);
+	}
+	
 	
 	@font-face {
 		font-family: cond;
