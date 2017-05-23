@@ -3,7 +3,7 @@
 		<div id="canvasBox">
 			<canvas id="canvas"></canvas>
 			<div class = "logo">
-				<img :style="imgStyle" src="static/img/space/space-logo.png"/>	
+				<img src="static/img/space/space-logo.png"/>	
 			</div>
 		</div>
 	</div>
@@ -19,10 +19,6 @@ export default {
   name: 'space',
   data () {
     return {
-    	w:0,
-    	imgStyle:{
-    		width:"320px"
-    	}
     }
   },
   created (){
@@ -32,28 +28,9 @@ export default {
   mounted(){
 //	console.log(Star)
 		var me = this;
-		var canvas = document.getElementById('canvas');
-		window.onload = function(){
-			me.w = canvas.offsetWidth;
-			if(me.w < 768){
-				me.imgStyle.width = "150px";
-			}else{
-				me.imgStyle.width = "320px";
-			}
-			
-		}
 		
-		window.addEventListener('resize',function(){
-			me.w = canvas.offsetWidth;
-			if(me.w<768){
-				me.imgStyle.width = "150px"
-			}else{
-				me.imgStyle.width = "320px";
-			}
-		})
 		setTimeout(function(){
 			new Space();
-			
 		},0)
   },
   beforeDestroy(){

@@ -3,7 +3,7 @@
 		<div id="canvasBox">
 			<canvas id="canvas"></canvas>
 			<div class = "logo">
-				<img :style='imgStyle' src="static/img/cloud/text.png"/>	
+				<img  src="static/img/cloud/text.png"/>	
 			</div>
 		</div>
 	</div>
@@ -16,11 +16,6 @@
 			return {
 				threeR74: null,
 				cloud: null,
-				height:0,
-				imgStyle:{
-					width:'320px'
-				},
-				w:0
 			}
 		},
 		beforeCreate(){
@@ -33,26 +28,6 @@
 		},
 		mounted() {
 			var me = this;
-			
-			var canvasBox = document.getElementById('canvasBox');
-			window.onload = function(){
-				me.w = canvasBox.offsetWidth;
-				if(me.w < 768){
-					me.imgStyle.width = "150px";
-				}else{
-					me.imgStyle.width = "320px";
-				}
-			}
-			
-			window.addEventListener('resize',function(){
-				me.w = canvasBox.offsetWidth;
-				if(me.w<768){
-					me.imgStyle.width = "150px"
-				}else{
-					me.imgStyle.width = "320px";
-				}
-			})
-			
 			
 //			setTimeout(function() {
 				me.cloud = document.createElement('script');
@@ -71,19 +46,13 @@
 			if(me.cloud) {
 				me.cloud.remove();
 			}
-		},
-		//destroyed(){
-		//	this.$destroy();
-		//},
-		//beforeRouteLeave (to, from, next) {
-		//		console.log('beforeRouteLeave');	
-		//		this.$destroy();
-		//}
+		}
 	}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
 canvas{
 	width: 100%;
 	height: 100%;

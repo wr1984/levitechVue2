@@ -6,46 +6,34 @@
 					<img id="img_bg" height="100%" src="static/img/tree/10860x1811.jpg" />
 				</div>
 				<div id="svg">
-					<embed id="tree_bg" :src="src" height="100%"></embed>
+					<!--<embed id="tree_bg" :src="src" height="100%"></embed>-->
+					<embed id="tree_bg" src="static/img/tree/10860x1811.svg" height="100%"></embed>
 				</div>
 			</div>
 			<div class="logo">
-				<img :style="imgStyle" src="static/img/tree/tree-logo.png" />
+				<img src="static/img/tree/tree-logo.png" />
 			</div>
 		</div>
 	</div>
 </template>
 <script>
-	import svg from './img/tree/10860x1811.svg';
+//	import svg from './img/tree/10860x1811.svg';
 	import TweenMax from "gsap";
 	export default {
 		name: 'tree',
 		data() {
 			return {
-				src:svg,
+//				src:svg,
 				moveWidth:0,
 				imgWidth:0,
 				speed:100,
 				time:60,
 				move:null,
-				imgStyle:{
-					width:"320px"
-				},
-				w:0
 			}
 		},
 		mounted () {
 			var me = this;
 			var treeBox = document.getElementById('treebox');
-			window.onload = function(){
-				me.w = treeBox.offsetWidth;
-				if(me.w < 768){
-					me.imgStyle.width = "150px";
-				}else{
-					me.imgStyle.width = "320px";
-				}
-			}
-			
 			
 			var img = document.getElementById('img_bg');
 			this.move = document.querySelector('.move');
@@ -63,12 +51,6 @@
 			}
 			
 			window.addEventListener('resize',function(){
-				me.w = treeBox.offsetWidth;
-				if(me.w<768){
-					me.imgStyle.width = "150px"
-				}else{
-					me.imgStyle.width = "320px";
-				}
 				me.moveWidth = img.offsetWidth;
 				me.move.style.width = me.moveWidth + 'px';
 				me.time = me.moveWidth/me.speed;

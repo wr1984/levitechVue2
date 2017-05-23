@@ -1,51 +1,13 @@
 ;(function(window,document){
-	var yzOrigin = ["0% 100%", "10% 100%", "0% 50%", "0% 100%", "90% 100%", "100% 60%", "90% 100%", "0% 100%", "0% 100%","10% 100%","100% 100%","0% 100%","0% 100%","100% 60%","100% 80%","100% 100%","0% 100%",
-					"0% 100%", "10% 100%", "0% 50%", "0% 100%", "90% 100%", "100% 60%", "90% 100%", "0% 100%", "0% 100%","10% 100%","100% 100%","0% 100%","0% 100%","100% 60%","100% 80%","100% 100%","0% 100%"];
+	var yzOrigin = ["0% 100%", "10% 100%", "0% 50%", "0% 100%", "90% 100%", "100% 60%", "90% 100%", "0% 100%", "0% 100%","10% 100%","100% 100%","0% 100%","0% 100%","100% 90%","100% 80%","100% 100%","0% 100%",
+					"0% 100%", "10% 100%", "0% 50%", "0% 100%", "90% 100%", "100% 60%", "90% 100%", "0% 100%", "0% 100%","10% 100%","100% 100%","0% 100%","0% 100%","100% 90%","100% 80%","100% 100%","0% 100%"];
 	var hdOringin = ["50% 50%", "50% 50%","50% 50%", "50% 50%"];
-//	var screenW = window.innerWidth;
-	//获取窗口高度-nav高度，指定tree展示窗口高度
-//	var tree_height = window.innerHeight - 50;
-//	var height = tree_height;
-//	if(tree_height < 568){
-//		tree_height = 568;
-//	}
-//	if(tree_height > 1200){
-//		tree_height = 1200;
-//	}
-//	var tree = document.querySelector('.tree');
-//	tree.style.height = tree_height + 'px';
-//	var width = tree.offsetWidth;
-	
-//	//指示器位置
-//	var indicators = document.querySelector('.indicators');
-//	indicators.style.top = height/2+'px';
-//	indicators.style.right = (screenW-width)/4 -5+ 'px';
-//	//左侧关注图标
-//	var attention = document.querySelector('.attention');
-//	attention.style.top = height/2 + 'px';
-//	attention.style.left = (screenW-width)/4 -15 + 'px';
-//	if(screenW >= 768){
-//		indicators.style.visibility = "visible";
-//		attention.style.visibility = "visible"
-//	}
-	
-	
-	//获取tree背景图片在该高度下的宽度指定给move，要确保背景图片和svg一样 的宽和高。
-//	var img_bg = document.querySelector('#img_bg');
-//	var move = document.querySelector('.move');
-////	img_bg.style.height = tree_height + 'px';
-//	var img_width;
-//	img_bg.onload = function(){
-//		img_width = img_bg.offsetWidth;
-//		move.style.width = img_width + 'px';
-//	}
+
 //	
 	var embed = document.getElementById('tree_bg');
-	var svg_yz;
-//	window.onload = function(){
-//	setTimeout(function(){
+
 		
-		svg_yz = embed.getSVGDocument().getElementById('svg');
+	var	svg_yz = embed.getSVGDocument().getElementById('svg');
 		
 
 		hdArr1 = initSucai('hd1_', 'hd2_', 4, hdOringin, svg_yz);
@@ -59,50 +21,8 @@
 			hd.init();
 //			hd.grow(0.1, 0.1);
 		});
+
 		
-//	},0)
-		
-//		run();
-//	};
-//	var left = null;
-//	function run(){
-//		left -= 1.5;
-//		if(left<=-img_width/2){
-//			left = 0;
-//		}
-//		move.style.left = left + 'px';
-//		window.requestAnimationFrame(run);
-//	}
-//	
-//	window.addEventListener('resize',resizeEvent);
-//	function resizeEvent(){
-//		screenW = window.innerWidth;
-//		tree_height = window.innerHeight - 50;
-//		height = tree_height;
-//		if(tree_height > 568){
-//			tree.style.height = tree_height + 'px';
-//		}
-//		if(tree_height > 1200){
-//			tree_height = 1200;
-//		}
-//		width = tree.offsetWidth;
-//		img_width = img_bg.offsetWidth;
-//		move.style.width = img_width + 'px';
-		
-//			//指示器位置
-//		indicators.style.top = height/2+'px';
-//		indicators.style.right = (screenW-width)/4 -5+ 'px';
-//		//左侧关注图标
-//		attention.style.top = height/2 + 'px';
-//		attention.style.left = (screenW-width)/4 -15 + 'px';
-//		if(screenW >= 768){
-//			indicators.style.visibility = "visible";
-//			attention.style.visibility = "visible"
-//		}else{
-//			indicators.style.visibility = "hidden";
-//			attention.style.visibility = "hidden"
-//		}
-//	}
 //===========================定时摇摆============================================
 	setTimeout(function(){  
 	        sucai1Arr.forEach(function(yz){
@@ -117,9 +37,7 @@
 	        });
 	        setTimeout(arguments.callee, 5000);        
 	 }, 5000);  
-//	setInterval(function(){
-//	}, 10000);
-//	
+
 	var treeBox = document.querySelector('.logo');
 	treeBox.addEventListener('mousedown',mousemoveEvent,true);
 	var tag = true;
@@ -139,10 +57,7 @@
 			tag = true;
 		}
 	};
-//	tree.addEventListener('mousedown',function(e){
-//		e.preventDefault();
-//	});
-//	
+
 	function initSucai(name1, name2, count, origin, svg) {
 		var arr = [];
 		for(var i = 0; i < count; i++) {
@@ -187,22 +102,14 @@
 			var temp = [-1, 1];
 			if(!this.isFall ) {
 				this.isShake = true;
-//				TweenMax.killTweensOf(this.el);
-//				TweenMax.killTweensOf(this.el2);
-//				console.log('摇摆')
+
 				new TimelineMax().to([this.el, this.el2], 0.5, {
 						rotation: randomInRange(5,20) * temp[Math.round(Math.random())]
 					})
 					.to([this.el, this.el2], randomInRange(10,15), {
 						rotation: 0,
 						ease: Elastic.easeOut.config(3, 0.1),
-//						onComplete: function(me) {
-//							me.isShake = false;
-//							if(Math.random() > 0.2) {
-//								me.fall();
-//							}
-//						},
-//						onCompleteParams: [this],
+
 						onUpdate:function(me){
 							me.isShake = false;
 							

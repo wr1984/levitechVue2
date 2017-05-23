@@ -307,7 +307,14 @@
 		width: 1948px;
 	}
 }*/
-	
+	@media only screen and (min-width: 768px) {
+		.logo>img{
+			width:320px !important;
+		}
+	}
+	.logo>img{
+		width:150px
+	}
 	@media (min-width: 768px) {
 		.nav-center {
 			position: absolute;
