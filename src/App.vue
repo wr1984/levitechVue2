@@ -43,8 +43,11 @@
 										<li @click="collapse">
 											<router-link class='navanim' :to="{ name: 'products'}">Products</router-link>
 										</li>
-										<li @click="collapse">
+										<li v-if='isPC' @click="collapse">
 											<router-link class='navanim' :to="{ name: 'projects'}">Projects</router-link>
+										</li>
+										<li v-if='isMobile' @click="collapse">
+											<router-link class='navanim' :to="{ name: 'projectsMobile'}">Projects</router-link>
 										</li>
 										<li @click="collapse">
 											<router-link class='navanim' :to="{ name: 'clients'}">Clients</router-link>
@@ -116,6 +119,8 @@
 				space_pic: false,
 				particle_anim: true,
 				particle_pic: false,
+				isMobile:true,
+				isPC:false,
 				h: 0,
 				w: 0,
 				containerStyle: {
@@ -135,11 +140,19 @@
 		components: {
 			vheader,
 		},
+		beforeCreate(){
+			
+		},
 		mounted() {
+//			if(tool.CurrentSystem.system.iphone || tool.CurrentSystem.system.android){
+//				this.isMobile = true;
+//			}else{
+//				this.isPC = true;
+//			}
 			var me = this;
 			me.h = window.innerHeight;
 			me.w = window.innerWidth;
-			if(me.w < 768) {
+			if(me.w <= 768) {
 				me.containerStyle.padding = '0 15px';
 				me.navContainerStyle.padding = '0 15px';
 				me.animStyle.height = (me.h - 65) + 'px';
@@ -166,6 +179,8 @@
 				this.particle_anim = false;
 				this.particle_pic = true;
 			}
+			
+
 		},
 		methods: {
 			btnClikEvent() {
@@ -174,7 +189,6 @@
 				var icon1 = $('.icon-bar1');
 				var icon2 = $('.icon-bar2');
 				var icon3 = $('.icon-bar3');
-				console.log('false' == expanded)
 				//展开,加入动画
 				if('false' == expanded) {
 					icon1.addClass('icon-bar-anim1');
@@ -326,7 +340,21 @@
 		width: 1948px;
 	}
 }*/
-	
+	@media only screen and (min-height:450px ) {
+		.navbar-fixed-top .navbar-collapse{
+			max-height:none !important;
+		}
+	}
+	@media only screen and (max-height:340px ) {
+		.navbar-fixed-top .navbar-collapse{
+			max-height:280px !important;
+		}
+	}
+	@media only screen and (max-height:450px ) {
+		.navbar-fixed-top .navbar-collapse{
+			max-height:none ;
+		}
+	}
 	@media only screen and (min-width: 768px) {
 		.logo>img {
 			width: 320px !important;
@@ -394,7 +422,7 @@
 	#header {
 		/*position: relative;*/
 		height: 50px;
-		background-color: rosybrown;
+		/*background-color: rosybrown;*/
 		/*width: 100%;*/
 	}
 	/*==========================header=============================*/

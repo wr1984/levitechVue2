@@ -1,5 +1,5 @@
 	import Star from '@/assets/js/star';
-	
+	import tool from '@/assets/js/tool'
 //	console.log(new Star)
 	var canvas;
 	var camera;
@@ -37,6 +37,8 @@
 	var canvasBox;
 	var cameraScale;
 	var allArr; 
+	var width2;
+	var height2;
 	class App {
 		constructor() {
 			this.init();
@@ -49,7 +51,9 @@
 			canvasBox = document.getElementById('canvasBox');
 			canvas = document.getElementById('canvas');
 			width = canvasBox.offsetWidth;
-			height = canvasBox.offsetHeight;
+			height = canvasBox.offsetHeight
+			width2 = window.innerWidth;
+			height2 = window.innerHeight;
 			tempHeight = height;
 			tempWidth = width;
 			
@@ -57,12 +61,19 @@
 
 			camera = new THREE2.PerspectiveCamera(45, width / height, 1, 1500);
 //			console.log(width/height);
-			cameraScale = width/height;
-			if(cameraScale>2.1){
-				camera.position.z = 900/(cameraScale/2)
+//			cameraScale = width/height;
+//			if(cameraScale>2.1){
+//				camera.position.z = 900/(cameraScale/2)
+//			}else{
+//			}
+
+			if(tool.CurrentSystem.system.iphone || tool.CurrentSystem.system.android){
+				camera.position.z = 700;
+				console.log("mobile")
 			}else{
 				camera.position.z = 900;
 			}
+			
 			
 			camera.lookAt(scene.position);
 			scene.add(camera);
@@ -82,7 +93,7 @@
 			aMaps = this.createMappings('a',16)
 			bMaps = this.createMappings('b', 16);
 			cMaps = this.createMappings('c', 12);
-			dMaps = this.createMappings('d', 12);
+			dMaps = this.createMappings('d', 20);
 			eMaps = this.createMappings('e',9);
 			//初始化starts
 			this.initStars();
@@ -103,21 +114,21 @@
 		initStars(){
 			if(width < 420){
 				aMaterials = this.createMaterials(aMaps,50);
-				bMaterials = this.createMaterials(dMaps,100);
-				cMaterials = this.createMaterials(cMaps,100);
+				bMaterials = this.createMaterials(dMaps,50);
+				cMaterials = this.createMaterials(cMaps,50);
 				dMaterials = this.createMaterials(dMaps,25);
 				eMaterials = this.createMaterials2(eMaps,25);
 			}else if(width < 768 ){
 				aMaterials = this.createMaterials(aMaps,100);
-				bMaterials = this.createMaterials(dMaps,150);
-				cMaterials = this.createMaterials(cMaps,150);
+				bMaterials = this.createMaterials(dMaps,100);
+				cMaterials = this.createMaterials(cMaps,100);
 				dMaterials = this.createMaterials(dMaps,50);
 				eMaterials = this.createMaterials2(eMaps,50);
 			}else{
-				aMaterials = this.createMaterials(aMaps,150);
+				aMaterials = this.createMaterials(aMaps,200);
 				bMaterials = this.createMaterials(dMaps,200);
 				cMaterials = this.createMaterials(cMaps,200);
-				dMaterials = this.createMaterials(dMaps,100);
+				dMaterials = this.createMaterials(dMaps,50);
 				eMaterials = this.createMaterials2(eMaps,100);
 			}
 
@@ -159,7 +170,7 @@
 		}
 		move(arr){
 				for(let i=0,len=arr.length; i<len; i++){
-					arr[i].move(100,100);
+					arr[i].move();
 				}
 		}
 		
@@ -274,8 +285,8 @@
 			if(num > 0){
 				for(let i=0; i<num; i++){
 					let point = {
-						x: this.randomInRange(-width/2,width/2),
-						y: this.randomInRange(-height/2,height/2)
+						x: this.randomInRange(-width2/2,width2/2),
+						y: this.randomInRange(-height2/2,height2/2)
 					}
 					arr.push(point);
 				}
@@ -424,19 +435,22 @@
 			document.body.appendChild(stats.domElement);
 		}
 		resize() {
-
-			width = canvasBox.offsetWidth;
+			width = canvasBox.offsetWidth;			
 			height = canvasBox.offsetHeight;
+			
+			width2 = window.innerWidth;
+			height2 = window.innerHeight;
+			console.log(width2,height2)
 			renderer.setSize(width, height);
 			renderer.setPixelRatio(window.devicePixelRatio);
 			camera.aspect = width / height;
 			camera.updateProjectionMatrix();
-			cameraScale = width/height;
-			if(cameraScale>2.1){
-				camera.position.z = 900/(cameraScale/2)
-			}else{
-				camera.position.z = 900;
-			}
+//			cameraScale = width/height;
+//			if(cameraScale>2.1){
+//				camera.position.z = 900/(cameraScale/2)
+//			}else{
+//				camera.position.z = 900;
+//			}
 //			camera.position.z = width*cameraScale;
 			if(!isResize && (tempHeight < height || tempWidth < width)){
 				me.clearScene();

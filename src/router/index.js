@@ -13,7 +13,7 @@ import Contacts from '@/components/contacts/Contacts'
 import Treepic from '@/components/common/treepic'
 import Spacepic from '@/components/common/spacepic'
 import Particlepic from '@/components/common/particlepic'
-
+import TreeMobile from '@/components/common/TreeMobile'
 Vue.use(Router)
 
 export default new Router({
@@ -55,6 +55,15 @@ export default new Router({
 			name: 'products',
 			component: Products
 			
+		},
+		{
+			path: '/projectsMobile',
+			name: 'projectsMobile',
+			components: {
+				default: Projects,
+				tree: TreeMobile,
+				treepic:Treepic
+			}
 		},
 		{
 			path: '/projects',

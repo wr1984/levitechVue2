@@ -3,10 +3,8 @@
 					"0% 100%", "10% 100%", "0% 50%", "0% 100%", "90% 100%", "100% 60%", "90% 100%", "0% 100%", "0% 100%","10% 100%","100% 100%","0% 100%","0% 100%","100% 90%","100% 80%","100% 100%","0% 100%"];
 	var hdOringin = ["50% 50%", "50% 50%","50% 50%", "50% 50%"];
 
-//	
 	var embed = document.getElementById('tree_bg');
-
-		
+	
 	var	svg_yz = embed.getSVGDocument().getElementById('svg');
 		
 
@@ -22,11 +20,10 @@
 //			hd.grow(0.1, 0.1);
 		});
 
-		
 //===========================定时摇摆============================================
 	setTimeout(function(){  
 	        sucai1Arr.forEach(function(yz){
-	        	if(Math.random() > 0.6){
+	        	if(Math.random() > 0.7){
 	        		yz.shake();
 	        	}
 	        });
@@ -35,8 +32,8 @@
 	        		hd.fall();
 	        	}
 	        });
-	        setTimeout(arguments.callee, 5000);        
-	 }, 5000);  
+	        setTimeout(arguments.callee, 10000);        
+	 }, 10000);  
 
 	var treeBox = document.querySelector('.logo');
 	treeBox.addEventListener('mousedown',mousemoveEvent,true);
@@ -45,7 +42,7 @@
 		if(tag){
 			tag = false;
 			sucai1Arr.forEach(function(yz){
-				if(Math.random() > 0.5){
+				if(Math.random() > 0.7){
 					yz.shake();
 				}
 			});
@@ -136,7 +133,7 @@
 				onCompleteParams: [this]
 			});
 			t.to([this.el, this.el2], 10, {
-					y: 1811,
+					y: 1800,
 				})
 				.to([this.el, this.el2], 15, {
 					x: randomInRange(15,50) * temp[Math.round(Math.random())],

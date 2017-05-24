@@ -79,17 +79,17 @@ var BroswerUtil = {  
 	  CurrentSystem: (function() {    
 		var system = {      
 			win: false,
-			      mac: false,
-			      xll: false,
-			      iphone: false,
-			      ipoad: false,
-			      ipad: false,
-			      ios: false,
-			      android: false,
-			      nokiaN: false,
-			      winMobile: false,
-			      wii: false,
-			      ps: false    
+			mac: false,
+			xll: false,
+			iphone: false,
+			ipoad: false,
+			ipad: false,
+			ios: false,
+			android: false,
+			nokiaN: false,
+			winMobile: false,
+			wii: false,
+			ps: false    
 		};    
 		var ua = navigator.userAgent;     // 检测平台
 		    
