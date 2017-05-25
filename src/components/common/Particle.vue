@@ -1,8 +1,12 @@
 <template>
 	<div class="particle">
+			<!--<div class="loading" v-show = 'isLoading'>
+				<span class="loading-anim">LOADING . . .</span>
+			</div>-->
+		<loading v-show = 'isLoading'></loading>
 		<div id="canvasBox">
 			<canvas id="canvas"></canvas>
-			<div class = "logo">
+			<div class = "logo" v-show = '!isLoading'>
 				<img src="static/img/cloud/text.png"/>	
 			</div>
 		</div>
@@ -10,13 +14,18 @@
 </template>
 
 <script>
+	import loading from '@/components/common/loading'
 	export default {
 		name: 'particle',
 		data() {
 			return {
 				threeR74: null,
 				cloud: null,
+				isLoading:true
 			}
+		},
+		components: {
+			loading,
 		},
 		beforeCreate(){
 		},
@@ -28,21 +37,25 @@
 		},
 		mounted() {
 			var me = this;
-			
-//			setTimeout(function() {
+
+			setTimeout(function() {
 				me.cloud = document.createElement('script');
 				me.cloud.type = "text/javascript";
 				me.cloud.src = "./static/cloud.js";
 				document.body.appendChild(me.cloud);
-//			}, 0)
+			}, 0)
+			
+			var stl = setInterval(function(){
+				if(!window.paticleIsLoading){
+					me.isLoading = false;
+					window.paticleIsLoading = true;
+					clearInterval(stl)
+				}
+			},200);
 		},
 		beforeDestroy() {
 			window.cancelAnimationFrame(window._animation);
 			var me = this;
-			//	console.log('destroyed')
-//			if(me.threeR74) {
-//				me.threeR74.remove();
-//			}
 			if(me.cloud) {
 				me.cloud.remove();
 			}
@@ -66,6 +79,8 @@ canvas{
 #canvasBox{
 	height: 100%;
 	width: 100%;
+	top: 0;
+	left: 0;
 	position: relative;
 }
 

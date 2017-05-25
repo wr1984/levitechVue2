@@ -69,7 +69,7 @@
 
 			if(tool.CurrentSystem.system.iphone || tool.CurrentSystem.system.android){
 				camera.position.z = 700;
-				console.log("mobile")
+//				console.log("mobile")
 			}else{
 				camera.position.z = 900;
 			}
@@ -139,6 +139,8 @@
 			dArr = this.createSpriteGroup2("d",dMaterials, size, 10);
 //			eArr = this.createSpriteGroup2("e",eMaterials, size);
 			eArr = this.createMeshGroup2(eMaterials, size);
+			
+			window.spaceIsLoading = false;
 		}
 		
 		showAll(){
@@ -440,7 +442,7 @@
 			
 			width2 = window.innerWidth;
 			height2 = window.innerHeight;
-			console.log(width2,height2)
+//			console.log(width2,height2)
 			renderer.setSize(width, height);
 			renderer.setPixelRatio(window.devicePixelRatio);
 			camera.aspect = width / height;
