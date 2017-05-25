@@ -63,7 +63,6 @@
 		data (){
 			return{
 				width:0,
-				scollwidth:0,
 				conStyle:{
 					width:"0px !important"
 				},
@@ -74,39 +73,28 @@
 		mounted(){
 			var me = this;
 //			var headertpl = document.getElementById('headertpl');
-//			console.log(headertpl.offsetWidth)
-			
 //			this.width = headertpl.offsetWidth;
 			this.width = window.innerWidth;
-			me.scollwidth = me.width - document.body.offsetWidth;
 			if(this.width < 768){
-				this.conStyle.width = (this.width-30-me.scollwidth) + 'px !important';
+				this.conStyle.width = (this.width-30) + 'px !important';
 			}else{
-				this.conStyle.width = (this.width-100-me.scollwidth) + 'px !important';
+				this.conStyle.width = (this.width-100) + 'px !important';
 			}
 			
 			
-			window.addEventListener('resize',this.resizeEvent);
+			window.addEventListener('resize',function(){
+				me.width = window.innerWidth;
+				if(me.width < 768){
+					me.conStyle.width = (me.width-30) + 'px !important';
+				}else{
+					me.conStyle.width = (me.width-100) + 'px !important';
+				}
+			})
 			
-			setTimeout(function(){
-				me.resizeEvent();
-			},500)
 //			this.collapseDiv = $('#bs-example-navbar-collapse-1');
 //			$('.collapse').removeClass(ClassName.COLLAPSING)
 		},
 		methods:{
-			resizeEvent(){
-				var me = this;
-				me.width = window.innerWidth;
-				if(document.body.offsetWidth){
-					me.scollwidth = me.width - document.body.offsetWidth;
-				}
-				if(me.width < 768){
-					me.conStyle.width = (me.width-30-me.scollwidth) + 'px !important';
-				}else{
-					me.conStyle.width = (me.width-100-me.scollwidth) + 'px !important';
-				}
-			},
 			collapse(){
 				$('.collapse').collapse('hide');
 //				$('.collapse').hide();
@@ -149,20 +137,14 @@
 	padding-left: 0 !important;
 }
 .navbar-toggle {
-	background-color: #EBEBEB ;
-	padding: 5px 10px ;
-	margin-top: 14px ;
-	border: 1px solid transparent;
-    border-radius: 4px;
+	background-color: #EBEBEB !important;
+	padding: 5px 10px !important;
+	margin-top: 14px !important;
 }
 
 .navbar-toggle>.icon-bar {
 	height: 1px !important;
 	background-color: #333333;
-	    display: block;
-    width: 22px;
-    height: 2px;
-    border-radius: 1px;
 }
 
 .navbar-brand>img {

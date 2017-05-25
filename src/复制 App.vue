@@ -1,58 +1,24 @@
 <template>
 	<div id="app">
-		<div class="container-fluid " :style="containerStyle">
-			<div id="header" >
-				<div class="row" style="height: 50px; background-color: red;">
-					<div class="col-md-2 col-sm-4">
-						<a class="navbar-brand" href="#"> 
-							<img alt="Brand" src="static/img/logo.png" style="height: 20px; margin-left: -30px;"> 
-						</a>
+		<div class="container-fluid ">
+			<!--<div id="header" :style="heanderStyle">-->
+				<!--<vheader></vheader>-->
+				
+			<!--</div>-->
+				<div class="animContent" >
+					<div id="header" >
+						<div class="row" style="height: 50px; background-color: red;margin: 0 35px;">
+							<div class="col-md-2">
+								1111111111111111111
+							</div>
+							<div class="col-md-8">
+								111111111111111111111111111111111111111111111111111
+							</div>
+							<div class="col-md-2">
+								11111111111111111
+							</div>
+						</div>
 					</div>
-					<div class="col-md-8 col-sm-4" >
-							<ul  id="navmenu" class="nav navbar-nav nav-center" style="margin-right: -50%;">
-								<li class="active" @click="collapse">
-									<!--<a href="#top">Top <span class="sr-only">(current)</span></a>-->
-									<router-link :to="{ name: 'top' }">Top<span class="sr-only">(current)</span></router-link>
-								</li>
-								<li @click="collapse">
-									<router-link :to="{ name: 'about' }">About</router-link>
-								</li>
-								<li @click="collapse">
-									<router-link :to="{ name: 'products'}">Products</router-link>
-								</li>
-								<li @click="collapse">
-									<router-link :to="{ name: 'projects'}">Projects</router-link>
-								</li>
-								<li @click="collapse">
-									<router-link :to="{ name: 'clients'}">Clients</router-link>
-								</li>
-								<li @click="collapse">
-									<router-link :to="{ name: 'recruitment'}">Recruitment</router-link>
-								</li>
-								<li @click="collapse">
-									<router-link :to="{ name: 'contacts'}">Contacts</router-link>
-								</li>
-							</ul>
-					</div>
-				<div class="col-md-2 col-sm-4" >
-					<ul id="navmenu" class="mynav navbar-right" style="margin-right: -30px;">
-						<li @click="collapse">
-							<a href="#">Cn/En</a>
-						</li>
-						<li @click="collapse">
-							<a href="#">SEARCH</a>
-						</li>
-					</ul>
-					<button id="toggleBtn" class="pull-right navbar-toggle-btn" type="button" >
-						<!--<span class="sr-only" style="border: 1px silver solid;">Toggle navigation</span>-->				        
-						<span class="icon-bar icon-bar1"></span>				        
-						<span class="icon-bar icon-bar1"></span>				        
-						<span class="icon-bar icon-bar3"></span>				     
-					</button>						
-					</div>
-					
-				</div>
-			</div>
 				
 				<div class="pull-left" :style="sideStyle">
 					<img :style="attentionStyle" class="attention" src="static/img/attention.png" />
@@ -101,9 +67,6 @@
 				h:0,
 				w:0,
 				scollbarWidth:0,
-				containerStyle:{
-					padding:'0 65px'
-				},
 				animContent:{
 					width:'0px'
 				},
@@ -133,8 +96,6 @@
 			vheader,
 		},
 		mounted(){
-			var row = document.querySelector('.row');
-			console.log(row.offsetWidth)
 			var me = this;
 			me.h = window.innerHeight;
 			me.w = window.innerWidth;
@@ -142,9 +103,6 @@
 
 				me.scollbarWidth = me.w - document.body.offsetWidth;
 				if(me.w < 768){
-					me.containerStyle.padding = '0 30px';
-					
-					
 					me.sideStyle.width = '0px';
 					me.heanderStyle['margin-left'] = '0px';
 					me.animStyle.height = (me.h-65)+'px';
@@ -160,9 +118,6 @@
 					}else if(me.h > 1200){
 						me.h = 1200;
 					}
-					me.containerStyle.padding = '0 65px';
-					
-					
 					me.sideStyle.width = '35px';
 					me.heanderStyle['margin-left'] = '35px';
 					me.animStyle.height = (this.h-100)+'px';
@@ -196,9 +151,8 @@
 				var me = this;
 				me.w = window.innerWidth;
 				me.h = window.innerHeight;
+				console.log(me.scollbarWidth)
 				if(me.w < 768){
-					me.containerStyle.padding = '0 30px';
-					
 					me.sideStyle.width = '0px';
 					me.heanderStyle['margin-left'] = '0px';
 					me.animStyle.height = (me.h-65)+'px';
@@ -214,8 +168,6 @@
 					}else if(me.h > 1200){
 						me.h = 1200;
 					}
-					me.containerStyle.padding = '0 65px';
-					
 					me.sideStyle.width = '35px';
 					me.heanderStyle['margin-left'] = '35px';
 					me.animStyle.height = (me.h-100)+'px';
@@ -357,28 +309,26 @@
 			left: 50%;
 			-ms-transform: translate(-50%, 0%);
 			transform: translate(-50%, 0%);
-			/*margin-left: -50%;*/
-		}
-		#toggleBtn{
-			display: none;
 		}
 		/*#app{
 			font-size: 14px;
 		}*/
 	}
 	
+	@media (min-width:768px) {
+		hr {
+			display: none;
+		}
+	}
 	@media (max-width:768px) {
 		.indicators,.attention{
 			visibility: hidden;
 		}
-
  }
 	/*==========================宽度适配=============================*/
 	#app {
 		font-family: 'cond', '微软雅黑', 'Avenir', Helvetica, Arial, sans-serif;
-			.navbar-right{
-			display: none;
-		}	/*-webkit-font-smoothing: antialiased;
+		/*-webkit-font-smoothing: antialiased;
 		osx-font-smoothing: grayscale;*/
 		/*text-align: center;*/
 		color: #3c3c3c;
@@ -391,7 +341,7 @@
 	
 	#header {
 		/*position: relative;*/
-		height: 50px;
+		height: 51px;
 		/*width: 100%;*/
 	}
 	/*==========================header=============================*/
@@ -441,36 +391,4 @@
     /*left: 15px;*/
 }
 	/*==========================左右两侧 ===========================*/
-#toggleBtn {
-	background-color: transparent ;
-	padding: 5px 10px ;
-	margin-top: 10px ;
-	border: 1px solid transparent;
-    border-radius: 4px;
-}
-
-.navbar-toggle-btn>.icon-bar {
-	height: 1px ;
-	background-color: #333333;
-	display: block;
-    width: 22px;
-    border-radius: 1px;
-    margin-top: 4px;
-}
-
-.mynav>li{
-	display: inline-block;
-	list-style: none;
-	line-height: 50px;
-	float: left;
-}
-
-.mynav>li>a{
-	padding: 0 15px;
-	color: #3c3c3c;
-	text-decoration: none;
-}
-.mynav>li:hover{
-	background-color: #C0C0C0;
-}
 </style>
