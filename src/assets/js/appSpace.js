@@ -1,5 +1,5 @@
 	import Star from '@/assets/js/star';
-	
+	import tool from '@/assets/js/tool'
 //	console.log(new Star)
 	var canvas;
 	var camera;
@@ -35,8 +35,10 @@
 	var attention;
 	var screenW;
 	var canvasBox;
-	
 	var cameraScale;
+	var allArr; 
+	var width2;
+	var height2;
 	class App {
 		constructor() {
 			this.init();
@@ -49,25 +51,34 @@
 			canvasBox = document.getElementById('canvasBox');
 			canvas = document.getElementById('canvas');
 			width = canvasBox.offsetWidth;
-			height = canvasBox.offsetHeight;
+			height = canvasBox.offsetHeight
+			width2 = window.innerWidth;
+			height2 = window.innerHeight;
 			tempHeight = height;
 			tempWidth = width;
 			
-			scene = new THREE.Scene();
+			scene = new THREE2.Scene();
 
-			camera = new THREE.PerspectiveCamera(45, width / height, 1, 1500);
+			camera = new THREE2.PerspectiveCamera(45, width / height, 1, 1500);
 //			console.log(width/height);
-			cameraScale = width/height;
-			if(cameraScale>2.1){
-				camera.position.z = 900/(cameraScale/2)
+//			cameraScale = width/height;
+//			if(cameraScale>2.1){
+//				camera.position.z = 900/(cameraScale/2)
+//			}else{
+//			}
+
+			if(tool.CurrentSystem.system.iphone || tool.CurrentSystem.system.android){
+				camera.position.z = 700;
+//				console.log("mobile")
 			}else{
 				camera.position.z = 900;
 			}
 			
+			
 			camera.lookAt(scene.position);
 			scene.add(camera);
 
-			renderer = new THREE.WebGLRenderer({
+			renderer = new THREE2.WebGLRenderer({
 				canvas:canvas
 			});
 			renderer.setClearColor(0x343434);
@@ -76,59 +87,80 @@
 
 //			controls = new Controls(camera, renderer.domElement);
 
-			textureLoader = new THREE.TextureLoader();
+			textureLoader = new THREE2.TextureLoader();
 			//加载mapping
 			//			yuanquanMaps = this.createMappings('yuanquan',12);
 			aMaps = this.createMappings('a',16)
 			bMaps = this.createMappings('b', 16);
 			cMaps = this.createMappings('c', 12);
-			dMaps = this.createMappings('d', 12);
+			dMaps = this.createMappings('d', 20);
 			eMaps = this.createMappings('e',9);
 			//初始化starts
 			this.initStars();
-
+			allArr = [aArr,bArr,cArr,dArr,eArr];
 //			canvas.appendChild(renderer.domElement);
 			window.addEventListener('resize', this.resize, false);
 //			renderer.domElement.addEventListener('mousemove', this.onMouseMove, false);
 			renderer.render(scene,camera);
-			this.move(aArr);
-			this.move(bArr);
-			this.move(cArr);
-			this.move(dArr);
-			this.move(eArr);
-			
-			
+//			this.move(aArr);
+//			this.move(bArr);
+//			this.move(cArr);
+//			this.move(dArr);
+//			this.move(eArr);
+			this.showAll();
+//			this.moveAll();
 			this.resize();
 		}
 		initStars(){
 			if(width < 420){
 				aMaterials = this.createMaterials(aMaps,50);
-				bMaterials = this.createMaterials(dMaps,100);
-				cMaterials = this.createMaterials(cMaps,100);
+				bMaterials = this.createMaterials(dMaps,50);
+				cMaterials = this.createMaterials(cMaps,50);
 				dMaterials = this.createMaterials(dMaps,25);
 				eMaterials = this.createMaterials2(eMaps,25);
 			}else if(width < 768 ){
 				aMaterials = this.createMaterials(aMaps,100);
-				bMaterials = this.createMaterials(dMaps,150);
-				cMaterials = this.createMaterials(cMaps,150);
+				bMaterials = this.createMaterials(dMaps,100);
+				cMaterials = this.createMaterials(cMaps,100);
 				dMaterials = this.createMaterials(dMaps,50);
 				eMaterials = this.createMaterials2(eMaps,50);
 			}else{
-				aMaterials = this.createMaterials(aMaps,150);
+				aMaterials = this.createMaterials(aMaps,200);
 				bMaterials = this.createMaterials(dMaps,200);
 				cMaterials = this.createMaterials(cMaps,200);
 				dMaterials = this.createMaterials(dMaps,50);
-				eMaterials = this.createMaterials2(eMaps,50);
+				eMaterials = this.createMaterials2(eMaps,100);
 			}
 
 			
-			aArr = this.createSpriteGroup2("a",aMaterials, size);
-			bArr = this.createSpriteGroup2("b",bMaterials, size);
-			cArr = this.createSpriteGroup2("c",cMaterials, size);
-			dArr = this.createSpriteGroup2("d",dMaterials, size);
+			aArr = this.createSpriteGroup2("a",aMaterials, size, 10);
+			bArr = this.createSpriteGroup2("b",bMaterials, size, 10);
+			cArr = this.createSpriteGroup2("c",cMaterials, size, 10);
+			dArr = this.createSpriteGroup2("d",dMaterials, size, 10);
 //			eArr = this.createSpriteGroup2("e",eMaterials, size);
 			eArr = this.createMeshGroup2(eMaterials, size);
+			
+			window.spaceIsLoading = false;
 		}
+		
+		showAll(){
+			let me = this;
+			for(let i=0; i<5; i++){
+				allArr[i].forEach(function(item){
+					item.move();
+				})
+			}
+		}
+		moveAll(){
+			let me = this;
+			for(let i=0; i<5; i++){
+				allArr[i].forEach(function(item){
+					item.randomMove(100,100,20);
+				})
+			}
+		}
+		
+		
 		
 		clearScene(){
 			var temp = [aArr,bArr,cArr,dArr,eArr];
@@ -176,7 +208,7 @@
 		}
 		shuangxingSystem(){
 			let temp = this.randomInRange(0,xingqiumaterials.length-2);
-			let sxGroup = new THREE.Group();
+			let sxGroup = new THREE2.Group();
 			let sxMatArr = [xingqiumaterials[temp],xingqiumaterials[temp+1]];
 			let sxSpriteArr = this.createSpriteGroup2('sx',sxMatArr,size);
 			for(let i=0; i<2; i++){
@@ -199,13 +231,14 @@
 		createMeshGroup2(materials,size) {
 			let arr = [];
 			for(let i = 0, len = materials.length; i < len; i++) {
-				let mesh = new THREE.Mesh(new THREE.CircleGeometry(10,32), materials[i]);
+				let mesh = new THREE2.Mesh(new THREE2.CircleGeometry(10,32), materials[i]);
 				mesh.position.x = Math.random() * width - width / 2;
 				mesh.position.y = Math.random() * height - height / 2;
 				mesh.position.z = 0;
 				let star = new Star({
 					mesh:mesh,
-					name:"e"
+					name:"e",
+					pos:mesh.position
 				});
 				arr.push(star);
 				scene.add(mesh);
@@ -214,10 +247,10 @@
 		}
 
 		createMeshGroup(controlArr, spriteSize) {
-			let group = new THREE.Group();
+			let group = new THREE2.Group();
 			for(let i = 0; i < controlArr.length; i++) {
 				let size = this.randomInRange(4, 15)
-				let mesh = new THREE.Mesh(new THREE.CylinderGeometry(size, size, 2, 32), new THREE.MeshBasicMaterial({
+				let mesh = new THREE2.Mesh(new THREE2.CylinderGeometry(size, size, 2, 32), new THREE2.MeshBasicMaterial({
 					opacity: 1,
 					transparent: true,
 					color: colorArr[this.randomInRange(0, 2)]
@@ -235,10 +268,10 @@
 		 * @param {Number} 	spriteSize	sprite的尺寸
 		 */
 		createSpriteGroup(materialArr, controlArr, spriteSize, biggerArr, biggerScale) {
-			let group = new THREE.Group();
+			let group = new THREE2.Group();
 			for(let i = 0; i < controlArr.length; i++) {
 				let pos = Math.floor(Math.random() * materialArr.length)
-				let sprite = new THREE.Sprite(materialArr[pos]);
+				let sprite = new THREE2.Sprite(materialArr[pos]);
 				if(biggerArr && biggerArr.indexOf(pos) > 0) {
 					sprite.scale.set(spriteSize * biggerScale, spriteSize * biggerScale, spriteSize * biggerScale);
 				} else {
@@ -249,46 +282,43 @@
 			}
 			return group;
 		}
-		
-		createSpriteGroup2(name,materialArr, spriteSize, biggerArr, biggerScale,x,y,dd2Type) {
+		randomPoint(num){
 			let arr = [];
-			
-			for(let i = 0; i < materialArr.length; i++) {
-				let sprite = new THREE.Sprite(materialArr[i]);
-				
-				if(name === "diandian2"){
-					if(dd2Type === 1){
-						sprite.position.x = this.randomInRange(x-100,x+100);
-						sprite.position.y = this.randomInRange(y-100,y+100);
-						sprite.position.z = 0;
-					}else{
-						sprite.position.x = this.randomInRange(x-100,x+100);
-						sprite.position.y = y;
-						sprite.position.z = 0;
+			if(num > 0){
+				for(let i=0; i<num; i++){
+					let point = {
+						x: this.randomInRange(-width2/2,width2/2),
+						y: this.randomInRange(-height2/2,height2/2)
 					}
-				}else{
-					sprite.position.x = Math.random() * width - width / 2;
-					sprite.position.y = Math.random() * height - height / 2;
-					sprite.position.z = 0;
+					arr.push(point);
 				}
+			}
+			return arr;
+		}
+		
+		
+		createSpriteGroup2(name,materialArr, spriteSize,pointNum) {
+			let arr = [];
+			let points = this.randomPoint(pointNum);
+//			console.log(points);
+			for(let i = 0; i < materialArr.length; i++) {
+				let sprite = new THREE2.Sprite(materialArr[i]);
+				let point = points[this.randomInRange(0,pointNum-1)];
+//				console.log(this.randomInRange(point.x-100,point.x+100))
+				let x = this.randomInRange(point.x-100,point.x+100);
+				let y = this.randomInRange(point.y-100,point.y+100);
+				sprite.position.x = x;
+				sprite.position.y = y;
+				sprite.position.z = 0;
 				
-				
-				if(name === "xingqiu"){
-					let temp = Math.random()+0.8;
-					sprite.scale.set(spriteSize * temp, spriteSize * temp, spriteSize * temp);
-				}else{
-					sprite.scale.set(spriteSize, spriteSize, spriteSize);
-				}
-				
-				
+				sprite.scale.set(spriteSize, spriteSize, spriteSize);
 				let star = new Star({
 					mesh:sprite,
-					name:name
+					name:name,
+					pos:sprite.position
 				})
 				arr.push(star);
-				if(name !== "sx"){
-					scene.add(sprite);
-				}
+				scene.add(sprite);
 			}
 			return arr;
 		}
@@ -340,7 +370,7 @@
 			let arr = [];
 			for(let i = 0; i < count; i++) {
 				let pos = Math.floor(Math.random() * mapArr.length)
-				let spriteMaterial = new THREE.SpriteMaterial({
+				let spriteMaterial = new THREE2.SpriteMaterial({
 					opacity: 1.0,
 					transparent: true,
 					map: mapArr[pos]
@@ -354,10 +384,10 @@
 			let arr = [];
 			for(let i = 0; i < count; i++) {
 				let pos = Math.floor(Math.random() * mapArr.length)
-				let spriteMaterial = new THREE.MeshBasicMaterial({
+				let spriteMaterial = new THREE2.MeshBasicMaterial({
 					opacity: 1.0,
 					transparent: true,
-					side:THREE.DoubleSide,
+					side:THREE2.DoubleSide,
 					map: mapArr[pos],
 					depthWrite:false
 				});
@@ -378,7 +408,7 @@
 //			
 ////			console.log(e.clientX);
 ////			console.log(e.clientY);
-//			let vector = new THREE.Vector3(x - width / 2, -y + height / 2, 0);
+//			let vector = new THREE2.Vector3(x - width / 2, -y + height / 2, 0);
 //
 //			for(let i = 0; i < xingqiuControls.length; i++) {
 //				vector.z = xingqiuControls[i].position.z;
@@ -407,19 +437,22 @@
 			document.body.appendChild(stats.domElement);
 		}
 		resize() {
-
-			width = canvasBox.offsetWidth;
+			width = canvasBox.offsetWidth;			
 			height = canvasBox.offsetHeight;
+			
+			width2 = window.innerWidth;
+			height2 = window.innerHeight;
+//			console.log(width2,height2)
 			renderer.setSize(width, height);
 			renderer.setPixelRatio(window.devicePixelRatio);
 			camera.aspect = width / height;
 			camera.updateProjectionMatrix();
-			cameraScale = width/height;
-			if(cameraScale>2.1){
-				camera.position.z = 900/(cameraScale/2)
-			}else{
-				camera.position.z = 900;
-			}
+//			cameraScale = width/height;
+//			if(cameraScale>2.1){
+//				camera.position.z = 900/(cameraScale/2)
+//			}else{
+//				camera.position.z = 900;
+//			}
 //			camera.position.z = width*cameraScale;
 			if(!isResize && (tempHeight < height || tempWidth < width)){
 				me.clearScene();
@@ -434,13 +467,14 @@
 						me.move(cArr);
 						me.move(dArr);
 						me.move(eArr);
+//						me.showAll();
 					}
 				},0)
 			}
 		}
 
 		xingxingAnimat(t) {
-			//			xingxingGroup.scale.set(new THREE.Vector3(Math.sin(t),Math.sin(t),Math.sin(t)));
+			//			xingxingGroup.scale.set(new THREE2.Vector3(Math.sin(t),Math.sin(t),Math.sin(t)));
 			//			xingxingGroup.rotateZ(Math.pow((Math.sin(t)+1)/2,4));
 			for(let i = 0; i < xingxingArr.length; i++) {
 				if(Math.random() > 0.99) {

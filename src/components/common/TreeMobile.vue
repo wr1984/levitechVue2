@@ -1,14 +1,15 @@
 <template>
 	<div class="tree">
+
 		<div id="treebox">
 			<loading v-show = 'isLoading'></loading>
 			<div class="move" v-show = 'isShow'>
 				<div id="bg">
-					<img id="img_bg" height="100%" src="static/img/tree/10860x1811.jpg" />
+					<img id="img_bg" height="100%" src="static/img/tree/4605x768.jpg" />
 				</div>
 				<div id="svg">
-					<!--<embed id="tree_bg" :src="src" height="100%"></embed>-->
-					<embed id="tree_bg" src="static/img/tree/10860x1811.svg" height="100%"></embed>
+					<embed id="tree_bg" src="static/img/tree/4605x768.svg" height="100%"></embed>
+					<!--<embed id="tree_bg" src="" height="100%"></embed>-->
 				</div>
 			</div>
 			<div class="logo" v-show = 'isShow'>
@@ -21,6 +22,7 @@
 //	import svg from './img/tree/10860x1811.svg';
 	import loading from '@/components/common/loading'
 	import TweenMax from "gsap";
+//	import PreLoad from '@/assets/js/preload';
 	export default {
 		name: 'tree',
 		data() {
@@ -50,12 +52,12 @@
 				me.tree.src = "static/tree.js";
 				document.body.appendChild(me.tree);
 			});
-			
 			img.onload = function(){
+//				setTimeout(function(){
 					me.isShow = true;
 					me.$nextTick(function(){
 						me.moveWidth = img.offsetWidth;
-						console.log(me.moveWidth)
+//						console.log(me.moveWidth)
 						me.move.style.width = me.moveWidth + 'px';
 						me.time = me.moveWidth/me.speed;
 						TweenMax.killTweensOf(me.move);
@@ -66,7 +68,7 @@
 							repeat:-1
 						})
 					})
-				
+//				},1000)
 			}
 			
 			window.addEventListener('resize',function(){
@@ -74,6 +76,8 @@
 					img.onload();
 				},0)
 			});
+			
+
 			
 //			setTimeout(function(){
 //				this.tree = document.createElement('script');
@@ -83,12 +87,16 @@
 //			},1000)
 		},
 		beforeDestroy() {
-			TweenMax.killTweensOf(this.move);
+			var me = this;
+			TweenMax.killTweensOf(me.move);
 			setTimeout(function(){
-				if(this.tree){
-					this.tree.remove();
+				if(me.tree){
+					me.tree.remove();
 				}
 			},0)
+		},
+		computed:{
+
 		},
 		beforeCreate(){
 			
@@ -134,7 +142,6 @@
 .tree{
 	height: 100%;
 }
-
 
 #treebox{
 	height: 100%;

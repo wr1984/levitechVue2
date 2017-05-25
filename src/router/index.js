@@ -10,7 +10,10 @@ import Projects from '@/components/projects/Projects'
 import Clients from '@/components/clients/Clients'
 import Recruitment from '@/components/recruitment/Recruitment'
 import Contacts from '@/components/contacts/Contacts'
-
+import Treepic from '@/components/common/treepic'
+import Spacepic from '@/components/common/spacepic'
+import Particlepic from '@/components/common/particlepic'
+import TreeMobile from '@/components/common/TreeMobile'
 Vue.use(Router)
 
 export default new Router({
@@ -37,7 +40,8 @@ export default new Router({
 			name: 'top',
 			components:{
 				default:Top,
-				particle:Particle
+				particle:Particle,
+				particlepic:Particlepic
 			},
 //			meta: {keepAlive: true}
 		},
@@ -53,11 +57,21 @@ export default new Router({
 			
 		},
 		{
+			path: '/projectsMobile',
+			name: 'projectsMobile',
+			components: {
+				default: Projects,
+				tree: TreeMobile,
+				treepic:Treepic
+			}
+		},
+		{
 			path: '/projects',
 			name: 'projects',
 			components: {
 				default: Projects,
-				tree: Tree
+				tree: Tree,
+				treepic:Treepic
 			}
 		},
 		{
@@ -71,7 +85,8 @@ export default new Router({
 			name: 'recruitment',
 			components: {
 				default: Recruitment,
-				space: Space
+				space: Space,
+				spacepic:Spacepic
 			}
 			
 		},
