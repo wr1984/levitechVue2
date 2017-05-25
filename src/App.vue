@@ -141,14 +141,23 @@
 			vheader,
 		},
 		beforeCreate(){
+//		    '4k' : [64, 64, 0.29],
+//		    '8k' : [128, 64, 0.42],
+//		    '16k' : [128, 128, 0.48],
+//		    '32k' : [256, 128, 0.55],
+//		    '65k' : [256, 256, 0.6],
+//		    '131k' : [512, 256, 0.85],
 			
 		},
 		mounted() {
-//			if(tool.CurrentSystem.system.iphone || tool.CurrentSystem.system.android){
+			//tree暂时不做切换只用手机版
+			if(tool.CurrentSystem.system.iphone || tool.CurrentSystem.system.android){
 //				this.isMobile = true;
-//			}else{
+				window.particleAmount = '32k'
+			}else{
 //				this.isPC = true;
-//			}
+				window.particleAmount = '65k'
+			}
 			var me = this;
 			me.h = window.innerHeight;
 			me.w = window.innerWidth;
