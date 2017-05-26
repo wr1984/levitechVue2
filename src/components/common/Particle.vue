@@ -4,7 +4,9 @@
 				<span class="loading-anim">LOADING . . .</span>
 			</div>-->
 		<loading v-show='isLoading'></loading>
+		<div id="canvasBox" >
 			<canvas id="canvas"></canvas>
+			<div class="logo" v-show='!isLoading'>
 				<img src="static/img/cloud/text.png" />
 			</div>
 		</div>

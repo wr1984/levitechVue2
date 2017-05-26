@@ -82,7 +82,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="animContent" style="background-color: #343434;">
-								<div v-show='isLoading':style="animStyle" style="width: 100%; height: 100%; background-color: #343434; position: absolute; z-index: 999;">
+								<div class="loading-box" v-show='isLoading':style="animStyle" >
 									<loading ></loading>
 								</div>
 								<div :style="animStyle">
@@ -200,8 +200,12 @@
 					me.isLoading = false;
 					window.paticleIsLoading = true;
 					clearInterval(stl)
+					
+					console.log(me.isLoading)
 				}
 			}, 200);
+			
+			
 		},
 		methods: {
 			btnClikEvent() {
@@ -308,59 +312,7 @@
 		src: url(assets/fonts/DINPro-CondMedium.otf);
 	}
 	/*==========================自定义字体=============================*/
-	/*==========================宽度适配=============================*/
-	/*@media (min-width: 992px) {
-		.container {
-			width: 892px !important;
-		}
-	}
-	
-	@media (min-width: 1024px) {
-		.container {
-			width: 924px !important;
-		}
-	}
-	
-	@media (min-width: 1200px) {
-		.container {
-			width: 1100px !important;
-		}
-	}
-	
-	@media (min-width: 1280px) {
-		.container {
-			width: 1180px !important;
-		}
-	}
-	
-	@media (min-width: 1360px) {
-		.container {
-			width: 1260px !important;
-		}
-	}
-	
-	@media (min-width: 1440px) {
-		.container {
-			width: 1340px !important;
-		}
-	}
-	
-	@media (min-width: 1600px) {
-		.container {
-			width: 1500px !important;
-		}
-	}
-	
-	@media (min-width: 1920px) {
-		.container {
-			width: 1820px !important;
-		}
-	}
-	@media (min-width: 2048px) {
-	.container {
-		width: 1948px;
-	}
-}*/
+
 	@media only screen and (min-height:450px ) {
 		.navbar-fixed-top .navbar-collapse{
 			max-height:none !important;
@@ -383,7 +335,7 @@
 	}
 	
 	.logo>img {
-		width: 150px;
+		width: 220px;
 
 	}
 	
@@ -491,4 +443,11 @@
 		/*left: 15px;*/
 	}
 	/*==========================左右两侧 ===========================*/
+	
+	.loading-box{
+		width: 100%; 
+		background-color: #343434; 
+		position: absolute; 
+		z-index: 999;
+	}
 </style>

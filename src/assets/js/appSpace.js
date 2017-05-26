@@ -100,7 +100,7 @@
 			allArr = [aArr,bArr,cArr,dArr,eArr];
 //			canvas.appendChild(renderer.domElement);
 			window.addEventListener('resize', this.resize, false);
-			canvasBox.addEventListener('mousemove', this.onMouseMove, false);
+			canvasBox.addEventListener('click', this.onMouseClick, false);
 			renderer.render(scene,camera);
 //			this.move(aArr);
 //			this.move(bArr);
@@ -402,10 +402,8 @@
 			return Math.floor(Math.random() * (max - min + 1)) + min;
 		}
 
-		onMouseMove(e) {
-			let x = e.clientX;
-			let y = e.clientY;
-			console.log(x,y)
+		onMouseClick(e) {
+			
 		}
 
 		initStats() {
