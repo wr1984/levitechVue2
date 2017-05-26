@@ -100,7 +100,7 @@
 			allArr = [aArr,bArr,cArr,dArr,eArr];
 //			canvas.appendChild(renderer.domElement);
 			window.addEventListener('resize', this.resize, false);
-//			renderer.domElement.addEventListener('mousemove', this.onMouseMove, false);
+			canvasBox.addEventListener('mousemove', this.onMouseMove, false);
 			renderer.render(scene,camera);
 //			this.move(aArr);
 //			this.move(bArr);
@@ -403,29 +403,9 @@
 		}
 
 		onMouseMove(e) {
-//			let x = e.clientX;
-//			let y = e.clientY;
-//			
-////			console.log(e.clientX);
-////			console.log(e.clientY);
-//			let vector = new THREE2.Vector3(x - width / 2, -y + height / 2, 0);
-//
-//			for(let i = 0; i < xingqiuControls.length; i++) {
-//				vector.z = xingqiuControls[i].position.z;
-//				xingqiuControls[i].repulse(vector);
-//			}
-//			for(let i = 0; i < xingxingControls.length; i++) {
-//				vector.z = xingxingControls[i].position.z;
-//				xingxingControls[i].repulse(vector);
-//			}
-//			for(let i = 0; i < diandianControls.length; i++) {
-//				vector.z = diandianControls[i].position.z;
-//				diandianControls[i].repulse(vector);
-//			}
-//			for(let i = 0; i < yuanquanControls.length; i++) {
-//				vector.z = yuanquanControls[i].position.z;
-//				yuanquanControls[i].repulse(vector);
-//			}
+			let x = e.clientX;
+			let y = e.clientY;
+			console.log(x,y)
 		}
 
 		initStats() {
@@ -473,119 +453,13 @@
 			}
 		}
 
-		xingxingAnimat(t) {
-			//			xingxingGroup.scale.set(new THREE2.Vector3(Math.sin(t),Math.sin(t),Math.sin(t)));
-			//			xingxingGroup.rotateZ(Math.pow((Math.sin(t)+1)/2,4));
-			for(let i = 0; i < xingxingArr.length; i++) {
-				if(Math.random() > 0.99) {
-					xingxingArr[i].material.opacity = (Math.sin(t) + 1) / 2;
-				} else {
-					xingxingArr[i].material.opacity = (Math.cos(t) + 1) / 2;
-				}
-			}
-		}
-
-		spriteAnimat(t) {
-			let temp = Date.now();
-			for(let i = 0; i < diandianArr.length; i++) {
-				let diandian = diandianArr[i];
-				let dt = (temp-diandianControls[i].startTime);
-				let lt = diandianControls[i].lifeTime;
-				if(dt < lt){
-//					diandian.visible = true;
-//					diandianControls[i].isSport = true;
-					diandianControls[i].run(t);
-					diandian.position.copy(diandianControls[i].position);
-				}else if(dt > lt * this.randomInRange(1,3) ){
-//					if(Math.random()>0.0){diandian.visible = false;}
-//					diandianControls[i].isSport = false;
-					diandianControls[i].speed = this.randomInRange(-50,50)*0.2;
-					diandianControls[i].startTime = Date.now();
-					lt = this.randomInRange(10000,20000);
-				}
-				diandian.material.rotation += diandianControls[i].rotateRadians;
-				
-			}
-			for(let i = 0; i < xingxingArr.length; i++) {
-				let xingxing = xingxingArr[i];
-				let dt = temp-xingxingControls[i].startTime;
-				let lt = xingxingControls[i].lifeTime;
-				if(dt < lt){
-//					xingxing.visible = true;
-//					xingxingControls[i].isSport = true;
-					xingxingControls[i].run(t);
-					xingxingArr[i].position.copy(xingxingControls[i].position);
-					
-				}else if(dt > (lt  * this.randomInRange(1,3))){
-//					xingxing.visible = false;
-//					xingxingControls[i].isSport = false;
-					xingxingControls[i].speed = this.randomInRange(-50,50)*0.2;
-					xingxingControls[i].startTime = Date.now();
-					lt = this.randomInRange(10000,20000);
-				}
-				xingxingArr[i].material.rotation += xingxingControls[i].rotateRadians;
-			}
-			for(let i = 0; i < xingqiuArr.length; i++) {
-				let xingqiu = xingqiuArr[i];
-				let dt = (temp-xingqiuControls[i].startTime);
-				let lt = xingqiuControls[i].lifeTime;
-				if(dt < lt){
-//					xingqiu.visible = true;
-//					xingqiuControls[i].isSport = true;
-					xingqiuControls[i].run(t);
-					xingqiuArr[i].position.copy(xingqiuControls[i].position);
-				}else if(dt > lt * this.randomInRange(1,3) ){
-//					if(Math.random()>0.0){xingqiu.visible = false;}
-//					xingqiuControls[i].isSport = false;
-					xingqiuControls[i].startTime = Date.now();
-					xingqiuControls[i].speed =  this.randomInRange(-50,50)*0.2;
-					lt = this.randomInRange(10000,20000);
-				}
-				xingqiuArr[i].material.rotation += xingqiuControls[i].rotateRadians;
-			}
-			for(let i = 0; i < yuanquanArr.length; i++) {
-				let yuanquan = yuanquanArr[i];
-				let dt = temp-yuanquanControls[i].startTime;
-				let lt = yuanquanControls[i].lifeTime;
-				let rt = lt * this.randomInRange(1.5,3);
-				if(dt < lt){
-//					yuanquan.visible = true;
-//					yuanquanControls[i].isSport = true;
-					yuanquanControls[i].run(t);
-					yuanquan.position.copy(yuanquanControls[i].position);
-					yuanquan.rotation.z += yuanquanControls[i].rotateRadians * 3;
-//					yuanquan.rotation.y += yuanquanControls[i].rotateRadians * 2;
-				}else if(dt > lt  && dt < rt){
-					yuanquan.rotation.x += yuanquanControls[i].rotateRadians * 3;
-				}
-				else if(dt > rt){
-//					if(Math.random()>0.0){yuanquan.visible = false;}
-//					yuanquanControls[i].isSport = false;
-					yuanquanControls[i].startTime = Date.now();
-					yuanquanControls[i].lifeTime = this.randomInRange(10000,20000);
-					yuanquanControls[i].speed =  this.randomInRange(-50,50)*0.2;
-					
-				}
-//					yuanquan.rotation.y += yuanquanControls[i].rotateRadians * 2;
-
-			}
-		}
 		xqAnimat(){
 			for(let i= 0, len = xingqiuArr.length; i<len; i++){
 				xingqiuArr[i].flock(xingqiuArr);
 			}
 		}
 		update() {
-			
-//			me.xqAnimat();
-			
-//			stats.update();
-//			controls.update();
 			let t = Date.now() / 1000;
-			//			me.xingxingAnimat(t);
-			//			diandianGroup.rotation.x += 0.01;
-			//			xingqiuGroup.rotation.y += 0.01;
-//			me.spriteAnimat(t);
 			renderer.render(scene, camera);
 			window._spaceAnimation = window.requestAnimationFrame(me.update);
 		}

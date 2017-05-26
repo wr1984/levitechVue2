@@ -82,6 +82,9 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="animContent" style="background-color: #343434;">
+								<div v-show='isLoading':style="animStyle" style="width: 100%; height: 100%; background-color: #343434; position: absolute; z-index: 999;">
+									<loading ></loading>
+								</div>
 								<div :style="animStyle">
 									<router-view v-if="tree_anim" name='tree'></router-view>
 									<router-view v-if="space_anim" name='space'></router-view>
@@ -107,12 +110,14 @@
 </template>
 
 <script>
+	import loading from '@/components/common/loading'
 	import vheader from '@/components/common/header'
 	import tool from '@/assets/js/tool'
 	export default {
 		name: 'app',
 		data() {
 			return {
+				isLoading:true,
 				tree_anim: true,
 				tree_pic: false,
 				space_anim: true,
@@ -139,6 +144,7 @@
 		},
 		components: {
 			vheader,
+			loading
 		},
 		beforeCreate(){
 //		    '4k' : [64, 64, 0.29],
@@ -189,7 +195,13 @@
 				this.particle_pic = true;
 			}
 			
-
+			var stl = setInterval(function() {
+				if(!window.paticleIsLoading) {
+					me.isLoading = false;
+					window.paticleIsLoading = true;
+					clearInterval(stl)
+				}
+			}, 200);
 		},
 		methods: {
 			btnClikEvent() {

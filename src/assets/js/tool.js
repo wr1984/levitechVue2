@@ -169,7 +169,47 @@ var BroswerUtil = {  
 		return {      
 			system: system    
 		}  
-	})()
+	})(),
+	
+	loadScript:function(url,callback) {  
+		var script=document.createElement("script");  
+	    script.type="text/javascript";  
+		//IE    
+	    if(script.readyState) {  
+	        script.onreadystatechange=function()  
+	         {  
+	           if(script.readyState=='loaded'||script.onreadyState=='complele')  
+	           {  
+	              script.onreadystatechange=null;  
+	              callback && callback();  
+	           }  
+	         }  
+	     }
+	     //非IE  
+	     else {  
+	        script.onload=function()  
+	         {  
+	             callback && callback();  
+	         }  
+	     }  
+	  	script.src=url;  
+		document.body.appendChild(script);  
+	},
+	
+	unloadScript: function(urlArr){
+		var urls = (typeof urlArr  === 'string')?[urlArr]:urlArr;
+		var doms = document.getElementsByTagName('script');
+		for(let j=0;j<urls.length; j++){
+			var url = urls[j];
+			for(let i=0; i<doms.length;  i++){
+				var dom = doms[i];
+				var domSrc = dom.src;
+				if(domSrc.indexOf(url) != -1){
+					dom.remove();
+				}
+			}
+		}
+	}
 }
 
 export default BroswerUtil;
