@@ -403,6 +403,18 @@
 		}
 
 		onMouseClick(e) {
+//			let x = e.clientX-50;
+//			let y = e.clientY-50;
+//			
+//			canvasWidth = window.innerWidth-100;
+//			canvasHeight = window.innerHeight-100;
+//			console.log(x,y);
+//			let me = this;
+//			for(let i=0; i<5; i++){
+//				allArr[i].forEach(function(item){
+//					console.log(item.mesh.position)
+//				})
+//			}
 			
 		}
 
