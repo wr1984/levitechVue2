@@ -123,7 +123,7 @@
 </script>
 
 <style>
-	.navbar-collapse{
+	/*.navbar-collapse{
 		overflow-y: scroll;
 	}
 	
@@ -162,5 +162,5 @@
 	
 	.nav-bg {
 		background-color: white;
-	}
+	}*/
 </style>

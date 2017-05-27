@@ -3,10 +3,10 @@
 		<div id="canvasBox">
 			<loading v-show='isLoading'></loading>
 			<canvas id="canvas"></canvas>
+		</div>
 			<div class="logo" v-show='!isLoading'>
 				<img src="static/img/space/space-logo.png" />
 			</div>
-		</div>
 	</div>
 </template>
 
@@ -56,24 +56,31 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 	#canvas {
-		width: 100%;
-		height: 100%;
+		/*width: 100%;
+		height: 100%;*/
 		background-color: #343434;
 	}
 	
 	.space {
 		height: 100%;
-		/*position: relative;*/
+		width: 100%;
+		position: relative;
+		overflow: hidden;
 	}
 	
 	#canvasBox {
 		height: 100%;
 		width: 100%;
+		top:-50px;
+		/*margin: 0 auto;*/
 		position: relative;
+		left: 50%;
+		-ms-transform: translate(-50%, 0);
+		transform: translate(-50%, 0);
 		/*background-color: red;*/
 	}
 	
-	#canvasBox img {
+	.space img {
 		position: absolute;
 		top: 50%;
 		left: 50%;

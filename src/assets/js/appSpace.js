@@ -9,7 +9,7 @@
 	var width, height;
 	var me;
 //	var controls;
-	var size = 35;
+	var size = 30;
 	var aMaps, bMaps, cMaps, dMaps,eMaps;
 	var aMaterials, bMaterials, cMaterials, dMaterials,eMaterials;
 	var diandianGroup, xingxingGroup, xingqiuGroup, yuanquanGroup;
@@ -37,8 +37,10 @@
 	var canvasBox;
 	var cameraScale;
 	var allArr; 
-	var width2;
-	var height2;
+	
+	var screenWidth;
+	var screenHeight;
+	var canvasBox;
 	class App {
 		constructor() {
 			this.init();
@@ -47,15 +49,29 @@
 
 		init() {
 			me = this;
+			screenWidth = window.screen.availWidth;
+			screenHeight = window.screen.availHeight;
+			
 			
 			canvasBox = document.getElementById('canvasBox');
 			canvas = document.getElementById('canvas');
-			width = canvasBox.offsetWidth;
-			height = canvasBox.offsetHeight
-			width2 = window.innerWidth;
-			height2 = window.innerHeight;
-			tempHeight = height;
-			tempWidth = width;
+			canvasBox = document.getElementById('canvasBox');
+			
+			width = screenWidth ;
+			height = screenHeight;
+
+			if(width < height){
+				width = height;
+			}else{
+				height = width;
+			}
+			
+			canvas.style.width = width + 'px';
+			canvas.style.height = height + 'px';
+			canvasBox.style.width = width + 'px';
+			canvasBox.style.height = height + 'px';
+//			tempHeight = height;
+//			tempWidth = width;
 			
 			scene = new THREE2.Scene();
 
@@ -69,9 +85,9 @@
 
 			if(tool.CurrentSystem.system.iphone || tool.CurrentSystem.system.android){
 				camera.position.z = 700;
-//				console.log("mobile")
+				console.log("mobile")
 			}else{
-				camera.position.z = 900;
+				camera.position.z = 1400;
 			}
 			
 			
@@ -109,21 +125,21 @@
 //			this.move(eArr);
 			this.showAll();
 //			this.moveAll();
-			this.resize();
+//			this.resize();
 		}
 		initStars(){
 			if(width < 420){
+				aMaterials = this.createMaterials(aMaps,25);
+				bMaterials = this.createMaterials(dMaps,25);
+				cMaterials = this.createMaterials(cMaps,25);
+				dMaterials = this.createMaterials(dMaps,25);
+				eMaterials = this.createMaterials2(eMaps,25);
+			}else if(width < 768 ){
 				aMaterials = this.createMaterials(aMaps,50);
 				bMaterials = this.createMaterials(dMaps,50);
 				cMaterials = this.createMaterials(cMaps,50);
 				dMaterials = this.createMaterials(dMaps,25);
 				eMaterials = this.createMaterials2(eMaps,25);
-			}else if(width < 768 ){
-				aMaterials = this.createMaterials(aMaps,100);
-				bMaterials = this.createMaterials(dMaps,100);
-				cMaterials = this.createMaterials(cMaps,100);
-				dMaterials = this.createMaterials(dMaps,50);
-				eMaterials = this.createMaterials2(eMaps,50);
 			}else{
 				aMaterials = this.createMaterials(aMaps,200);
 				bMaterials = this.createMaterials(dMaps,200);
@@ -287,8 +303,8 @@
 			if(num > 0){
 				for(let i=0; i<num; i++){
 					let point = {
-						x: this.randomInRange(-width2/2,width2/2),
-						y: this.randomInRange(-height2/2,height2/2)
+						x: this.randomInRange(-width/2,width/2),
+						y: this.randomInRange(-height/2,height/2)
 					}
 					arr.push(point);
 				}
@@ -427,40 +443,29 @@
 			document.body.appendChild(stats.domElement);
 		}
 		resize() {
-			width = canvasBox.offsetWidth;			
-			height = canvasBox.offsetHeight;
-			
-			width2 = window.innerWidth;
-			height2 = window.innerHeight;
-//			console.log(width2,height2)
-			renderer.setSize(width, height);
-			renderer.setPixelRatio(window.devicePixelRatio);
-			camera.aspect = width / height;
-			camera.updateProjectionMatrix();
-//			cameraScale = width/height;
-//			if(cameraScale>2.1){
-//				camera.position.z = 900/(cameraScale/2)
-//			}else{
-//				camera.position.z = 900;
+//			width = canvasBox.offsetWidth;			
+//			height = canvasBox.offsetHeight;
+//			
+//			renderer.setSize(width, height);
+//			renderer.setPixelRatio(window.devicePixelRatio);
+//			camera.aspect = width / height;
+//			camera.updateProjectionMatrix();
+//			if(!isResize && (tempHeight < height || tempWidth < width)){
+//				me.clearScene();
+//				isResize = true;
+//				
+//				setTimeout(function(){
+//					if(isResize){
+//						me.initStars();
+//						isResize = false;
+//						me.move(aArr);
+//						me.move(bArr);
+//						me.move(cArr);
+//						me.move(dArr);
+//						me.move(eArr);
+//					}
+//				},0)
 //			}
-//			camera.position.z = width*cameraScale;
-			if(!isResize && (tempHeight < height || tempWidth < width)){
-				me.clearScene();
-				isResize = true;
-				
-				setTimeout(function(){
-					if(isResize){
-						me.initStars();
-						isResize = false;
-						me.move(aArr);
-						me.move(bArr);
-						me.move(cArr);
-						me.move(dArr);
-						me.move(eArr);
-//						me.showAll();
-					}
-				},0)
-			}
 		}
 
 		xqAnimat(){
