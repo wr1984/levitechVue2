@@ -2,7 +2,7 @@
 	<div class="tree">
 		<div id="treebox">
 			<loading v-show = 'isLoading'></loading>
-			<div class="move" v-show = 'isShow'>
+			<div class="move" v-show = '!isLoading'>
 				<div id="bg">
 					<img id="img_bg" height="100%" src="static/img/tree/10860x1811.jpg" />
 				</div>
@@ -11,7 +11,7 @@
 					<embed id="tree_bg" src="static/img/tree/10860x1811.svg" height="100%"></embed>
 				</div>
 			</div>
-			<div class="logo" v-show = 'isShow'>
+			<div class="logo" v-show = '!isLoading'>
 				<img src="static/img/tree/tree-logo.png" />
 			</div>
 		</div>
@@ -31,7 +31,6 @@
 				speed:100,
 				time:60,
 				move:null,
-				isShow:false,
 				isLoading:true
 			}
 		},
@@ -52,7 +51,7 @@
 			});
 			
 			img.onload = function(){
-					me.isShow = true;
+					me.isLoading = false;
 					me.$nextTick(function(){
 						me.moveWidth = img.offsetWidth;
 						console.log(me.moveWidth)
@@ -107,11 +106,7 @@
 		deactivated (){
 		},
 		watch: {
-			isShow(){
-				if(this.isShow){
-					this.isLoading = false;
-				}
-			}
+
 		},
 		methods: {
 //			mousemoveEvent: function(e) {

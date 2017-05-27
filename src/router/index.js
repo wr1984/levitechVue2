@@ -63,7 +63,8 @@ export default new Router({
 				default: Projects,
 				tree: TreeMobile,
 				treepic:Treepic
-			}
+			},
+//			meta: {keepAlive: true}
 		},
 		{
 			path: '/projects',

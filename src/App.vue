@@ -32,42 +32,45 @@
 									</a>
 								</div>
 								<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-									<ul class="nav navbar-nav nav-center">
-										<li class="active" @click="collapse">
-											<!--<a href="#top">Top <span class="sr-only">(current)</span></a>-->
-											<router-link class='navanim' :to="{ name: 'top' }">Top<span class="sr-only">(current)</span></router-link>
-										</li>
-										<li @click="collapse">
-											<router-link class='navanim' :to="{ name: 'about' }">About</router-link>
-										</li>
-										<li @click="collapse">
-											<router-link class='navanim' :to="{ name: 'products'}">Products</router-link>
-										</li>
-										<li v-if='isPC' @click="collapse">
-											<router-link class='navanim' :to="{ name: 'projects'}">Projects</router-link>
-										</li>
-										<li v-if='isMobile' @click="collapse">
-											<router-link class='navanim' :to="{ name: 'projectsMobile'}">Projects</router-link>
-										</li>
-										<li @click="collapse">
-											<router-link class='navanim' :to="{ name: 'clients'}">Clients</router-link>
-										</li>
-										<li @click="collapse">
-											<router-link class='navanim' :to="{ name: 'recruitment'}">Recruitment</router-link>
-										</li>
-										<li @click="collapse">
-											<router-link class='navanim' :to="{ name: 'contacts'}">Contacts</router-link>
-										</li>
-									</ul>
-									<hr />
-									<ul class="nav navbar-nav navbar-right search">
-										<li @click="collapse">
-											<a class='navanim' href="#">Cn/En</a>
-										</li>
-										<li @click="collapse">
-											<a class='navanim' href="#">SEARCH</a>
-										</li>
-									</ul>
+									<div class = "navbar-menu">
+										<ul class="nav navbar-nav nav-center">
+											<li class="active" @click="collapse">
+												<!--<a href="#top">Top <span class="sr-only">(current)</span></a>-->
+												<router-link class='navanim' :to="{ name: 'top' }">Top<span class="sr-only">(current)</span></router-link>
+											</li>
+											<li @click="collapse">
+												<router-link class='navanim' :to="{ name: 'about' }">About</router-link>
+											</li>
+											<li @click="collapse">
+												<router-link class='navanim' :to="{ name: 'products'}">Products</router-link>
+											</li>
+											<li v-if='isPC' @click="collapse">
+												<router-link class='navanim' :to="{ name: 'projects'}">Projects</router-link>
+											</li>
+											<li v-if='isMobile' @click="collapse">
+												<router-link class='navanim' :to="{ name: 'projectsMobile'}">Projects</router-link>
+											</li>
+											<li @click="collapse">
+												<router-link class='navanim' :to="{ name: 'clients'}">Clients</router-link>
+											</li>
+											<li @click="collapse">
+												<router-link class='navanim' :to="{ name: 'recruitment'}">Recruitment</router-link>
+											</li>
+											<li @click="collapse">
+												<router-link class='navanim' :to="{ name: 'contacts'}">Contacts</router-link>
+											</li>
+										</ul>
+										<hr />
+										<ul class="nav navbar-nav navbar-right search">
+											<li @click="collapse">
+												<a class='navanim' href="#">Cn/En</a>
+											</li>
+											<li @click="collapse">
+												<a class='navanim' href="#">SEARCH</a>
+											</li>
+										</ul>
+																		
+									</div>
 								</div>
 								<!-- /.navbar-collapse -->
 							</div>
@@ -82,10 +85,10 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="animContent" style="background-color: #343434;">
-								<div class="loading-box" v-show='isLoading':style="animStyle" >
-									<loading ></loading>
-								</div>
 								<div :style="animStyle">
+									<!--<div class="loading-box" v-show='isLoading'style="height: 100%;" >
+										<loading ></loading>
+									</div>-->
 									<router-view v-if="tree_anim" name='tree'></router-view>
 									<router-view v-if="space_anim" name='space'></router-view>
 									<router-view v-if="particle_anim" name='particle'></router-view>
@@ -110,8 +113,8 @@
 </template>
 
 <script>
-	import loading from '@/components/common/loading'
-	import vheader from '@/components/common/header'
+//	import loading from '@/components/common/loading'
+//	import vheader from '@/components/common/header'
 	import tool from '@/assets/js/tool'
 	export default {
 		name: 'app',
@@ -126,8 +129,10 @@
 				particle_pic: false,
 				isMobile:true,
 				isPC:false,
+				navbarMenu:null,
 				h: 0,
 				w: 0,
+				
 				containerStyle: {
 					padding: '0 65px',
 				},
@@ -139,13 +144,15 @@
 				},
 				animStyle: {
 					height: '0px',
-				}
+				},
+				screenWidth:null,
+				screenHeight:null
 			}
 		},
-		components: {
-			vheader,
-			loading
-		},
+//		components: {
+//			vheader,
+//			loading
+//		},
 		beforeCreate(){
 //		    '4k' : [64, 64, 0.29],
 //		    '8k' : [128, 64, 0.42],
@@ -156,6 +163,20 @@
 			
 		},
 		mounted() {
+			var me = this;
+			me.screenWidth = window.screen.availWidth;
+			me.screenHeight = window.screen.availHeight;
+			
+			//屏幕高度小于下拉菜单高度时，出现滚动条，设置下载菜单最大高度为屏幕高度
+			me.navbarMenu = document.querySelector('.navbar-menu');
+//			if(me.screenHeight<467){
+//				navbarMenu.style.height = (me.screenHeight -50)+ 'px';
+//			}else{
+//				navbarMenu.style.height = '417px';
+//			}
+			
+			
+			
 			//tree暂时不做切换只用手机版
 			if(tool.CurrentSystem.system.iphone || tool.CurrentSystem.system.android){
 //				this.isMobile = true;
@@ -164,20 +185,20 @@
 //				this.isPC = true;
 				window.particleAmount = '65k'
 			}
-			var me = this;
 			me.h = window.innerHeight;
 			me.w = window.innerWidth;
-			if(me.w <= 768) {
+			if(me.w < 768) {
 				me.containerStyle.padding = '0 15px';
 				me.navContainerStyle.padding = '0 15px';
 				me.animStyle.height = (me.h - 65) + 'px';
 				me.sidebarStyle.top = (me.h / 2 - 50) + 'px';
+				setTimeout(function(){
+					me.menuResize()
+				},0);
 			} else {
 				if(me.h < 568) {
 					me.h = 568;
-				} else if(me.h > 1200) {
-					me.h = 1200;
-				}
+				} 
 
 				me.containerStyle.padding = '0 65px';
 				me.navContainerStyle.padding = '0 50px';
@@ -194,18 +215,6 @@
 				this.particle_anim = false;
 				this.particle_pic = true;
 			}
-			
-			var stl = setInterval(function() {
-				if(!window.paticleIsLoading) {
-					me.isLoading = false;
-					window.paticleIsLoading = true;
-					clearInterval(stl)
-					
-					console.log(me.isLoading)
-				}
-			}, 200);
-			
-			
 		},
 		methods: {
 			btnClikEvent() {
@@ -231,9 +240,33 @@
 					icon3.removeClass('icon-bar-anim3');
 				}
 			},
+			
+			menuResize(){
+				var me = this;
+				var sw = window.screen.availWidth;
+				var sh = window.screen.availHeight;				
+				//屏幕高度小于下拉菜单高度时，出现滚动条，设置下载菜单最大高度为屏幕高度
+				if(sh<467){
+					me.navbarMenu.style.height = (sh -50)+ 'px';
+				}else{
+					me.navbarMenu.style.height = '417px';
+				}
+
+			},
 
 			resizeEvent() {
+
 				var me = this;
+//				
+//				//屏幕高度小于下拉菜单高度时，出现滚动条，设置下载菜单最大高度为屏幕高度
+//				var navbarMenu = document.querySelector('.navbar-menu');
+//				if(me.screenHeight<467){
+//					console.log(navbarMenu)
+//					navbarMenu.style.height = (me.screenHeight -50)+ 'px';
+//				}else{
+//					navbarMenu.style.height = '417px';
+//				}
+				
 				me.w = window.innerWidth;
 				me.h = window.innerHeight;
 
@@ -242,17 +275,21 @@
 					me.navContainerStyle.padding = '0 15px';
 					me.animStyle.height = (me.h - 65) + 'px';
 					me.sidebarStyle.top = (me.h / 2 - 50) + 'px';
+					setTimeout(function(){
+						me.menuResize()
+					},0);
 				} else {
 					if(me.h < 568) {
 						me.h = 568;
-					} else if(me.h > 1200) {
-						me.h = 1200;
-					}
+					} 
 					me.containerStyle.padding = '0 65px';
 					me.navContainerStyle.padding = '0 50px';
 					me.animStyle.height = (me.h - 100) + 'px';
 					me.sidebarStyle.top = (me.h / 2 - 50) + 'px';
+					
+					me.navbarMenu.style.height = '50px';
 				}
+				
 			},
 			collapse() {
 				$('.collapse').collapse('hide');
@@ -265,7 +302,7 @@
 			},
 		},
 		beforeDestroy() {
-
+			
 		}
 	}
 </script>
@@ -276,21 +313,7 @@
 	}
 	/*==========================自定义字体=============================*/
 	
-	.navbar-toggle .icon-bar {
-		transition: all .5s;
-	}
-	
-	.navbar-toggle .icon-bar-anim1 {
-		transform: translateY(5px) rotateZ(45deg);
-	}
-	
-	.navbar-toggle .icon-bar-anim2 {
-		opacity: 0;
-	}
-	
-	.navbar-toggle .icon-bar-anim3 {
-		transform: translateY(-5px) rotateZ(-45deg);
-	}
+
 	
 	@font-face {
 		font-family: cond;
@@ -318,16 +341,16 @@
 			max-height:none !important;
 		}
 	}
-	@media only screen and (max-height:340px ) {
-		.navbar-fixed-top .navbar-collapse{
-			max-height:280px !important;
-		}
+	.navbar-fixed-top .navbar-collapse{
+		max-height:none !important;
 	}
-	@media only screen and (max-height:450px ) {
+	@media only screen and (max-height:340px ) {
+	}
+	/*@media only screen and (max-height:450px ) {
 		.navbar-fixed-top .navbar-collapse{
 			max-height:none ;
 		}
-	}
+	}*/
 	@media only screen and (min-width: 768px) {
 		.logo>img {
 			width: 320px !important;
@@ -449,5 +472,62 @@
 		background-color: #343434; 
 		position: absolute; 
 		z-index: 999;
+	}
+	
+	
+	/*============================header===========================*/
+	
+	.navbar-collapse{
+		overflow-y: scroll;
+	}
+	
+	/*#headertpl {
+		width: 100%;
+		height: 51px;
+	}*/
+	
+	/*.container {
+		padding-right: 0 !important;
+		padding-left: 0 !important;
+	}*/
+	
+	.navbar-toggle {
+		background-color: #EBEBEB !important;
+		padding: 5px 10px !important;
+		margin-top: 14px !important;
+	}
+	
+	.navbar-toggle .icon-bar {
+		height: 1px !important;
+		background-color: #333333;
+		transition: all .5s;
+	}
+	
+	.navbar-toggle .icon-bar-anim1 {
+		transform: translateY(5px) rotateZ(45deg);
+	}
+	
+	.navbar-toggle .icon-bar-anim2 {
+		opacity: 0;
+	}
+	
+	.navbar-toggle .icon-bar-anim3 {
+		transform: translateY(-5px) rotateZ(-45deg);
+	}
+	
+	.navbar-brand>img {
+		height: 20px;
+	}
+	
+	.navbar {
+		font-size: 16px;
+	}
+	
+	.nav>li>a {
+		color: #3c3c3c;
+	}
+	
+	.nav-bg {
+		background-color: white;
 	}
 </style>
