@@ -45,7 +45,7 @@
 												<router-link class='navanim' :to="{ name: 'products'}">Products</router-link>
 											</li>
 											<li v-if='isPC' @click="collapse">
-												<router-link class='navanim' :to="{ name: 'projects'}">Projects</router-link>
+												<router-link class='navanim'  :to="{ name: 'projects'}">Projects</router-link>
 											</li>
 											<li v-if='isMobile' @click="collapse">
 												<router-link class='navanim' :to="{ name: 'projectsMobile'}">Projects</router-link>
@@ -84,12 +84,12 @@
 				<div class="col-md-12">
 					<div class="row">
 						<div class="col-md-12">
-							<div class="animContent" style="background-color: #343434;">
+							<div class="animContent" @click="animClick" style="background-color: #343434;">
 								<div :style="animStyle">
 									<!--<div class="loading-box" v-show='isLoading'style="height: 100%;" >
 										<loading ></loading>
 									</div>-->
-									<router-view v-if="tree_anim" name='tree'></router-view>
+									<router-view  v-if="tree_anim" name='tree'></router-view>
 									<router-view v-if="space_anim" name='space'></router-view>
 									<router-view v-if="particle_anim" name='particle'></router-view>
 									<router-view v-if="tree_pic" name='treepic'></router-view>
@@ -146,7 +146,8 @@
 					height: '0px',
 				},
 				screenWidth:null,
-				screenHeight:null
+				screenHeight:null,
+				
 			}
 		},
 //		components: {
@@ -215,8 +216,52 @@
 				this.particle_anim = false;
 				this.particle_pic = true;
 			}
+			
+			
+			window.onload=function () {  
+		        document.addEventListener('touchstart',function (event) {  
+		            if(event.touches.length>1){  
+//		            	console.log(event.touches)
+		                event.preventDefault();  
+		            }  
+		        }); 
+		        var lastTouchEnd=0;  
+		        document.addEventListener('touchend',function (event) {  
+		            var now=(new Date()).getTime();  
+		            if(now-lastTouchEnd<=300){  
+		                event.preventDefault();  
+		            }  
+		            lastTouchEnd=now;  
+		        },false);
+		        
+		        window.treeImgBg = me.loadimg('static/img/tree/4605x768.jpg');
+//		        console.log(window.treeImgBg)
+
+//				if (window != top) top.location.href = location.href;
+//				$(window).resize(function(){ 
+//					console.log(document.body.clientHeight)
+//					if(document.body.clientHeight<600){ 
+//						alert("禁止缩放"); 
+//						window.resizeTo(document.body.clientHeight,300); 
+//					} 
+//				}); 
+		    }  
 		},
 		methods: {
+			loadimg(url){
+				var img = new Image();
+				img.src = url;
+				return img;
+//				img.onload = function(){
+//					console.log(img)
+//				}
+			},
+			animClick(){
+				var isExpanded = !!$('.collapse').attr("aria-expanded");
+				if(isExpanded){
+					this.collapse();
+				}
+			},
 			btnClikEvent() {
 				var btn = $('.navbar-toggle');
 				var expanded = btn.attr('aria-expanded');
@@ -529,5 +574,9 @@
 	
 	.nav-bg {
 		background-color: white;
+	}
+	
+	.navbar-right{
+		margin-right: 0 !important;
 	}
 </style>

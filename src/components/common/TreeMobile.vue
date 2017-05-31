@@ -5,7 +5,7 @@
 			<loading v-show = 'isLoading'></loading>
 			<div class="move" v-show = '!isLoading'>
 				<div id="bg">
-					<img id="img_bg" :style="fixHeight" src="static/img/tree/4605x768.jpg" />
+					<img id="img_bg" :style="fixHeight"  />
 				</div>
 				<div id="svg">
 					<!--<embed id="tree_bg" src="static/img/tree/4605x768.svg" height="100%"></embed>-->
@@ -48,6 +48,7 @@
 		created(){
 		},
 		mounted () {
+			
 			var me = this;
 			me.screenWidth = window.screen.availWidth;
 			me.screenHeight = window.screen.availHeight;
@@ -57,7 +58,12 @@
 			var img = document.getElementById('img_bg');
 			this.move = document.querySelector('.move');
 			
-			console.log(tool.CurrentSystem.system.ipad)
+			if(window.treeImgBg){
+				img.src = window.treeImgBg.src;
+			}else{
+				img.src = "static/img/tree/4605x768.jpg";
+			}
+//			console.log(tool.CurrentSystem.system.ipad)
 			
 			var isIpad = tool.CurrentSystem.system.ipad;
 			if(me.screenWidth > 768 && !isIpad){
@@ -65,7 +71,7 @@
 				me.speed = 100;
 				
 			}else{
-				me.speed = 80;
+				me.speed = 60;
 				if(me.screenWidth > me.screenHeight){
 					me.fixHeight.height = (me.screenWidth-50) + 'px';
 				}else{

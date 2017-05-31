@@ -2,7 +2,13 @@
 	var yzOrigin = ["0% 100%", "10% 100%", "0% 50%", "0% 100%", "90% 100%", "100% 60%", "90% 100%", "0% 100%", "0% 100%","10% 100%","100% 100%","0% 100%","0% 100%","100% 90%","100% 80%","100% 100%","0% 100%",
 					"0% 100%", "10% 100%", "0% 50%", "0% 100%", "90% 100%", "100% 60%", "90% 100%", "0% 100%", "0% 100%","10% 100%","100% 100%","0% 100%","0% 100%","100% 90%","100% 80%","100% 100%","0% 100%"];
 	var hdOringin = ["50% 50%", "50% 50%","50% 50%", "50% 50%"];
-
+	var screenHeight = window.screen.availHeight;
+	var screenWidth = window.screen.availWidth;
+	if(screenHeight<screenWidth){
+		screenHeight = screenWidth;
+	}
+	var fallSpeed = 100;
+	var fallTime = screenHeight*1.5/fallSpeed;
 	var embed = document.getElementById('tree_bg');
 	
 	var	svg_yz = embed.getSVGDocument().getElementById('svg');
@@ -125,23 +131,23 @@
 			if(this.isGrow || this.isFall) {
 				return
 			};
-
+			
 			this.isFall = true;
 			var temp = [-1, 1];
 			var t = new TimelineMax({
 				onComplete: this.reGrow,
 				onCompleteParams: [this]
 			});
-			t.to([this.el, this.el2], 10, {
-					y: 1800,
+			t.to([this.el, this.el2], fallTime, {
+					y: '+='+ screenHeight*1.5
 				})
-				.to([this.el, this.el2], 15, {
+				.to([this.el, this.el2], 25, {
 					x: randomInRange(15,50) * temp[Math.round(Math.random())],
 					ease: Elastic.easeOut.config(3, 0.1)
-				}, "-=9.8")
+				}, "-="+(fallTime-0.3))
 				.to([this.el, this.el2], 6, {
 					rotation: randomInRange(60, 360)* temp[Math.round(Math.random())],
-				}, "-=15")
+				}, "-=24")
 //				.to([this.el, this.el2], 6, {
 //					skewX:randomInRange(30, 360) * temp[Math.round(Math.random())] + 'deg',
 //				}, "-=15")
