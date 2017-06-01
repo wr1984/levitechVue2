@@ -81,6 +81,15 @@
 				})
 			}
 		}
+		
+		fall(x,y){
+//			TweenMax.killTweensOf(this.mesh.position);
+			TweenMax.to(this.mesh.position, 5,{
+				x: x,
+				y: y,
+				ease:Power2.easeOut
+			})
+		}
 				
 		move(){
 			

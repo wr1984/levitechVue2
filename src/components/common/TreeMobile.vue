@@ -84,6 +84,8 @@
 					me.$nextTick(function(){
 						me.moveWidth = img.offsetWidth;
 						me.move.style.width = me.moveWidth + 'px';
+						me.move.style.left = -(me.screenWidth-window.innerWidth)/2 + 'px';
+						me.move.style.top = -(me.screenHeight-window.innerHeight)/2 + 'px';
 						me.time = me.moveWidth/me.speed;
 						TweenMax.killTweensOf(me.move);
 						TweenMax.set(me.move,{x:0});
@@ -102,11 +104,11 @@
 				document.body.appendChild(me.tree);
 			});
 			
-//			window.addEventListener('resize',function(){
-//				setTimeout(function(){
-//					img.onload();
-//				},0)
-//			});
+			window.addEventListener('resize',function(){
+				
+				me.move.style.left = -(me.screenWidth-window.innerWidth)/2 + 'px';
+				me.move.style.top = -(me.screenHeight-window.innerHeight)/2 + 'px';
+			});
 			
 
 			

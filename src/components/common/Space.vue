@@ -4,9 +4,9 @@
 			<loading v-show='isLoading'></loading>
 			<canvas id="canvas"></canvas>
 		</div>
-			<div class="logo" v-show='!isLoading'>
-				<img src="static/img/space/space-logo.png" />
-			</div>
+		<div class="logo" v-show='!isLoading'>
+			<img src="static/img/space/space-logo.png" />
+		</div>
 	</div>
 </template>
 
@@ -16,7 +16,6 @@
 	import Space from '@/assets/js/appSpace.js';
 	//console.log(space);
 	import loading from '@/components/common/loading'
-
 	export default {
 		name: 'space',
 		data() {
@@ -34,18 +33,17 @@
 		mounted() {
 			//	console.log(Star)
 			var me = this;
-
 			setTimeout(function() {
 				new Space();
 			}, 0);
-			var stl = setInterval(function(){
-				if(!window.spaceIsLoading){
+			var stl = setInterval(function() {
+				if(!window.spaceIsLoading) {
 					me.isLoading = false;
 					window.paticleIsLoading = true;
 					clearInterval(stl)
 				}
-			},200);
-			
+			}, 200);
+
 		},
 		beforeDestroy() {
 			window.cancelAnimationFrame(window._spaceAnimation);
@@ -71,12 +69,13 @@
 	#canvasBox {
 		height: 100%;
 		width: 100%;
-		top:-50px;
+		top: -50px;
 		/*margin: 0 auto;*/
 		position: relative;
 		left: 50%;
-		-ms-transform: translate(-50%, 0);
-		transform: translate(-50%, 0);
+		top: 50%;
+		-ms-transform: translate(-50%, -50%);
+		transform: translate(-50%, -50%);
 		/*background-color: red;*/
 	}
 	
@@ -86,5 +85,6 @@
 		left: 50%;
 		-ms-transform: translate(-50%, -50%);
 		transform: translate(-50%, -50%);
+		pointer-events: none;
 	}
 </style>

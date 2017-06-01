@@ -221,30 +221,22 @@
 			window.onload=function () {  
 		        document.addEventListener('touchstart',function (event) {  
 		            if(event.touches.length>1){  
-//		            	console.log(event.touches)
 		                event.preventDefault();  
 		            }  
 		        }); 
-		        var lastTouchEnd=0;  
-		        document.addEventListener('touchend',function (event) {  
-		            var now=(new Date()).getTime();  
-		            if(now-lastTouchEnd<=300){  
-		                event.preventDefault();  
-		            }  
-		            lastTouchEnd=now;  
-		        },false);
+//		        var lastTouchEnd=0;  
+//		        document.addEventListener('touchend',function (event) {  
+//		            var now=(new Date()).getTime();  
+//		            if(now-lastTouchEnd<=300){  
+//		                event.preventDefault();  
+//		            }  
+//		            lastTouchEnd=now;  
+//		        },false);
 		        
 		        window.treeImgBg = me.loadimg('static/img/tree/4605x768.jpg');
 //		        console.log(window.treeImgBg)
 
-//				if (window != top) top.location.href = location.href;
-//				$(window).resize(function(){ 
-//					console.log(document.body.clientHeight)
-//					if(document.body.clientHeight<600){ 
-//						alert("禁止缩放"); 
-//						window.resizeTo(document.body.clientHeight,300); 
-//					} 
-//				}); 
+
 		    }  
 		},
 		methods: {
@@ -292,9 +284,14 @@
 				var sh = window.screen.availHeight;				
 				//屏幕高度小于下拉菜单高度时，出现滚动条，设置下载菜单最大高度为屏幕高度
 				if(sh<467){
+//					me.navbarMenu.style.height = '417px';
 					me.navbarMenu.style.height = (sh -50)+ 'px';
 				}else{
-					me.navbarMenu.style.height = '417px';
+					if(me.h < 467){
+						me.navbarMenu.style.height = (me.h -50)+ 'px';
+					}else{
+						me.navbarMenu.style.height = '417px';
+					}
 				}
 
 			},
@@ -407,22 +404,30 @@
 
 	}
 	
-	@media (min-width: 768px) {
+	@media (min-width: 945px) {
 		.nav-center {
 			position: absolute;
 			left: 50%;
 			-ms-transform: translate(-50%, 0%);
 			transform: translate(-50%, 0%);
 		}
-		/*#app{
-			font-size: 14px;
-		}*/
-		.animContent {
-			margin: 0 -15px 50px;
+	}
+	
+	@media (max-width: 840px) {
+		.search {
+			display: none;
+		}
+	}
+	@media (max-width: 768px) {
+		.search {
+			display: block;
 		}
 	}
 	
 	@media (min-width:768px) {
+		.animContent {
+			margin: 0 -15px 50px;
+		}
 		hr {
 			display: none;
 		}
@@ -446,6 +451,10 @@
 		.animContent {
 			margin: 0 0 15px;
 		}
+		
+		/*.navbar-menu{
+			overflow-y:scroll;
+		}*/
 	}
 	/*==========================宽度适配=============================*/
 	
@@ -578,5 +587,9 @@
 	
 	.navbar-right{
 		margin-right: 0 !important;
+	}
+	.navbar-menu{
+		overflow-y:auto;
+		overflow-x:hidden;
 	}
 </style>

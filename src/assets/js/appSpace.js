@@ -41,6 +41,8 @@
 	var screenWidth;
 	var screenHeight;
 	var canvasBox;
+	
+	var tag = true;
 	class App {
 		constructor() {
 			this.init();
@@ -59,11 +61,13 @@
 			
 			width = screenWidth ;
 			height = screenHeight;
-
-			if(width < height){
-				width = height;
-			}else{
-				height = width;
+			
+			if(width <= 1024){
+				if(width < height){
+					width = height;
+				}else{
+					height = width;
+				}
 			}
 			
 			canvas.style.width = width + 'px';
@@ -87,7 +91,7 @@
 				camera.position.z = 700;
 				console.log("mobile")
 			}else{
-				camera.position.z = 1400;
+				camera.position.z = 1000;
 			}
 			
 			
@@ -115,8 +119,8 @@
 			this.initStars();
 			allArr = [aArr,bArr,cArr,dArr,eArr];
 //			canvas.appendChild(renderer.domElement);
-			window.addEventListener('resize', this.resize, false);
-			canvasBox.addEventListener('click', this.onMouseClick, false);
+//			window.addEventListener('resize', this.resize, false);
+			canvasBox.addEventListener('mousemove', this.onMouseClick, true);
 			renderer.render(scene,camera);
 //			this.move(aArr);
 //			this.move(bArr);
@@ -129,17 +133,17 @@
 		}
 		initStars(){
 			if(width < 420){
-				aMaterials = this.createMaterials(aMaps,25);
-				bMaterials = this.createMaterials(dMaps,25);
-				cMaterials = this.createMaterials(cMaps,25);
-				dMaterials = this.createMaterials(dMaps,25);
-				eMaterials = this.createMaterials2(eMaps,25);
-			}else if(width < 768 ){
 				aMaterials = this.createMaterials(aMaps,50);
 				bMaterials = this.createMaterials(dMaps,50);
 				cMaterials = this.createMaterials(cMaps,50);
 				dMaterials = this.createMaterials(dMaps,25);
 				eMaterials = this.createMaterials2(eMaps,25);
+			}else if(width < 768 ){
+				aMaterials = this.createMaterials(aMaps,100);
+				bMaterials = this.createMaterials(dMaps,100);
+				cMaterials = this.createMaterials(cMaps,100);
+				dMaterials = this.createMaterials(dMaps,50);
+				eMaterials = this.createMaterials2(eMaps,50);
 			}else{
 				aMaterials = this.createMaterials(aMaps,200);
 				bMaterials = this.createMaterials(dMaps,200);
@@ -419,18 +423,41 @@
 		}
 
 		onMouseClick(e) {
-//			let x = e.clientX-50;
-//			let y = e.clientY-50;
-//			
-//			canvasWidth = window.innerWidth-100;
-//			canvasHeight = window.innerHeight-100;
-//			console.log(x,y);
-//			let me = this;
-//			for(let i=0; i<5; i++){
-//				allArr[i].forEach(function(item){
-//					console.log(item.mesh.position)
-//				})
-//			}
+			function randomInRange(min, max) {
+				return Math.floor(Math.random() * (max - min + 1)) + min;
+			}
+			let me = this;
+			
+			
+			if(tag){
+				tag = false;
+				let x = e.clientX;
+				let y = e.clientY;
+				
+				let glx = x-width/2;
+				let gly = -(y-height/2);
+				
+				let temp = [-1,1];
+				for(let i=0; i<5; i++){
+					allArr[i].forEach(function(item){
+						let meshx = item.mesh.position.x;
+						let meshy = item.mesh.position.y;
+					
+						let tempx = randomInRange(50,100)*temp[Math.round(Math.random())];
+						let tempy = randomInRange(50,100)*temp[Math.round(Math.random())];
+					
+						if(Math.abs(meshx-glx)<20  &&  Math.abs(meshy-gly)<50){
+							item.fall(glx+tempx,gly+tempy);
+						}
+					
+					})
+				}
+				
+				setTimeout(function(){
+					tag = true;
+					console.log(tag)
+				},300);
+			}
 			
 		}
 

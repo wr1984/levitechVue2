@@ -1,59 +1,57 @@
-;(function(window,document){
-	var yzOrigin = ["0% 100%", "10% 100%", "0% 50%", "0% 100%", "90% 100%", "100% 60%", "90% 100%", "0% 100%", "0% 100%","10% 100%","100% 100%","0% 100%","0% 100%","100% 90%","100% 80%","100% 100%","0% 100%",
-					"0% 100%", "10% 100%", "0% 50%", "0% 100%", "90% 100%", "100% 60%", "90% 100%", "0% 100%", "0% 100%","10% 100%","100% 100%","0% 100%","0% 100%","100% 90%","100% 80%","100% 100%","0% 100%"];
-	var hdOringin = ["50% 50%", "50% 50%","50% 50%", "50% 50%"];
+(function(window, document) {
+	var yzOrigin = ["0% 100%", "10% 100%", "0% 50%", "0% 100%", "90% 100%", "100% 60%", "90% 100%", "0% 100%", "0% 100%", "10% 100%", "100% 100%", "0% 100%", "0% 100%", "100% 90%", "100% 80%", "100% 100%", "0% 100%",
+		"0% 100%", "10% 100%", "0% 50%", "0% 100%", "90% 100%", "100% 60%", "90% 100%", "0% 100%", "0% 100%", "10% 100%", "100% 100%", "0% 100%", "0% 100%", "100% 90%", "100% 80%", "100% 100%", "0% 100%"
+	];
+	var hdOringin = ["50% 50%", "50% 50%", "50% 50%", "50% 50%"];
 	var screenHeight = window.screen.availHeight;
 	var screenWidth = window.screen.availWidth;
-	if(screenHeight<screenWidth){
+	if(screenHeight < screenWidth) {
 		screenHeight = screenWidth;
 	}
 	var fallSpeed = 100;
-	var fallTime = screenHeight*1.5/fallSpeed;
+	var fallTime = screenHeight * 1.5 / fallSpeed;
 	var embed = document.getElementById('tree_bg');
-	
-	var	svg_yz = embed.getSVGDocument().getElementById('svg');
-		
 
-		hdArr1 = initSucai('hd1_', 'hd2_', 4, hdOringin, svg_yz);
-		sucai1Arr = initSucai('yz1_', 'yz2_', 34, yzOrigin, svg_yz);
+	var svg_yz = embed.getSVGDocument().getElementById('svg');
 
+	hdArr1 = initSucai('hd1_', 'hd2_', 4, hdOringin, svg_yz);
+	sucai1Arr = initSucai('yz1_', 'yz2_', 34, yzOrigin, svg_yz);
+
+	sucai1Arr.forEach(function(yz) {
+		yz.init();
+	});
+	hdArr1.forEach(function(hd) {
+		hd.init();
+	});
+
+	setTimeout(function() {
 		sucai1Arr.forEach(function(yz) {
-			yz.init();
-//			yz.grow(randomInRange(3, 10), randomInRange(1, 5));
+			if(Math.random() > 0.7) {
+				yz.shake();
+			}
 		});
 		hdArr1.forEach(function(hd) {
-			hd.init();
-//			hd.grow(0.1, 0.1);
+			if(Math.random() > 0.6) {
+				hd.fall();
+			}
 		});
-
-//===========================定时摇摆============================================
-	setTimeout(function(){  
-	        sucai1Arr.forEach(function(yz){
-	        	if(Math.random() > 0.7){
-	        		yz.shake();
-	        	}
-	        });
-	        hdArr1.forEach(function(hd){
-	        	if(Math.random() > 0.6){
-	        		hd.fall();
-	        	}
-	        });
-	        setTimeout(arguments.callee, 10000);        
-	 }, 10000);  
+		setTimeout(arguments.callee, 10000);
+	}, 10000);
 
 	var treeBox = document.querySelector('.logo');
-	treeBox.addEventListener('mousedown',mousemoveEvent,true);
+	treeBox.addEventListener('mousedown', mousemoveEvent, true);
 	var tag = true;
-	function mousemoveEvent(e){
-		if(tag){
+
+	function mousemoveEvent(e) {
+		if(tag) {
 			tag = false;
-			sucai1Arr.forEach(function(yz){
-				if(Math.random() > 0.7){
+			sucai1Arr.forEach(function(yz) {
+				if(Math.random() > 0.7) {
 					yz.shake();
 				}
 			});
-			hdArr1.forEach(function(hd){
-				if(Math.random() > 0.58){
+			hdArr1.forEach(function(hd) {
+				if(Math.random() > 0.58) {
 					hd.fall();
 				}
 			});
@@ -87,7 +85,7 @@
 				scale: this.scale,
 				transformOrigin: this.transformOrigin
 			});
-		}
+		};
 		SucaiObj.prototype.grow = function(growTime, delayTime, scale, startAt) {
 			this.isGrow = true;
 			TweenMax.to([this.el, this.el2], growTime || 10, {
@@ -100,38 +98,38 @@
 				},
 				onCompleteParams: [this]
 			});
-		}
+		};
 		SucaiObj.prototype.shake = function() {
 			var temp = [-1, 1];
-			if(!this.isFall ) {
+			if(!this.isFall) {
 				this.isShake = true;
 
 				new TimelineMax().to([this.el, this.el2], 0.5, {
-						rotation: randomInRange(5,20) * temp[Math.round(Math.random())]
+						rotation: randomInRange(5, 20) * temp[Math.round(Math.random())]
 					})
-					.to([this.el, this.el2], randomInRange(10,15), {
+					.to([this.el, this.el2], randomInRange(10, 15), {
 						rotation: 0,
 						ease: Elastic.easeOut.config(3, 0.1),
 
-						onUpdate:function(me){
+						onUpdate: function(me) {
 							me.isShake = false;
-							
+
 							if(Math.random() > 0.996) {
 								TweenMax.killTweensOf(this.el);
 								TweenMax.killTweensOf(this.el2);
 								me.fall();
 							}
 						},
-						onUpdateParams:[this]
+						onUpdateParams: [this]
 
 					})
 			}
-		}
+		};
 		SucaiObj.prototype.fall = function() {
 			if(this.isGrow || this.isFall) {
 				return
 			};
-			
+
 			this.isFall = true;
 			var temp = [-1, 1];
 			var t = new TimelineMax({
@@ -139,19 +137,16 @@
 				onCompleteParams: [this]
 			});
 			t.to([this.el, this.el2], fallTime, {
-					y: '+='+ screenHeight*1.5
+					y: '+=' + screenHeight * 1.5
 				})
 				.to([this.el, this.el2], 25, {
-					x: randomInRange(15,50) * temp[Math.round(Math.random())],
+					x: randomInRange(15, 50) * temp[Math.round(Math.random())],
 					ease: Elastic.easeOut.config(3, 0.1)
-				}, "-="+(fallTime-0.3))
+				}, "-=" + (fallTime - 0.3))
 				.to([this.el, this.el2], 6, {
-					rotation: randomInRange(60, 360)* temp[Math.round(Math.random())],
+					rotation: randomInRange(60, 360) * temp[Math.round(Math.random())],
 				}, "-=24")
-//				.to([this.el, this.el2], 6, {
-//					skewX:randomInRange(30, 360) * temp[Math.round(Math.random())] + 'deg',
-//				}, "-=15")
-		}
+		};
 
 		SucaiObj.prototype.reGrow = function(obj) {
 			obj.isFall = false;
@@ -160,14 +155,13 @@
 				y: 0,
 				rotation: 0,
 				scale: 0,
-				skewX:0
+				skewX: 0
 			});
-		}
-	}
+		};
+	};
 
 	function randomInRange(min, max) {
 		return Math.round(Math.random() * (max - min + 1)) + min;
-	}
-	
-//	export default SucaiObj;
-})(window,document);
+	};
+
+})(window, document);
