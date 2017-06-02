@@ -50,7 +50,7 @@ var z = 0;
 var lastX = 0;
 var lastY = 0;
 var lastZ = 0;
-var SHAKE_THRESHOLD = 800;
+var SHAKE_THRESHOLD = 500;
 var last_update = 0;
 class App {
 	constructor() {
@@ -148,6 +148,7 @@ class App {
 	
 	
 	deviceMotionHandler(eventData) {
+		var me = this;
 		var acceleration = eventData.accelerationIncludingGravity;
 		var curTime = new Date().getTime(); 
 		 if ((curTime - last_update)> 300) { 
@@ -156,16 +157,27 @@ class App {
 		 	x = acceleration.x; // 获取加速度的x轴，用于计算水平水平加速度
 		 	y = acceleration.y; // 获取加速度的y轴，用于计算垂直方向的加速度，同时计算正玄值
 		 	z = acceleration.z;    
-	 		var speed = Math.abs(x +y + z - lastX - lastY - lastZ) / diffTime * 10000;          
-	           if (speed > SHAKE_THRESHOLD) {
-	                for(let i = 0; i < 5; i++) {
-	                	allArr[i].forEach(function(item) {
-	                		if(Math.random() > 0.5){
-	                			item.shake(Math.abs(x - lastX),'x');
-	                		}
-	
-	                	})
-	                }
+	 		var speedx = Math.abs(x  + z - lastX - lastZ) / diffTime * 10000;    
+	 		var speedy = Math.abs(y  + z - lastY - lastZ) / diffTime * 10000;
+	        if (speedx > SHAKE_THRESHOLD) {
+//	        	alert('speedx'+speedx)
+                for(let i = 0; i < 5; i++) {
+                	allArr[i].forEach(function(item) {
+//              		if(Math.random() > 0.5){
+                			item.shake(20,'x');
+//              		}
+
+                	})
+                }
+	        }else if(speedy > SHAKE_THRESHOLD){
+//	        	alert('speedy'+speedy)
+                for(let i = 0; i < 5; i++) {
+                	allArr[i].forEach(function(item) {
+//              		if(Math.random() > 0.5){
+                			item.shake(20,'y');
+//              		}
+                	})
+                }
 	        }
 		 }
 		// 重新记录最后一次值，作为下一次开始坐标

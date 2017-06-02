@@ -14,8 +14,8 @@
 
 	var svg_yz = embed.getSVGDocument().getElementById('svg');
 
-	hdArr1 = initSucai('hd1_', 'hd2_', 4, hdOringin, svg_yz);
-	sucai1Arr = initSucai('yz1_', 'yz2_', 34, yzOrigin, svg_yz);
+	var hdArr1 = initSucai('hd1_', 'hd2_', 4, hdOringin, svg_yz);
+	var sucai1Arr = initSucai('yz1_', 'yz2_', 34, yzOrigin, svg_yz);
 
 	sucai1Arr.forEach(function(yz) {
 		yz.init();
@@ -36,14 +36,14 @@
 			}
 		});
 		setTimeout(arguments.callee, 10000);
-	}, 10000);
+	}, 15000);
 
 	var treeBox = document.querySelector('.logo');
 	treeBox.addEventListener('mousedown', mousemoveEvent, true);
 	var tag = true;
 
 	if(window.DeviceMotionEvent) {
-		window.addEventListener('devicemotion', this.deviceMotionHandler, false);
+		window.addEventListener('devicemotion', deviceMotionHandler2, false);
 	}
 
 	var x = 0;
@@ -52,10 +52,10 @@
 	var lastX = 0;
 	var lastY = 0;
 	var lastZ = 0;
-	var SHAKE_THRESHOLD = 800;
+	var SHAKE_THRESHOLD = 500;
 	var last_update = 0;
 
-	function deviceMotionHandler(eventData) {
+	function deviceMotionHandler2(eventData) {
 		var acceleration = eventData.accelerationIncludingGravity;
 		var curTime = new Date().getTime();
 		if((curTime - last_update) > 300) {
@@ -67,16 +67,15 @@
 			var speed = Math.abs(x + y + z - lastX - lastY - lastZ) / diffTime * 10000;
 			if(speed > SHAKE_THRESHOLD) {
 				sucai1Arr.forEach(function(yz) {
-					if(Math.random() > 0.5) {
+//					if(Math.random() > 0.2) {
 						yz.shake();
-					}
+//					}
 				});
 				hdArr1.forEach(function(hd) {
 					if(Math.random() > 0.58) {
 						hd.fall();
 					}
 				});
-
 			}
 		}
 		// 重新记录最后一次值，作为下一次开始坐标

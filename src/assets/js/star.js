@@ -94,7 +94,7 @@
 				})
 				.to(this.mesh.position,5,{
 					y:'-=' + _dist,
-					ease: Elastic.easeOut.config(3, 0.1),
+					ease: Elastic.easeOut.config(1.2, 0.2),
 				})
 			}else{
 				tl.to(this.mesh.position,0.5,{
@@ -102,7 +102,7 @@
 				})
 				.to(this.mesh.position,5,{
 					x:'-=' + _dist,
-					ease: Elastic.easeOut.config(3, 0.1)
+					ease: Elastic.easeOut.config(1.2, 0.2)
 				})
 			}
 		}
