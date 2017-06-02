@@ -82,6 +82,31 @@
 			}
 		}
 		
+		shake(dist,axis){
+			var temp = [-1, 1];
+			var _dist = dist * temp[Math.round(Math.random())];
+			var tl = new TimelineMax({
+				delay:1
+			});
+			if("y"=== axis){
+				tl.to(this.mesh.position,0.5,{
+					y:'+=' + _dist
+				})
+				.to(this.mesh.position,5,{
+					y:'-=' + _dist,
+					ease: Elastic.easeOut.config(3, 0.1),
+				})
+			}else{
+				tl.to(this.mesh.position,0.5,{
+					x:'+=' + _dist
+				})
+				.to(this.mesh.position,5,{
+					x:'-=' + _dist,
+					ease: Elastic.easeOut.config(3, 0.1)
+				})
+			}
+		}
+		
 		fall(x,y){
 //			TweenMax.killTweensOf(this.mesh.position);
 			TweenMax.to(this.mesh.position, 5,{

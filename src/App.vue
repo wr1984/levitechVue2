@@ -31,8 +31,8 @@
 										<img alt="Brand" src="static/img/logo.png">
 									</a>
 								</div>
-								<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-									<div class = "navbar-menu">
+								<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
+									<div class = "navbar-menu" >
 										<ul class="nav navbar-nav nav-center">
 											<li class="active" @click="collapse">
 												<!--<a href="#top">Top <span class="sr-only">(current)</span></a>-->
@@ -353,6 +353,16 @@
 	body::-webkit-scrollbar {
 		display: none;
 	}
+	
+	/*.navbar-menu::-webkit-scrollbar{
+		width: 12px;
+	}
+	.navbar-menu::-webkit-scrollbar-thumb{
+		border-radius: 10px;
+	}
+	.navbar-menu::-webkit-scrollbar-track{
+		border-radius: 10px;
+	}*/
 	/*==========================自定义字体=============================*/
 	
 
@@ -404,7 +414,7 @@
 
 	}
 	
-	@media (min-width: 945px) {
+	@media (min-width: 768px) {
 		.nav-center {
 			position: absolute;
 			left: 50%;
@@ -413,14 +423,14 @@
 		}
 	}
 	
-	@media (max-width: 840px) {
-		.search {
-			display: none;
+	@media (max-width: 945px) {
+		.nav>li>a{
+			padding: 15px 8px !important;
 		}
 	}
 	@media (max-width: 768px) {
-		.search {
-			display: block;
+		.nav>li>a{
+			padding: 10px 15px !important;
 		}
 	}
 	

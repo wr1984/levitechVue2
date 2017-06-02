@@ -20,7 +20,12 @@
 		name: 'space',
 		data() {
 			return {
-				isLoading: true
+				isLoading: true,
+				speed: 25,
+				x: 0,
+				y: 0,
+				lastX: 0,
+				lastY: 0
 			}
 		},
 		components: {
@@ -31,6 +36,7 @@
 
 		},
 		mounted() {
+
 			//	console.log(Star)
 			var me = this;
 			setTimeout(function() {

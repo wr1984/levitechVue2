@@ -40,6 +40,7 @@
 
 	var treeBox = document.querySelector('.logo');
 	treeBox.addEventListener('mousedown', mousemoveEvent, true);
+	treeBox.addEventListener('touchend', mousemoveEvent, true);
 	var tag = true;
 
 	function mousemoveEvent(e) {
@@ -55,7 +56,10 @@
 					hd.fall();
 				}
 			});
-			tag = true;
+			
+			setTimeout(function(){
+				tag = true;
+			},300)
 		}
 	};
 

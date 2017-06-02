@@ -42,6 +42,49 @@
 	treeBox.addEventListener('mousedown', mousemoveEvent, true);
 	var tag = true;
 
+	if(window.DeviceMotionEvent) {
+		window.addEventListener('devicemotion', this.deviceMotionHandler, false);
+	}
+
+	var x = 0;
+	var y = 0;
+	var z = 0;
+	var lastX = 0;
+	var lastY = 0;
+	var lastZ = 0;
+	var SHAKE_THRESHOLD = 800;
+	var last_update = 0;
+
+	function deviceMotionHandler(eventData) {
+		var acceleration = eventData.accelerationIncludingGravity;
+		var curTime = new Date().getTime();
+		if((curTime - last_update) > 300) {
+			var diffTime = curTime - last_update;
+			last_update = curTime;
+			x = acceleration.x; // 获取加速度的x轴，用于计算水平水平加速度
+			y = acceleration.y; // 获取加速度的y轴，用于计算垂直方向的加速度，同时计算正玄值
+			z = acceleration.z;
+			var speed = Math.abs(x + y + z - lastX - lastY - lastZ) / diffTime * 10000;
+			if(speed > SHAKE_THRESHOLD) {
+				sucai1Arr.forEach(function(yz) {
+					if(Math.random() > 0.5) {
+						yz.shake();
+					}
+				});
+				hdArr1.forEach(function(hd) {
+					if(Math.random() > 0.58) {
+						hd.fall();
+					}
+				});
+
+			}
+		}
+		// 重新记录最后一次值，作为下一次开始坐标
+		lastX = x;
+		lastY = y;
+		lastZ = z;
+	}
+
 	function mousemoveEvent(e) {
 		if(tag) {
 			tag = false;
