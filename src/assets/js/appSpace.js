@@ -148,7 +148,11 @@ class App {
 	
 	
 	deviceMotionHandler(eventData) {
+		function randomInRange(min, max) {
+			return Math.floor(Math.random() * (max - min + 1)) + min;
+		}
 		var me = this;
+		var temp = [-1, 1];
 		var acceleration = eventData.accelerationIncludingGravity;
 		var curTime = new Date().getTime(); 
 		 if ((curTime - last_update)> 300) { 
@@ -159,23 +163,33 @@ class App {
 		 	z = acceleration.z;    
 	 		var speedx = Math.abs(x  + z - lastX - lastZ) / diffTime * 10000;    
 	 		var speedy = Math.abs(y  + z - lastY - lastZ) / diffTime * 10000;
+	 		var speed = Math.abs(x+y+z - lastX - lastY - lastZ)/diffTime * 10000;
+//	 		if(speed > SHAKE_THRESHOLD){
+//	 			for(let i = 0; i < 5; i++) {
+//					allArr[i].forEach(function(item) {
+//						let meshx = item.mesh.position.x;
+//						let meshy = item.mesh.position.y;
+//						
+//						let tempx = randomInRange(50, 100) * temp[Math.round(Math.random())];
+//						let tempy = randomInRange(50, 100) * temp[Math.round(Math.random())];						
+//						item.fall(meshx + tempx, meshy + tempy);
+//					})
+//				}
+//	 		}
 	        if (speedx > SHAKE_THRESHOLD) {
-//	        	alert('speedx'+speedx)
-                for(let i = 0; i < 5; i++) {
-                	allArr[i].forEach(function(item) {
-//              		if(Math.random() > 0.5){
-                			item.shake(20,'x');
-//              		}
-
-                	})
-                }
+				for(let i = 0; i < 5; i++) {
+					allArr[i].forEach(function(item) {
+						if(Math.random() > 0.5){
+							item.shake(null,'x');
+						}
+					})
+				}
 	        }else if(speedy > SHAKE_THRESHOLD){
-//	        	alert('speedy'+speedy)
                 for(let i = 0; i < 5; i++) {
                 	allArr[i].forEach(function(item) {
-//              		if(Math.random() > 0.5){
-                			item.shake(20,'y');
-//              		}
+                		if(Math.random() > 0.5){
+                			item.shake(null,'y');
+                		}
                 	})
                 }
 	        }
@@ -198,11 +212,11 @@ class App {
 		} else if(width < 768) {
 			size = 22;
 			eSize = 6;
-			aMaterials = this.createMaterials(aMaps, 80);
-			bMaterials = this.createMaterials(dMaps, 80);
-			cMaterials = this.createMaterials(cMaps, 80);
-			dMaterials = this.createMaterials(dMaps, 40);
-			eMaterials = this.createMaterials2(eMaps, 40);
+			aMaterials = this.createMaterials(aMaps, 100);
+			bMaterials = this.createMaterials(dMaps, 100);
+			cMaterials = this.createMaterials(cMaps, 100);
+			dMaterials = this.createMaterials(dMaps, 50);
+			eMaterials = this.createMaterials2(eMaps, 80);
 		} else {
 			aMaterials = this.createMaterials(aMaps, 200);
 			bMaterials = this.createMaterials(dMaps, 200);
@@ -510,7 +524,7 @@ class App {
 
 				})
 			}
-
+			
 			setTimeout(function() {
 				tag = true;
 			}, 300);

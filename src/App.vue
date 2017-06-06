@@ -211,10 +211,10 @@
 			
 			var browser = tool.getBrowserVersion()[0];
 			if('IE'===browser){
-				this.space_anim = false;
-				this.space_pic = true;
-				this.particle_anim = false;
-				this.particle_pic = true;
+				this.space_anim = true;
+				this.space_pic = false;
+				this.particle_anim = ture;
+				this.particle_pic = false;
 			}
 			
 			

@@ -84,26 +84,37 @@
 		
 		shake(dist,axis){
 			var temp = [-1, 1];
-			var _dist = dist * temp[Math.round(Math.random())];
+//			var _dist = dist * temp[Math.round(Math.random())];
 			var tl = new TimelineMax({
 				delay:1
 			});
 			if("y"=== axis){
-				tl.to(this.mesh.position,0.5,{
-					y:'+=' + _dist
-				})
-				.to(this.mesh.position,5,{
-					y:'-=' + _dist,
-					ease: Elastic.easeOut.config(1.2, 0.2),
-				})
+				if(Math.random() > 0.5){
+					TweenMax.to(this.mesh.position, this.randomInRange(5,10),{
+//						y: this.height,
+						y: this.randomInRange(0,this.height),
+						ease:easeArr3[this.randomInRange(0,7)]
+					})
+				}else{
+					TweenMax.to(this.mesh.position, this.randomInRange(2,10),{
+//						y: -this.height,
+						y: this.randomInRange(-this.height,0),
+						ease:Bounce.easeOut
+					})
+				}
 			}else{
-				tl.to(this.mesh.position,0.5,{
-					x:'+=' + _dist
-				})
-				.to(this.mesh.position,5,{
-					x:'-=' + _dist,
-					ease: Elastic.easeOut.config(1.2, 0.2)
-				})
+//				tl.to(this.mesh.position,0.5,{
+//					x:'+=' + _dist
+//				})
+//				.to(this.mesh.position,5,{
+//					x:'-=' + _dist,
+//					ease: Elastic.easeOut.config(1.2, 0.2)
+//				})
+				var temp = [-1, 1];
+				var tempx = this.randomInRange(50, 100) * temp[Math.round(Math.random())];
+				var tempy = this.randomInRange(50, 100) * temp[Math.round(Math.random())];
+				
+				this.fall(this.mesh.position.x + tempx, this.mesh.position.y + tempy);
 			}
 		}
 		
@@ -114,6 +125,7 @@
 				y: y,
 				ease:Power2.easeOut
 			})
+
 		}
 				
 		move(){
