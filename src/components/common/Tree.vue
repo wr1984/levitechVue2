@@ -1,61 +1,90 @@
 <template>
 	<div class="tree">
+
 		<div id="treebox">
 			<loading v-show = 'isLoading'></loading>
 			<div class="move" v-show = '!isLoading'>
 				<div id="bg">
-					<img id="img_bg" height="100%" src="static/img/tree/10860x1811.jpg" />
+					<img id="img_bg" :style="fixHeight"  />
 				</div>
 				<div id="svg">
-					<!--<embed id="tree_bg" :src="src" height="100%"></embed>-->
-					<embed id="tree_bg" src="static/img/tree/10860x1811.svg" height="100%"></embed>
+					<!--<embed id="tree_bg" src="static/img/tree/10860x1811.svg" :style="fixHeight"></embed>-->
+					<embed id="tree_bg" :src="src"  :style="fixHeight"></embed>
 				</div>
 			</div>
-			<div class="logo" v-show = '!isLoading'>
+			<div class="logo"  v-show = '!isLoading'>
 				<img src="static/img/tree/tree-logo.png" />
 			</div>
 		</div>
 	</div>
 </template>
 <script>
-//	import svg from './img/tree/10860x1811.svg';
-	import loading from '@/components/common/loading'
+	import svg from './img/tree/10860x1811.svg';
+	import loading from '@/components/common/loading';
 	import TweenMax from "gsap";
+	import tool from '@/assets/js/tool';
+//	import PreLoad from '@/assets/js/preload';
 	export default {
 		name: 'tree',
 		data() {
 			return {
-//				src:svg,
+				src:svg,
 				moveWidth:0,
 				imgWidth:0,
 				speed:100,
 				time:60,
 				move:null,
-				isLoading:true
+				isLoading:true,
+				screenWidth:null,
+				screenHeight:null,
+				fixHeight:{
+					height:null
+				}
 			}
 		},
 		components: {
 			loading,
 		},
+		created(){
+		},
 		mounted () {
+			
 			var me = this;
+			me.screenWidth = window.screen.availWidth;
+			me.screenHeight = window.screen.availHeight;
+			
 			var treeBox = document.getElementById('treebox');
 			var embed = document.getElementById('tree_bg');
 			var img = document.getElementById('img_bg');
 			this.move = document.querySelector('.move');
-			embed.addEventListener('load',function(){
-				me.tree = document.createElement('script');
-				me.tree.type = "text/javascript";
-				me.tree.src = "static/tree.js";
-				document.body.appendChild(me.tree);
-			});
+			
+			if(window.treeImgBg){
+				img.src = window.treeImgBg.src;
+			}else{
+				img.src = "static/img/tree/10860x1811.jpg";
+			}
+//			console.log(tool.CurrentSystem.system.ipad)
+			
+			var isIpad = tool.CurrentSystem.system.ipad;
+			if(me.screenWidth > 768 && !isIpad){
+				me.fixHeight.height = (me.screenHeight-50) + 'px';
+				me.speed = 100;
+			}else{
+				me.speed = 60;
+				if(me.screenWidth > me.screenHeight){
+					me.fixHeight.height = (me.screenWidth-50) + 'px';
+				}else{
+					me.fixHeight.height = (me.screenHeight-50) + 'px';
+				}
+			}
 			
 			img.onload = function(){
 					me.isLoading = false;
 					me.$nextTick(function(){
 						me.moveWidth = img.offsetWidth;
-						console.log(me.moveWidth)
 						me.move.style.width = me.moveWidth + 'px';
+						me.move.style.left = -(me.screenWidth-window.innerWidth)/2 + 'px';
+						me.move.style.top = -(me.screenHeight-window.innerHeight)/2 + 'px';
 						me.time = me.moveWidth/me.speed;
 						TweenMax.killTweensOf(me.move);
 						TweenMax.set(me.move,{x:0});
@@ -65,14 +94,22 @@
 							repeat:-1
 						})
 					})
-				
 			}
 			
-			window.addEventListener('resize',function(){
-				setTimeout(function(){
-					img.onload();
-				},0)
+			embed.addEventListener('load',function(){
+				me.tree = document.createElement('script');
+				me.tree.type = "text/javascript";
+				me.tree.src = "static/tree.js";
+				document.body.appendChild(me.tree);
 			});
+			
+			window.addEventListener('resize',function(){
+				
+				me.move.style.left = -(me.screenWidth-window.innerWidth)/2 + 'px';
+				me.move.style.top = -(me.screenHeight-window.innerHeight)/2 + 'px';
+			});
+			
+
 			
 //			setTimeout(function(){
 //				this.tree = document.createElement('script');
@@ -82,12 +119,16 @@
 //			},1000)
 		},
 		beforeDestroy() {
-			TweenMax.killTweensOf(this.move);
+			var me = this;
+			TweenMax.killTweensOf(me.move);
 			setTimeout(function(){
-				if(this.tree){
-					this.tree.remove();
+				if(me.tree){
+					me.tree.remove();
 				}
 			},0)
+		},
+		computed:{
+
 		},
 		beforeCreate(){
 			
@@ -106,7 +147,6 @@
 		deactivated (){
 		},
 		watch: {
-
 		},
 		methods: {
 //			mousemoveEvent: function(e) {
@@ -128,14 +168,18 @@
 
 .tree{
 	height: 100%;
-}
-
-
-#treebox{
-	height: 100%;
 	width: 100%;
 	position: relative;
 	overflow: hidden;
+}
+
+#treebox{
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	/*top:50px;*/
+	/*position: relative;
+	overflow: hidden;*/
 	/*background-color: red;*/
 }
 .move{
@@ -149,6 +193,7 @@
 	height: 100%;
 	position: absolute;	
 	z-index: 5;
+	pointer-events: none;
 }
 .logo img{
 	position: absolute;	

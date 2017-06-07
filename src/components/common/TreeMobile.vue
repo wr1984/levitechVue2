@@ -84,8 +84,11 @@
 					me.$nextTick(function(){
 						me.moveWidth = img.offsetWidth;
 						me.move.style.width = me.moveWidth + 'px';
-						me.move.style.left = -(me.screenWidth-window.innerWidth)/2 + 'px';
-						me.move.style.top = -(me.screenHeight-window.innerHeight)/2 + 'px';
+						
+						if(!tool.CurrentSystem.system.iphone && !tool.CurrentSystem.system.android && !tool.CurrentSystem.system.ipad) {
+							me.move.style.left = -(me.screenWidth-window.innerWidth)/2 + 'px';
+							me.move.style.top = -(me.screenHeight-window.innerHeight)/2 + 'px';
+						}
 						me.time = me.moveWidth/me.speed;
 						TweenMax.killTweensOf(me.move);
 						TweenMax.set(me.move,{x:0});
@@ -105,9 +108,10 @@
 			});
 			
 			window.addEventListener('resize',function(){
-				
-				me.move.style.left = -(me.screenWidth-window.innerWidth)/2 + 'px';
-				me.move.style.top = -(me.screenHeight-window.innerHeight)/2 + 'px';
+				if(!tool.CurrentSystem.system.iphone && !tool.CurrentSystem.system.android && !tool.CurrentSystem.system.ipad) {
+					me.move.style.left = -(me.screenWidth-window.innerWidth)/2 + 'px';
+					me.move.style.top = -(me.screenHeight-window.innerHeight)/2 + 'px';
+				}
 			});
 			
 
@@ -194,6 +198,7 @@
 	height: 100%;
 	position: absolute;	
 	z-index: 5;
+	pointer-events: none;
 }
 .logo img{
 	position: absolute;	

@@ -127,7 +127,7 @@
 				space_pic: false,
 				particle_anim: true,
 				particle_pic: false,
-				isMobile:true,
+				isMobile:false,
 				isPC:false,
 				navbarMenu:null,
 				h: 0,
@@ -177,25 +177,31 @@
 //			}
 			
 			
-			
-			//tree暂时不做切换只用手机版
-			if(tool.CurrentSystem.system.iphone || tool.CurrentSystem.system.android){
-//				this.isMobile = true;
+//			console.log(tool.CurrentSystem.system.ipad)
+			if(tool.CurrentSystem.system.ipad){
+				this.isPC = true;
+				window.particleAmount = '65k'
+			}
+			else if(tool.CurrentSystem.system.iphone || tool.CurrentSystem.system.android ){
+				this.isMobile = true;
 				window.particleAmount = '32k'
 			}else{
 //				this.isPC = true;
+				this.isMobile = true;
 				window.particleAmount = '65k'
 			}
 			me.h = window.innerHeight;
 			me.w = window.innerWidth;
-			if(me.w < 768) {
+			if(me.w <= 768) {
 				me.containerStyle.padding = '0 15px';
 				me.navContainerStyle.padding = '0 15px';
 				me.animStyle.height = (me.h - 65) + 'px';
 				me.sidebarStyle.top = (me.h / 2 - 50) + 'px';
-				setTimeout(function(){
-					me.menuResize()
-				},0);
+//					if(me.w < 768){
+						setTimeout(function(){
+							me.menuResize()
+						},0);
+//					}
 			} else {
 				if(me.h < 568) {
 					me.h = 568;
@@ -232,8 +238,11 @@
 //		            }  
 //		            lastTouchEnd=now;  
 //		        },false);
-		        
-		        window.treeImgBg = me.loadimg('static/img/tree/4605x768.jpg');
+		        if(me.isPC){
+		        	window.treeImgBg = me.loadimg('static/img/tree/10860x1811.jpg');
+		        }else{
+		        	window.treeImgBg = me.loadimg('static/img/tree/4605x768.jpg');
+		        }
 //		        console.log(window.treeImgBg)
 
 
@@ -255,6 +264,9 @@
 				}
 			},
 			btnClikEvent() {
+//				setTimeout(function(){
+//					me.menuResize()
+//				},0);
 				var btn = $('.navbar-toggle');
 				var expanded = btn.attr('aria-expanded');
 				var icon1 = $('.icon-bar1');
@@ -289,7 +301,7 @@
 				}else{
 					if(me.h < 467){
 						me.navbarMenu.style.height = (me.h -50)+ 'px';
-					}else{
+					}else if(me.w < 768 && me.h>467){
 						me.navbarMenu.style.height = '417px';
 					}
 				}
@@ -312,14 +324,16 @@
 				me.w = window.innerWidth;
 				me.h = window.innerHeight;
 
-				if(me.w < 768) {
+				if(me.w <=768) {
 					me.containerStyle.padding = '0 15px';
 					me.navContainerStyle.padding = '0 15px';
 					me.animStyle.height = (me.h - 65) + 'px';
 					me.sidebarStyle.top = (me.h / 2 - 50) + 'px';
-					setTimeout(function(){
-						me.menuResize()
-					},0);
+//					if(me.w < 768){
+						setTimeout(function(){
+							me.menuResize()
+						},10);
+//					}
 				} else {
 					if(me.h < 568) {
 						me.h = 568;
@@ -370,6 +384,13 @@
 	@font-face {
 		font-family: cond;
 		src: url(assets/fonts/DINPro-Cond.otf);
+		src:local('☺'),
+        url('assets/fonts/DINPro-Cond.eot?#iefix') format('embedded-opentype'),
+        url('assets/fonts/DINPro-Cond.woff') format('woff'),  
+        /*url('assets/fonts/DINPro-Condt.ttf') format('truetype'),*/  
+        url('assets/fonts/DINPro-Cond.svg#webfontOTINA1xY') format('svg');
+        font-weight:normal;  
+        font-style:normal;  
 	}
 	
 	@font-face {
@@ -403,10 +424,21 @@
 			max-height:none ;
 		}
 	}*/
-	@media only screen and (min-width: 768px) {
+	@media only screen and (min-width: 768px) and (min-device-width:768px){
 		.logo>img {
 			width: 320px !important;
 		}
+		/*button.navbar-toggle.collapsed {
+		}
+		.navbar-toggle {
+		    display: none;
+		}
+		.navbar-collapse.collapse {
+		    display: block!important;
+		    height: auto!important;
+		    padding-bottom: 0;
+		    overflow: visible!important;
+		}*/
 	}
 	
 	.logo>img {
@@ -423,14 +455,19 @@
 		}
 	}
 	
-	@media (max-width: 945px) {
+	@media screen and (min-device-width: 768px) and (max-width: 945px) {
 		.nav>li>a{
 			padding: 15px 8px !important;
 		}
 	}
-	@media (max-width: 768px) {
+	@media (max-width: 767px) {
 		.nav>li>a{
-			padding: 10px 15px !important;
+			padding: 10px 30px !important;
+		}
+		
+		.navbar-menu{
+			margin-left: -15px;
+			margin-right: -15px;
 		}
 	}
 	
@@ -585,8 +622,8 @@
 	
 	.navbar {
 		font-size: 16px;
+		border: none !important;
 	}
-	
 	.nav>li>a {
 		color: #3c3c3c;
 	}
@@ -599,6 +636,8 @@
 		margin-right: 0 !important;
 	}
 	.navbar-menu{
+		/*margin-left: -15px;
+		margin-right: -15px;*/
 		overflow-y:auto;
 		overflow-x:hidden;
 	}

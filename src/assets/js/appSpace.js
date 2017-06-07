@@ -70,7 +70,7 @@ class App {
 		width = screenWidth;
 		height = screenHeight;
 
-		if(width <= 1024) {
+		if(tool.CurrentSystem.system.iphone || tool.CurrentSystem.system.android || tool.CurrentSystem.system.ipad) {
 			if(width < height) {
 				width = height;
 			} else {

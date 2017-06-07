@@ -7,7 +7,8 @@
 		<div id="canvasBox" >
 			<canvas id="canvas"></canvas>
 			<div class="logo" v-show='!isLoading'>
-				<img src="static/img/cloud/text.png" />
+				<img v-show='isImgShow' src="static/img/cloud/text.png" />
+				<img v-show='!isImgShow' src="static/img/cloud/text_s.png" />
 			</div>
 		</div>
 	</div>
@@ -20,6 +21,9 @@
 		name: 'particle',
 		data() {
 			return {
+				screenWidth:null,
+				screenHeight:null,
+				isImgShow:true,
 				cloud: null,
 				isLoading: true,
 				urls: ["static/three.r74.min.js", "static/cloud.js"]
@@ -38,7 +42,28 @@
 		mounted() {
 
 			var me = this;
-
+			me.screenWidth = window.screen.availWidth;
+			me.screenHeight = window.screen.availHeight;
+//			console.log(me.screenWidth,me.screenHeight);
+			if(me.screenWidth<768 && me.screenWidth > me.screenHeight){
+				me.isImgShow = false;
+			}else{
+				me.isImgShow = true;
+			}
+			
+			window.addEventListener('resize',function(){
+				setTimeout(function(){
+					me.screenWidth = window.screen.availWidth;
+					me.screenHeight = window.screen.availHeight;
+				
+					if(me.screenWidth<768 && me.screenWidth > me.screenHeight){
+						me.isImgShow = false;
+					}else{
+						me.isImgShow = true;
+					}
+					
+				},0);
+			})
 //			setTimeout(function() {
 //				me.cloud = document.createElement('script');
 //				me.cloud.type = "text/javascript";

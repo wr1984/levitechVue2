@@ -13,12 +13,30 @@
 	var embed = document.getElementById('tree_bg');
 
 	var svg_yz = embed.getSVGDocument().getElementById('svg');
-
+//		svg_yz.addEventListener('mousedown',function(e){
+//			console.log(e)
+//		})
 	var hdArr1 = initSucai('hd1_', 'hd2_', 4, hdOringin, svg_yz);
 	var sucai1Arr = initSucai('yz1_', 'yz2_', 34, yzOrigin, svg_yz);
 
 	sucai1Arr.forEach(function(yz) {
 		yz.init();
+		yz.el.addEventListener('mousedown',function(e){
+			e.preventDefault();
+			yz.shake();
+		});
+		yz.el2.addEventListener('mousedown',function(e){
+			e.preventDefault();
+			yz.shake();
+		});
+		yz.el.addEventListener('touchstart',function(e){
+			e.preventDefault();
+			yz.shake();
+		});
+		yz.el2.addEventListener('touchstart',function(e){
+			e.preventDefault();
+			yz.shake();
+		})
 	});
 	hdArr1.forEach(function(hd) {
 		hd.init();
@@ -39,7 +57,9 @@
 	}, 15000);
 
 	var treeBox = document.querySelector('.logo');
-	treeBox.addEventListener('mousedown', mousemoveEvent, true);
+	
+//	var move = document.querySelector('.move');
+//	treeBox.addEventListener('mousedown', mousemoveEvent, true);
 	var tag = true;
 
 	if(window.DeviceMotionEvent) {
@@ -84,22 +104,27 @@
 		lastZ = z;
 	}
 
-	function mousemoveEvent(e) {
-		if(tag) {
-			tag = false;
-			sucai1Arr.forEach(function(yz) {
-				if(Math.random() > 0.7) {
-					yz.shake();
-				}
-			});
-			hdArr1.forEach(function(hd) {
-				if(Math.random() > 0.58) {
-					hd.fall();
-				}
-			});
-			tag = true;
-		}
-	};
+//	function mousemoveEvent(e) {
+//		var screenX = e.clientX;
+//		var screenY = e.clientY;
+//		
+//		console.log(screenX,screenY)
+//		console.log(move.style.left)
+//		if(tag) {
+//			tag = false;
+//			sucai1Arr.forEach(function(yz) {
+//				if(Math.random() > 0.7) {
+//					yz.shake();
+//				}
+//			});
+//			hdArr1.forEach(function(hd) {
+//				if(Math.random() > 0.58) {
+//					hd.fall();
+//				}
+//			});
+//			tag = true;
+//		}
+//	};
 
 	function initSucai(name1, name2, count, origin, svg) {
 		var arr = [];

@@ -3,6 +3,77 @@
 <svg version="1.1" id="svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 4605 768" style="enable-background:new 0 0 4605 768;" xml:space="preserve">
 <style type="text/css">
+	.svg{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_0:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_1:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_2:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_3:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_4:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_5:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_6:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_7:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_8:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_9:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_10:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_11:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_12:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_13:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_14:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_15:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_16:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_17:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_18:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_19:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_20:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_21:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_22:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_23:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_24:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_25:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_26:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_27:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_28:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_29:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_30:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_31:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_32:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz2_33:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_0:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_1:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_2:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_3:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_4:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_5:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_6:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_7:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_8:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_9:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_10:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_11:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_12:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_13:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_14:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_15:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_16:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_17:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_18:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_19:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_20:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_21:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_22:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_23:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_24:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_25:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_26:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_27:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_28:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_29:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_30:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_31:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_32:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+	.yz1_33:active{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+
+				
 	.st0{fill:#18D362;}
 	.st1{fill:#24CE71;}
 	.st2{fill:#3AC07C;}
